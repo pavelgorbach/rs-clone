@@ -1,0 +1,10 @@
+.boards-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.boards-list {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}

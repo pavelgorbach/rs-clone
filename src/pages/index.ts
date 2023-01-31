@@ -1,0 +1,5 @@
+export { default as Home }from './Home'
+export { default as BoardsList } from './BoardsList'
+export { default as Board } from './Board'
+export { default as Profile } from './Profile'
+export { default as NoMatch }from './NoMatch'
