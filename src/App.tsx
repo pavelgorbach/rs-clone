@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { PageLayout } from '@/components'
 import { Home, Main, Board, Profile, NoMatch } from '@/pages'
-import { ROUTES } from './constants'
+import { ROUTES } from '@/constants'
 
 const queryClient = new QueryClient()
 
