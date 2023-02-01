@@ -1,33 +1,31 @@
-import { useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams } from 'react-router-dom'
 
-import { Button, Column } from "@/components"
-
+import { Button, Column, Loader } from '@/components'
+import useColumns from '@/hooks/useColumns'
 import './style.css'
 
-let counter = 0
-
 export default function Board() {
-  const [columns, setColumns] = useState<{ id: number; name: string }[]>([])
-
   const { id } = useParams()
 
-  const onAddColumn = () => {
-    setColumns((state) => {
-      counter++
-      return [...state, { id: counter, name: 'Column ' + counter }]
-    })
+  const { isLoading, isError, error, data, addNew } = useColumns()
+
+  if (isLoading) {
+    return <Loader />
+  }
+
+  if (isError) {
+    return <div>An error occured: {error?.message}</div>
   }
 
   return (
     <>
       <div className="board-header">
         <h2>Board {id}</h2>
-        <Button text="Create new column" onClick={onAddColumn} />
+        <Button text="Create new column" onClick={addNew} />
       </div>
 
       <div className="columns-list">
-        {columns.map((column) => {
+        {data?.map((column) => {
           return <Column key={column.id} name={column.name} id={column.id} />
         })}
       </div>

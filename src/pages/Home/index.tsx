@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom"
+import { ROUTES } from '@/constants'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   return (
@@ -6,7 +7,7 @@ export default function Home() {
       <h2>Home</h2>
       <h3>Welcome!</h3>
       <p>The simple but efficient way to organize, plan and track progress on your projects.</p>
-      <Link to="boards-list">Get started</Link>
+      <Link to={ROUTES.main}>Get started</Link>
 
       <h3>Features</h3>
       <ul>

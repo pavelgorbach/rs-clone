@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom"
-import { Button } from "../Button"
+import { ROUTES } from '@/constants'
+import { Link } from 'react-router-dom'
+import { Button } from '../Button'
 
 import './style.css'
 
@@ -10,9 +11,7 @@ export function Header() {
 
   return (
     <header className="header">
-      <Link to="/">
-        Logo
-      </Link>
+      <Link to={ROUTES.home}>Logo</Link>
 
       <div className="settings">
         <div>Dark/Light</div>
@@ -21,8 +20,8 @@ export function Header() {
 
       <div className="controls">
         <Button text="+ New board" onClick={handleClick} />
-        <Link to="boards-list">Boards List</Link>
-        <Link to="profile">Profile</Link>
+        <Link to={ROUTES.main}>Main</Link>
+        <Link to={ROUTES.profile}>Profile</Link>
         <Button text="Sign Out" onClick={handleClick} />
       </div>
     </header>

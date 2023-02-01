@@ -3,7 +3,7 @@ import './style.css'
 export function Footer() {
   return (
     <footer className="footer">
-      <div>RSSchool</div> 
+      <div>RSSchool</div>
       <div className="github-names-list">
         <div>pavelgorbach</div>
         <div>maxxxer</div>
