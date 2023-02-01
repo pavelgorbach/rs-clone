@@ -1,3 +1,14 @@
-export function Button(p: { text: string; onClick(): void }) {
-  return <button onClick={p.onClick}>{p.text}</button>
+import './style.css'
+
+type Props = {
+  text: string
+  onClick(): void
+}
+
+export function Button({ text, onClick }: Props) {
+  return (
+    <button className="button" onClick={onClick}>
+      {text}
+    </button>
+  )
 }

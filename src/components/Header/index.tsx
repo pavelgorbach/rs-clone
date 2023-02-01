@@ -1,28 +1,37 @@
-import { ROUTES } from '@/constants'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from '../Button'
 
+import { ROUTES, LOCALIZATIONS } from '@/constants'
+import { Button, Switch, Listbox } from '@/components'
 import './style.css'
 
 export function Header() {
-  const handleClick = () => {
-    console.log('click')
+  const [theme, setTheme] = useState(false)
+  const [locale, setLocale] = useState(LOCALIZATIONS[0])
+
+  const onAddBoard = () => {
+    console.log('add new board')
+  }
+
+  const onSignOut = () => {
+    console.log('add new board')
   }
 
   return (
     <header className="header">
-      <Link to={ROUTES.home}>Logo</Link>
+      <Link to={ROUTES.home}>
+        <h1>Task Manager</h1>
+      </Link>
 
-      <div className="settings">
-        <div>Dark/Light</div>
-        <div>Ru/En</div>
-      </div>
+      <Switch enabled={theme} onChange={setTheme} />
+
+      <Listbox value={locale} options={LOCALIZATIONS} onChange={setLocale} />
 
       <div className="controls">
-        <Button text="+ New board" onClick={handleClick} />
+        <Button text="+ New board" onClick={onAddBoard} />
         <Link to={ROUTES.main}>Main</Link>
         <Link to={ROUTES.profile}>Profile</Link>
-        <Button text="Sign Out" onClick={handleClick} />
+        <Button text="Sign Out" onClick={onSignOut} />
       </div>
     </header>
   )
