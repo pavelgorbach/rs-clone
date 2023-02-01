@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
-import { Button, Column, Loader } from '@/components'
+import { Button, Loader } from '@/components'
 import useColumns from '@/hooks/useColumns'
-import './style.css'
 
 export default function Board() {
   const { id } = useParams()
 
-  const { isLoading, isError, error, data, addNew } = useColumns()
+  const { isLoading, isError, error, data, addNew, onDragComplete } = useColumns()
 
   if (isLoading) {
     return <Loader />
@@ -22,11 +22,28 @@ export default function Board() {
       <h2>Board {id}</h2>
       <Button text="Create new column" onClick={addNew} />
 
-      <div className="columns-list">
-        {data?.map((column) => {
-          return <Column key={column.id} name={column.name} id={column.id} />
-        })}
-      </div>
+      <DragDropContext onDragEnd={onDragComplete}>
+        <Droppable droppableId="drag-drop-list" direction="horizontal">
+          {(provided) => (
+            <div className="flex gap-4" {...provided.droppableProps} ref={provided.innerRef}>
+              {data?.map((column, idx) => (
+                <Draggable key={column.id} draggableId={column.name} index={idx}>
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <p>{column.name}</p>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </>
   )
 }

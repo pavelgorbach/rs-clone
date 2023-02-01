@@ -6,11 +6,12 @@ export type Board = {
 export type Column = {
   id: number
   name: string
+  order: number
 }
 
 const boards: Board[] = []
 
-const columns: Column[] = []
+let columns: Column[] = []
 
 export function getBoards() {
   return Promise.resolve(boards)
@@ -28,4 +29,9 @@ export function getColumns() {
 export function postColumn(column: Column) {
   columns.push(column)
   return Promise.resolve(column)
+}
+
+export function setColumns(data: Column[]) {
+  columns = data
+  return Promise.resolve(columns)
 }

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 import { ROUTES, LOCALIZATIONS } from '@/constants'
 import { Button, Switch, Listbox } from '@/components'
-import './style.css'
 
 export function Header() {
   const [theme, setTheme] = useState(false)
@@ -18,7 +17,7 @@ export function Header() {
   }
 
   return (
-    <header className="header">
+    <header className="flex items-center gap-4 p-4">
       <Link to={ROUTES.home}>
         <h1>Task Manager</h1>
       </Link>
@@ -27,7 +26,7 @@ export function Header() {
 
       <Listbox value={locale} options={LOCALIZATIONS} onChange={setLocale} />
 
-      <div className="controls">
+      <div className="ml-auto flex items-center gap-4">
         <Button text="+ New board" onClick={onAddBoard} />
         <Link to={ROUTES.main}>Main</Link>
         <Link to={ROUTES.profile}>Profile</Link>

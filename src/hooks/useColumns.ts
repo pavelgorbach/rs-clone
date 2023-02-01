@@ -1,29 +1,47 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
+import { OnDragEndResponder } from 'react-beautiful-dnd'
 
-import { Board, getColumns, postColumn } from '@/api'
+import { Column, getColumns, postColumn, setColumns } from '@/api'
 
 let counter = 0
 
 export default function useColumns() {
   const queryClient = useQueryClient()
 
-  const { isLoading, isError, data, error } = useQuery<Board[], Error>('columns', getColumns)
+  const { isLoading, isError, data, error } = useQuery<Column[], Error>('columns', getColumns)
 
-  const mutation = useMutation(postColumn, {
+  const postMutation = useMutation(postColumn, {
     onSuccess: (newColumn) => {
       queryClient.invalidateQueries('columns')
       toast(`${newColumn.name} created.`)
     }
   })
 
+  const setMutation = useMutation(setColumns, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('columns')
+    }
+  })
+
   const addNew = () => {
     counter++
 
-    mutation.mutate({
+    postMutation.mutate({
       id: counter,
+      order: counter,
       name: `Column ${counter}`
     })
+  }
+
+  const onDragComplete: OnDragEndResponder = (result) => {
+    if (!result.destination) return
+
+    const arr = data ? [...data] : []
+    const removedItem = arr.splice(result.source.index, 1)[0]
+    arr.splice(result.destination.index, 0, removedItem)
+
+    setMutation.mutate(arr)
   }
 
   return {
@@ -31,6 +49,7 @@ export default function useColumns() {
     isError,
     data,
     error,
-    addNew
+    addNew,
+    onDragComplete
   }
 }
