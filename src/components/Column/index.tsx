@@ -3,7 +3,7 @@ type Props = {
   name: string
 }
 
-export function Column({ id, name }: Props) {
+export function Column({ name }: Props) {
   return (
     <div className="column">
       <h3>{name}</h3>

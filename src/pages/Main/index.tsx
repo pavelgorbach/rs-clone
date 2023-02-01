@@ -17,10 +17,9 @@ export default function Main() {
     <>
       <input type="search" placeholder="search" />
 
-      <div className="boards-list-header">
-        <h2>Boards</h2>
-        <Button text="Create new board" onClick={addNew} />
-      </div>
+      <h2>Boards</h2>
+
+      <Button text="Create new board" onClick={addNew} />
 
       <div className="boards-list">
         {data?.map((board) => {

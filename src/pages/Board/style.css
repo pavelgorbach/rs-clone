@@ -1,9 +1,3 @@
-.board-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .columns-list {
   display: flex;
   gap: 1rem;

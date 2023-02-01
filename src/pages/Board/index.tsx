@@ -19,10 +19,8 @@ export default function Board() {
 
   return (
     <>
-      <div className="board-header">
-        <h2>Board {id}</h2>
-        <Button text="Create new column" onClick={addNew} />
-      </div>
+      <h2>Board {id}</h2>
+      <Button text="Create new column" onClick={addNew} />
 
       <div className="columns-list">
         {data?.map((column) => {

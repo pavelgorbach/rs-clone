@@ -9,7 +9,7 @@ export function PageLayout() {
   return (
     <>
       <Header />
-      <main className="main">
+      <main className="main prose lg:prose-xl">
         <Outlet />
       </main>
       <Footer />

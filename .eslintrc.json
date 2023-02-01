@@ -13,6 +13,7 @@
         "plugin:prettier/recommended",
         "prettier"
     ],
+    "ignorePatterns": ["tailwind.config.cjs", "prettier.config.js", "postcss.config.cjs"],
     "overrides": [
     ],
     "parser": "@typescript-eslint/parser",
