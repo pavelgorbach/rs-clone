@@ -1,14 +1,18 @@
-import { Button } from '@/components'
+import { useState } from 'react'
 
+import { Button, EditProfileForm, Modal } from '@/components'
 import './style.css'
 
 export default function Profile() {
-  const onEdit = () => {
-    console.log('on edit')
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+
+  function toggleEditModal() {
+    setIsEditOpen((state) => !state)
   }
 
-  const onDelete = () => {
-    console.log('on delete')
+  function toggleDeleteModal() {
+    setIsDeleteOpen((state) => !state)
   }
 
   return (
@@ -17,10 +21,22 @@ export default function Profile() {
 
       <div className="profile-form">
         <img src="" alt="avatar" className="h-20 w-20 rounded-full bg-teal-700 text-white" />
-        <input type="text" placeholder="name" />
-        <input type="text" placeholder="email" />
-        <Button text="Edit" onClick={onEdit} />
-        <Button text="Delete" onClick={onDelete} />
+
+        <Button text="Edit" onClick={toggleEditModal} />
+        <Button text="Delete" onClick={toggleDeleteModal} />
+
+        <Modal isOpen={isEditOpen} onClose={toggleEditModal}>
+          <EditProfileForm
+            onSubmit={(data) => {
+              console.log(data) // TODO: send data to server
+              toggleEditModal()
+            }}
+          />
+        </Modal>
+
+        <Modal isOpen={isDeleteOpen} onClose={toggleDeleteModal} title="Confirmation">
+          <div>Are you sure you want to do this?</div>
+        </Modal>
       </div>
     </>
   )
