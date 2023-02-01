@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 export default function Home() {
   return (
     <>
-      <h2>Home</h2>
       <h3>Welcome!</h3>
       <p>The simple but efficient way to organize, plan and track progress on your projects.</p>
       <Link to={ROUTES.main}>Get started</Link>
