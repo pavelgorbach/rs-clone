@@ -5,12 +5,15 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 
 import 'react-toastify/dist/ReactToastify.css'
+import GreetinPage from './Main/GreetinPage'
 
 export function PageLayout() {
   return (
     <>
       <Header />
-      <main className="prose max-w-screen-2xl p-4 lg:prose-xl">
+      {/* todo stretch grey line to the full screen */}
+      <main className="prose m-auto max-w-screen-2xl p-4 lg:prose-xl">
+        <GreetinPage />
         <Outlet />
       </main>
       <Footer />
