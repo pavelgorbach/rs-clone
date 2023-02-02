@@ -3,7 +3,7 @@ import Banner from './Banner'
 
 export default function GreetinPage() {
   return (
-    <div className="w-full bg-gray-100 p-4 lg:prose-xl">
+    <div className="w-full bg-gray-100">
       <div className="m-auto flex w-full items-center justify-between">
         <div className="pl-5">
           <h1>
