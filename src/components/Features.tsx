@@ -7,8 +7,6 @@ import Img from '../assets/img.svg'
 import Search from '../assets/search.svg'
 import Shelves from '../assets/shelves.svg'
 
-const ICON_COLOR = '#61dafb'
-
 type feature = {
   text: string
   img: string
