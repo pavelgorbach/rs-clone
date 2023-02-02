@@ -53,14 +53,11 @@ export function Features() {
     <section className="w-full">
       <h3>Features</h3>
       <div className="m-auto grid w-2/3 grid-cols-2 gap-2">
-        {FEATURES.map((feature, index) => {
-          console.log(feature.img)
-          return (
-            <Feature text={feature.text} position={feature.position} key={index}>
-              {<feature.img />}
-            </Feature>
-          )
-        })}
+        {FEATURES.map((feature, index) => (
+          <Feature text={feature.text} position={feature.position} key={index}>
+            {<feature.img />}
+          </Feature>
+        ))}
       </div>
     </section>
   )
