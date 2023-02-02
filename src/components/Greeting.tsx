@@ -11,7 +11,7 @@ export function Greeting() {
   }
 
   return (
-    <div className="gap flex items-center justify-between">
+    <div className="gap flex w-1/2 items-center justify-between">
       <div className="pl-5">
         <h1>
           Manage <span className="text-purple-600">any</span> task
