@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import { Button, EditProfileForm, Modal } from '@/components'
-import './style.css'
 
 export default function Profile() {
   const [isEditOpen, setIsEditOpen] = useState(false)
@@ -19,7 +18,7 @@ export default function Profile() {
     <>
       <h2>Profile</h2>
 
-      <div className="profile-form">
+      <div className="flex max-w-sm flex-col gap-4 self-center">
         <img src="" alt="avatar" className="h-20 w-20 rounded-full bg-teal-700 text-white" />
 
         <Button text="Edit" onClick={toggleEditModal} />

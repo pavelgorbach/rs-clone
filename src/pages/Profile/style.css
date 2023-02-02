@@ -1,7 +1,0 @@
-.profile-form {
-  display: flex;
-  flex-direction: column;
-  justify-self: center;
-  max-width: 300px;
-  gap: 1rem;
-}
