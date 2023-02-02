@@ -8,7 +8,12 @@ import i18next from '../assets/i18next.svg'
 import toastify from '../assets/toastify.svg'
 import dnd from '../assets/beautiful_dnd.svg'
 
-const STACK = [
+type StackDTO = {
+  img: string
+  text: string
+}
+
+const STACK: StackDTO[] = [
   { img: React, text: 'React' },
   { img: Typescript, text: 'Typescript' },
   { img: rtk, text: 'RTK | RTK Query' },
@@ -30,26 +35,19 @@ export function DevStack() {
           <a href="https://rs.school/js/">RS School Frontend course</a> in accordance with
         </p>
         <div className="flex flex-wrap">
-          {STACK.map((stack, index) => (
-            <Stack text={stack.text} image={stack.img} key={index}></Stack>
+          {STACK.map(({ text, img }, idx) => (
+            <div
+              key={idx}
+              className={`flex flex-row items-center justify-between rounded-full border-2 p-4`}
+            >
+              <div className="px-10">{text}</div>
+              <div className="px-10">
+                <img src={img} alt="icon" />
+              </div>
+            </div>
           ))}
         </div>
       </div>
     </section>
-  )
-}
-
-type stackProps = {
-  image: string
-  text: string
-}
-
-function Stack(props: stackProps) {
-  console.log(props.image)
-  return (
-    <div className={`flex flex-row items-center justify-between rounded-full border-2 p-4`}>
-      <div className="px-10">{props.text}</div>
-      <div className="px-10">{<props.image />}</div>
-    </div>
   )
 }
