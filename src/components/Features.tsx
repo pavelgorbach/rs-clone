@@ -1,5 +1,3 @@
-import { ReactNode } from 'react'
-
 import IconInfinite from '../assets/infinite.svg'
 import Checks from '../assets/checks.svg'
 import Cursor from '../assets/cursor.svg'
@@ -31,7 +29,7 @@ const FEATURES: feature[] = [
   },
   {
     text: 'Change the order of tasks and columns',
-    img: Img,
+    img: Shelves,
     position: 'left'
   },
   {
@@ -41,7 +39,7 @@ const FEATURES: feature[] = [
   },
   {
     text: 'Elaborate tasks by attaching images',
-    img: Shelves,
+    img: Img,
     position: 'left'
   }
 ]
@@ -51,31 +49,20 @@ export function Features() {
     <section className="w-full">
       <h3>Features</h3>
       <div className="m-auto grid w-2/3 grid-cols-2 gap-2">
-        {FEATURES.map((feature, index) => (
-          <Feature text={feature.text} position={feature.position} key={index}>
-            {<feature.img />}
-          </Feature>
+        {FEATURES.map(({ text, position, img }, idx) => (
+          <div
+            key={idx}
+            className={`flex items-center justify-between p-4 ${
+              position === 'left' ? 'flex-row-reverse' : 'flex-row'
+            } rounded-full border-2`}
+          >
+            <div className="px-10">{text}</div>
+            <div className="px-10">
+              <img src={img} alt="icon" />
+            </div>
+          </div>
         ))}
       </div>
     </section>
-  )
-}
-
-type FeatureProps = {
-  children: ReactNode
-  text: string
-  position: 'left' | 'right'
-}
-
-function Feature({ text, position, children }: FeatureProps) {
-  return (
-    <div
-      className={`flex items-center justify-between p-4 ${
-        position === 'left' ? 'flex-row-reverse' : 'flex-row'
-      } rounded-full border-2`}
-    >
-      <div className="px-10">{text}</div>
-      <div className="px-10">{children}</div>
-    </div>
   )
 }
