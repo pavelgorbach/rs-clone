@@ -1,23 +1,12 @@
-import { Link } from 'react-router-dom'
-
-import { ROUTES } from '@/constants'
+import { Greeting, Features } from '@/components'
 
 export default function Home() {
   return (
     <>
-      <h3>Welcome!</h3>
-      <p>The simple but efficient way to organize, plan and track progress on your projects.</p>
-      <Link to={ROUTES.main}>Get started</Link>
+      <Greeting />
 
-      <h3>Features</h3>
-      <ul>
-        <li>Create any number of boards and tasks</li>
-        <li>Find tasks through search</li>
-        <li>Track personal tasks in your profile</li>
-        <li>Expand tasks by adding checklists</li>
-        <li>Change the order of tasks and columns</li>
-        <li>Elaborate tasks by attaching images</li>
-      </ul>
+      <Features />
+
       <h3>Development Stack</h3>
       <ol>
         <li>TypeScript</li>

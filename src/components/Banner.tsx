@@ -4,7 +4,7 @@ interface Ibanner {
   highlightColor: string
 }
 
-export default function Banner() {
+export function Banner() {
   const colorSet = {
     backGroundColor: 'white',
     mainColor: '#1A2027',
