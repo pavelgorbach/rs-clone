@@ -1,6 +1,5 @@
 import { Button, BoardCard, Loader } from '@/components'
 import useBoards from '@/hooks/useBoards'
-import './style.css'
 
 export default function Main() {
   const { isLoading, isError, error, data, addNew } = useBoards()

@@ -1,5 +1,5 @@
-export { default as Home } from './Home'
-export { default as Main } from './Main'
-export { default as Board } from './Board'
+export { default as Home } from './HomePage'
+export { default as Main } from './MainPage'
+export { default as Board } from './BoardPage'
 export { default as Profile } from './Profile'
 export { default as NoMatch } from './NoMatch'
