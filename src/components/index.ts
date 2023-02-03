@@ -18,6 +18,7 @@ export * from './DevStack'
 
 // Main page
 export * from './BoardCard'
+export * from './EditBoard'
 
 // Board page
 export * from './Column'

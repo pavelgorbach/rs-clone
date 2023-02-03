@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom'
-
+import { useState } from 'react'
+import { Modal } from './Modal'
+import { EditBoard } from './EditBoard'
+import { Button } from './Button'
 type Props = {
   id: number
   name: string
@@ -41,6 +44,16 @@ const svgDelete = (
 )
 
 export function BoardCard({ id, name, description }: Props) {
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+
+  function toggleEditModal() {
+    setIsEditOpen((state) => !state)
+  }
+
+  function toggleDeleteModal() {
+    setIsDeleteOpen((state) => !state)
+  }
   return (
     <div className="not-prose rounded-xl border border-indigo-600">
       <Link to={`/board/${id}`}>
@@ -48,8 +61,21 @@ export function BoardCard({ id, name, description }: Props) {
         <p className="mb-3 pl-3">{description}</p>
       </Link>
       <div className="mb-3 flex justify-end gap-2 pr-3">
-        <button onClick={() => console.log('click button edit')}>{svgEdit}</button>
-        <button onClick={() => console.log('click button delete')}>{svgDelete}</button>
+        <button onClick={toggleEditModal}>{svgEdit}</button>
+        <button onClick={toggleDeleteModal}>{svgDelete}</button>
+
+        <Modal isOpen={isEditOpen} onClose={toggleEditModal}>
+          <EditBoard name={name} description={description} />
+        </Modal>
+
+        <Modal
+          isOpen={isDeleteOpen}
+          onClose={toggleDeleteModal}
+          title="Are you sure you want to delete the board"
+        >
+          <Button text="Yes" onClick={() => console.log('Yes')} />
+          <Button text="No" onClick={() => console.log('No')} />
+        </Modal>
       </div>
     </div>
   )
