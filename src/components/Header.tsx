@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid'
 
 import { ROUTES, LOCALIZATIONS } from '@/constants'
 import { Button, Switch, Listbox } from '@/components'
@@ -13,7 +14,7 @@ export function Header() {
   }
 
   const onSignOut = () => {
-    console.log('add new board')
+    console.log('sign out')
   }
 
   return (
@@ -28,10 +29,13 @@ export function Header() {
         <Listbox value={locale} options={LOCALIZATIONS} onChange={setLocale} />
 
         <div className="ml-auto flex items-center gap-4">
-          <Button text="+ New board" onClick={onAddBoard} />
+          <Button className="hidden md:block" text="+ New board" onClick={onAddBoard} />
           <Link to={ROUTES.main}>Main</Link>
           <Link to={ROUTES.profile}>Profile</Link>
-          <Button text="Sign Out" onClick={onSignOut} />
+          <ArrowRightOnRectangleIcon
+            className="h-6 w-6 cursor-pointer text-purple-500 hover:text-purple-400"
+            onClick={onSignOut}
+          />
         </div>
       </div>
     </header>

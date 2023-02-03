@@ -46,22 +46,24 @@ const FEATURES: feature[] = [
 
 export function Features() {
   return (
-    <section className="w-full">
-      <h3>Features</h3>
-      <div className="col-auto m-auto grid content-center items-center gap-2 self-center sm:grid-cols-1 md:grid-cols-2 lg:w-3/4 xl:w-2/3 ">
-        {FEATURES.map(({ text, position, img }, idx) => (
-          <div
-            key={idx}
-            className={`not-prose flex w-3/4 items-center justify-between justify-self-center p-4 ${
-              position === 'left' ? 'flex-row-reverse' : 'flex-row'
-            } rounded-full border-2`}
-          >
-            <div>{text}</div>
-            <div>
-              <img src={img} alt="icon" />
+    <section className="bg-white pt-5 pb-10">
+      <div className="container m-auto border-l-2 border-l-purple-100 pl-3">
+        <h3>Features</h3>
+        <div className="col-auto m-auto grid content-center items-center gap-2 self-center sm:grid-cols-1 md:grid-cols-2 lg:w-3/4 xl:w-2/3 ">
+          {FEATURES.map(({ text, position, img }, idx) => (
+            <div
+              key={idx}
+              className={`not-prose flex w-3/4 items-center justify-between justify-self-center p-4 ${
+                position === 'left' ? 'flex-row-reverse' : 'flex-row'
+              } rounded-full border-2`}
+            >
+              <div>{text}</div>
+              <div>
+                <img src={img} alt="icon" />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   )
