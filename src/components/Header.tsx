@@ -18,7 +18,7 @@ export function Header() {
 
   return (
     <header className="bg-white p-4 ">
-      <div className="container m-auto flex items-center gap-4 ">
+      <div className="container m-auto flex items-center gap-4">
         <Link to={ROUTES.home}>
           <h1>Task Manager</h1>
         </Link>
