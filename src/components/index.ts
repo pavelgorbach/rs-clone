@@ -14,6 +14,7 @@ export * from './Modal'
 export * from './Banner'
 export * from './Greeting'
 export * from './Features'
+export * from './DevStack'
 
 // Main page
 export * from './BoardCard'
