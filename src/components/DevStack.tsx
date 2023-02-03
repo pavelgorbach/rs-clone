@@ -27,27 +27,25 @@ const STACK: StackDTO[] = [
 
 export function DevStack() {
   return (
-    <section>
+    <>
       <h3>Development</h3>
-      <div>
-        <p>
-          This Project Management App is created as final task of{' '}
-          <a href="https://rs.school/js/">RS School Frontend course</a> in accordance with
-        </p>
-        <div className="flex flex-wrap">
-          {STACK.map(({ text, img }, idx) => (
-            <div
-              key={idx}
-              className={`flex flex-row items-center justify-between rounded-full border-2 p-4`}
-            >
-              <div className="px-10">{text}</div>
-              <div className="px-10">
-                <img src={img} alt="icon" />
-              </div>
+      <p>
+        This Project Management App is created as final task of{' '}
+        <a href="https://rs.school/js/">RS School Frontend course</a> in accordance with
+      </p>
+      <div className="flex flex-wrap gap-3">
+        {STACK.map(({ text, img }, idx) => (
+          <div
+            key={idx}
+            className={`not-prose flex flex-row items-center justify-between gap-3 rounded-full border-2 p-4`}
+          >
+            <div>{text}</div>
+            <div className="w-10">
+              <img src={img} alt="icon" />
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
+    </>
   )
 }
