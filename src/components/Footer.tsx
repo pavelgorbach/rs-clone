@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer className="bg-white p-4">
-      <div className="container flex justify-between ">
+      <div className="container m-auto flex justify-between">
         <div>RSSchool</div>
 
         <div className="flex flex-row gap-4">
