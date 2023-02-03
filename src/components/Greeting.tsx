@@ -11,8 +11,8 @@ export function Greeting() {
   }
 
   return (
-    <div className="gap flex items-center justify-between">
-      <div className="pl-5">
+    <section className="gap container m-auto mb-10 flex flex-col-reverse items-center justify-between md:flex-row">
+      <div className="pl-3">
         <h1>
           Manage <span className="text-purple-600">any</span> task
         </h1>
@@ -22,6 +22,6 @@ export function Greeting() {
       </div>
 
       <Banner />
-    </div>
+    </section>
   )
 }

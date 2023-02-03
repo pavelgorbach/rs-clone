@@ -1,4 +1,5 @@
 import { Greeting, Features, DevStack } from '@/components'
+import { TeamSection } from '@/components/TeamSection'
 
 export default function Home() {
   return (
@@ -6,13 +7,7 @@ export default function Home() {
       <Greeting />
       <Features />
       <DevStack />
-
-      <h3>Team</h3>
-      <ul>
-        <li>pavelgorbach</li>
-        <li>maxxxer</li>
-        <li>kirillmolotkov</li>
-      </ul>
+      <TeamSection />
     </>
   )
 }
