@@ -25,43 +25,25 @@ export function TeamSection() {
       <h3>Our Team</h3>
       <ul className="flex justify-around align-top">
         {MEMBERS.map((member, index) => (
-          <Member
-            photo={member.imgSrc}
-            name={member.name}
-            role={member.role}
-            contribution={member.contribution}
-            key={index}
-          />
+          <li className="flex flex-col py-2" key={index}>
+            <div className="max-w-xs">
+              <img className="rounded-full" src={member.imgSrc} alt="member photo"></img>
+            </div>
+            <div className="pl-4 font-bold">{member.name}</div>
+            <div className="pl-4">{member.role}</div>
+            <div className=" my-4 rounded-full border-2 text-center font-thin">
+              Main contribution
+            </div>
+            <div>
+              {member.contribution.map((feature, index) => (
+                <div className="border-l-2 pl-3 text-left" key={index}>
+                  {feature}
+                </div>
+              ))}
+            </div>
+          </li>
         ))}
       </ul>
     </section>
-  )
-}
-
-type memberProps = {
-  photo: string
-  name: string
-  role: string
-  contribution: string[]
-  key: number
-}
-
-export function Member(props: memberProps) {
-  return (
-    <li className="flex flex-col py-2">
-      <div className="max-w-xs">
-        <img className="rounded-full" src={props.photo} alt="member photo"></img>
-      </div>
-      <div className="pl-4 font-bold">{props.name}</div>
-      <div className="pl-4">{props.role}</div>
-      <div className=" my-4 rounded-full border-2 text-center font-thin">Main contribution</div>
-      <div>
-        {props.contribution.map((feature, index) => (
-          <div className="border-l-2 pl-3 text-left" key={index}>
-            {feature}
-          </div>
-        ))}
-      </div>
-    </li>
   )
 }
