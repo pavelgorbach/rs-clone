@@ -48,16 +48,16 @@ export function Features() {
   return (
     <section className="w-full">
       <h3>Features</h3>
-      <div className="m-auto grid w-2/3 grid-cols-2 gap-2">
+      <div className="col-auto m-auto grid content-center items-center gap-2 self-center sm:grid-cols-1 md:grid-cols-2 lg:w-3/4 xl:w-2/3 ">
         {FEATURES.map(({ text, position, img }, idx) => (
           <div
             key={idx}
-            className={`flex items-center justify-between p-4 ${
+            className={`not-prose flex w-3/4 items-center justify-between justify-self-center p-4 ${
               position === 'left' ? 'flex-row-reverse' : 'flex-row'
             } rounded-full border-2`}
           >
-            <div className="px-10">{text}</div>
-            <div className="px-10">
+            <div>{text}</div>
+            <div>
               <img src={img} alt="icon" />
             </div>
           </div>
