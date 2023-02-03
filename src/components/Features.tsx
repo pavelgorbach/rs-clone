@@ -52,7 +52,7 @@ export function Features() {
         {FEATURES.map(({ text, position, img }, idx) => (
           <div
             key={idx}
-            className={`not-prose flex items-center justify-between p-4 ${
+            className={`not-prose flex w-3/4 items-center justify-between justify-self-center p-4 ${
               position === 'left' ? 'flex-row-reverse' : 'flex-row'
             } rounded-full border-2`}
           >
