@@ -49,15 +49,17 @@ type memberProps = {
 export function Member(props: memberProps) {
   return (
     <li className="flex flex-col py-2">
-      <div className="border-width-2 max-w-xs rounded-full">
-        <img src={props.photo} alt="member photo"></img>
+      <div className="max-w-xs">
+        <img className="rounded-full" src={props.photo} alt="member photo"></img>
       </div>
-      <div className="font-bold">{props.name}</div>
-      <div>{props.role}</div>
-      <div className="font-bold">Main contribution</div>
+      <div className="pl-4 font-bold">{props.name}</div>
+      <div className="pl-4">{props.role}</div>
+      <div className=" my-4 rounded-full border-2 text-center font-thin">Main contribution</div>
       <div>
         {props.contribution.map((feature, index) => (
-          <div key={index}>{feature}</div>
+          <div className="border-l-2 pl-3 text-left" key={index}>
+            {feature}
+          </div>
         ))}
       </div>
     </li>
