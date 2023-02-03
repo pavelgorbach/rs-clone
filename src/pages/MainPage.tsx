@@ -20,9 +20,16 @@ export default function Main() {
 
       <Button text="Create new board" onClick={addNew} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {data?.map((board) => {
-          return <BoardCard key={board.id} name={board.name} id={board.id} />
+          return (
+            <BoardCard
+              key={board.id}
+              name={board.name}
+              id={board.id}
+              description={board.description}
+            />
+          )
         })}
       </div>
     </>

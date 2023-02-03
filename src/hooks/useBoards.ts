@@ -22,7 +22,8 @@ export default function useBoards() {
 
     mutation.mutate({
       id: counter,
-      name: `Board ${counter}`
+      name: `Board ${counter}`,
+      description: 'some description Board'
     })
   }
 
