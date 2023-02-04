@@ -28,7 +28,7 @@ const STACK: StackDTO[] = [
 export function DevStack() {
   return (
     <section className="bg-white pt-5 pb-10">
-      <div className="container m-auto border-l-2 border-l-purple-100 pl-3">
+      <div className="container m-auto border-l-2 border-l-purple-100 text-center lg:pl-3 lg:text-left">
         <h3>Development</h3>
         <p>
           This Project Management App is created as final task of{' '}

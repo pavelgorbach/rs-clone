@@ -22,12 +22,12 @@ const MEMBERS = [
 export function TeamSection() {
   return (
     <section className="bg-white pt-5 pb-10">
-      <div className="container m-auto border-l-2 border-l-purple-100 md:pl-3">
+      <div className="container m-auto border-l-2 border-l-purple-100 text-center lg:px-3 lg:text-left">
         <h3>Our Team</h3>
-        <ul className="ml-0 flex flex-col justify-around align-top sm:flex-row">
+        <ul className="ml-0 flex flex-col justify-around pl-0 align-top md:flex-row">
           {MEMBERS.map((member, index) => (
-            <li className="flex flex-col py-2" key={index}>
-              <div className="max-w-xs">
+            <li className="flex flex-col p-2" key={index}>
+              <div className="max-w-xs self-center">
                 <img className="rounded-full" src={member.imgSrc} alt="member photo"></img>
               </div>
               <div className="font-bold md:pl-4">{member.name}</div>
