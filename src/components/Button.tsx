@@ -3,7 +3,7 @@ import cx from 'classnames'
 type Props = {
   text: string
   className?: string
-  onClick(): void
+  onClick(e: React.MouseEvent): void
 }
 
 export function Button({ text, className, onClick }: Props) {

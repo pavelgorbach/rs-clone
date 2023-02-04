@@ -23,20 +23,20 @@ export default function Profile() {
 
         <Button text="Edit" onClick={toggleEditModal} />
         <Button text="Delete" onClick={toggleDeleteModal} />
-
-        <Modal isOpen={isEditOpen} onClose={toggleEditModal}>
-          <EditProfileForm
-            onSubmit={(data) => {
-              console.log(data) // TODO: send data to server
-              toggleEditModal()
-            }}
-          />
-        </Modal>
-
-        <Modal isOpen={isDeleteOpen} onClose={toggleDeleteModal} title="Confirmation">
-          <div>Are you sure you want to do this?</div>
-        </Modal>
       </div>
+
+      <Modal isOpen={isEditOpen} onClose={toggleEditModal}>
+        <EditProfileForm
+          onSubmit={(data) => {
+            console.log(data) // TODO: send data to server
+            toggleEditModal()
+          }}
+        />
+      </Modal>
+
+      <Modal isOpen={isDeleteOpen} onClose={toggleDeleteModal} title="Confirmation">
+        <div>Are you sure you want to do this?</div>
+      </Modal>
     </>
   )
 }

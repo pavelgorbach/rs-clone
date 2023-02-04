@@ -1,16 +1,78 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
 
-type Props = {
-  id: number
-  name: string
+import { Board } from '@/api'
+import { Button, Modal, EditBoardForm } from '@/components'
+
+type Props = Board & {
+  onDelete(id: number): void
+  onUpdate(data: Board): void
 }
 
-export function BoardCard({ id, name }: Props) {
+type Modal = 'create' | 'edit' | 'delete'
+
+export function BoardCard({ id, name, description, onDelete, onUpdate }: Props) {
+  const [modal, setModal] = useState<Modal | null>(null)
+
+  const openModal = (name: Modal) => {
+    setModal(name)
+  }
+
+  const closeModal = () => {
+    setModal(null)
+  }
+
+  const openEditModal = (e: React.MouseEvent) => {
+    e.preventDefault()
+    openModal('edit')
+  }
+
+  const openDeleteModal = (e: React.MouseEvent) => {
+    e.preventDefault()
+    openModal('delete')
+  }
+
+  const handleDelete = () => {
+    onDelete(id)
+  }
+
+  const handleUpdate = (data: Board) => {
+    onUpdate(data)
+  }
+
   return (
-    <Link to={`/board/${id}`}>
-      <div className="board-card">
-        <h3>{name}</h3>
-      </div>
-    </Link>
+    <>
+      <Link to={`/board/${id}`}>
+        <div className="mt-3 rounded bg-white p-3 shadow-md">
+          <h3 className="!m-0">{name}</h3>
+          <p>{description}</p>
+
+          <div className="flex justify-end gap-2">
+            <button onClick={openEditModal} className="rounded-md bg-purple-100 p-1">
+              <PencilIcon className="h-6 w-6 text-purple-500" />
+            </button>
+
+            <button onClick={openDeleteModal} className="rounded-md bg-purple-100 p-1">
+              <TrashIcon className="h-6 w-6 text-purple-500" />
+            </button>
+          </div>
+        </div>
+      </Link>
+
+      <Modal isOpen={modal === 'edit'} onClose={closeModal} title="Edit">
+        <EditBoardForm {...{ name, description, id }} onSubmit={handleUpdate} />
+      </Modal>
+
+      <Modal isOpen={modal === 'delete'} onClose={closeModal} title="Confirmation">
+        <div className="prose">
+          <p>Are you sure you want to delete the board?</p>
+          <div className="flex justify-between">
+            <Button text="Cancel" onClick={closeModal} />
+            <Button text="Delete" onClick={handleDelete} />
+          </div>
+        </div>
+      </Modal>
+    </>
   )
 }

@@ -10,7 +10,7 @@ export function PageLayout() {
   return (
     <div className="bg-gray-100">
       <Header />
-      <main className="prose-base m-auto py-4 lg:prose-lg xl:prose-xl 2xl:prose-2xl">
+      <main className="prose-base m-auto p-4 lg:prose-lg xl:prose-xl 2xl:prose-2xl">
         <Outlet />
       </main>
       <Footer />

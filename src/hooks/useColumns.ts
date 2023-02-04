@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { OnDragEndResponder } from 'react-beautiful-dnd'
 
-import { Column, getColumns, postColumn, setColumns } from '@/api'
+import { Column, getColumns, createColumn, setColumns } from '@/api'
 
 let counter = 0
 
@@ -11,7 +11,7 @@ export default function useColumns() {
 
   const { isLoading, isError, data, error } = useQuery<Column[], Error>('columns', getColumns)
 
-  const postMutation = useMutation(postColumn, {
+  const postMutation = useMutation(createColumn, {
     onSuccess: (newColumn) => {
       queryClient.invalidateQueries('columns')
       toast(`${newColumn.name} created.`)

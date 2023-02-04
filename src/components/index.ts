@@ -18,6 +18,8 @@ export * from './DevStack'
 
 // Main page
 export * from './BoardCard'
+export * from './EditBoardForm'
+export * from './CreateBoardForm'
 
 // Board page
 export * from './Column'
