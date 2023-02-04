@@ -10,29 +10,57 @@ export type Column = {
   order: number
 }
 
-const boards: Board[] = []
+const boards: Map<number, Board> = new Map()
 
-let columns: Column[] = []
+let columns: Map<number, Column> = new Map()
 
-export function getBoards() {
-  return Promise.resolve(boards)
+function Board(data: Partial<Board>) {
+  return {
+    id: Math.random(),
+    name: data.name || '',
+    description: data.description || ''
+  }
 }
 
-export function postBoard(board: Board) {
-  boards.push(board)
-  return Promise.resolve(board)
+function Column(data: Partial<Column>) {
+  return {
+    id: Math.random(),
+    name: data.name || '',
+    order: data.order || 0
+  }
+}
+
+export function getBoards() {
+  return Promise.resolve([...boards.values()])
+}
+
+export function createBoard(data: Omit<Board, 'id'>) {
+  const newBoard = Board(data)
+  boards.set(newBoard.id, newBoard)
+  return Promise.resolve(newBoard)
+}
+
+export function deleteBoard(id: number) {
+  boards.delete(id)
+  return Promise.resolve(id)
+}
+
+export function updateBoard(data: Board) {
+  boards.set(data.id, data)
+  return Promise.resolve(data)
 }
 
 export function getColumns() {
-  return Promise.resolve(columns)
+  return Promise.resolve([...columns.values()])
 }
 
-export function postColumn(column: Column) {
-  columns.push(column)
-  return Promise.resolve(column)
+export function createColumn(data: Column) {
+  const newColumn = Column(data)
+  columns.set(newColumn.id, newColumn)
+  return Promise.resolve(newColumn)
 }
 
 export function setColumns(data: Column[]) {
-  columns = data
+  columns = new Map(data.map((c) => [c.id, c]))
   return Promise.resolve(columns)
 }
