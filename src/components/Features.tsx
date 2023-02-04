@@ -47,7 +47,7 @@ const FEATURES: feature[] = [
 export function Features() {
   return (
     <section className="bg-white pt-5 pb-10">
-      <div className="container m-auto border-l-2 border-l-purple-100 pl-3">
+      <div className="container m-auto border-l-2 border-l-purple-100 text-center lg:pl-3 lg:text-left">
         <h3>Features</h3>
         <div className="col-auto m-auto grid content-center items-center gap-2 self-center sm:grid-cols-1 md:grid-cols-2 lg:w-3/4 xl:w-2/3 ">
           {FEATURES.map(({ text, position, img }, idx) => (
