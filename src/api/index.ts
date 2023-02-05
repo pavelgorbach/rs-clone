@@ -10,7 +10,7 @@ export type Column = {
   order: number
 }
 
-const boards: Map<number, Board> = new Map()
+export const boards: Map<number, Board> = new Map()
 
 let columns: Map<number, Column> = new Map()
 
