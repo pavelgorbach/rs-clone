@@ -1,9 +1,3 @@
-interface Ibanner {
-  backGroundColor: string
-  mainColor: string
-  highlightColor: string
-}
-
 export function Banner() {
   const colorSet = {
     backGroundColor: 'white',

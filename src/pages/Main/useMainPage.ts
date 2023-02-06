@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +12,12 @@ export default function useBoards() {
 
   const { isLoading, isError, data, error } = useQuery<Board[], Error>('boards', api.getBoards)
   const [createModalOpen, setCreateModalOpen] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
+  const [focusValue, setFocusValue] = useState(false)
+
+  const searchBoards = useMemo(() => {
+    return data ? data.filter((board) => board.name.toLowerCase().includes(searchValue)) : []
+  }, [data, searchValue])
 
   const createMutation = useMutation(api.createBoard, {
     onSuccess: (newBoard) => {
@@ -58,13 +64,16 @@ export default function useBoards() {
   return {
     isLoading,
     isError,
-    data,
+    boards: searchBoards,
     error,
     createModalOpen,
+    focusValue,
     openModal,
     closeModal,
     createBoard,
     updateBoard,
-    deleteBoard
+    deleteBoard,
+    setSearchValue,
+    setFocusValue
   }
 }
