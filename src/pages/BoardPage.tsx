@@ -1,11 +1,13 @@
 import { useParams } from 'react-router-dom'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { useTranslation } from 'react-i18next'
 
 import { Button, Loader } from '@/components'
 import useColumns from '@/hooks/useColumns'
 
 export default function Board() {
   const { id } = useParams()
+  const { t } = useTranslation()
 
   const { isLoading, isError, error, data, addNew, onDragComplete } = useColumns()
 
@@ -14,13 +16,19 @@ export default function Board() {
   }
 
   if (isError) {
-    return <div>An error occured: {error?.message}</div>
+    return (
+      <div>
+        {t('boardPage.error')} {error?.message}
+      </div>
+    )
   }
 
   return (
     <>
-      <h2>Board {id}</h2>
-      <Button text="Create new column" onClick={addNew} />
+      <h2>
+        {t('boardPage.board')} {id}
+      </h2>
+      <Button text={t('boardPage.new')} onClick={addNew} />
 
       <DragDropContext onDragEnd={onDragComplete}>
         <Droppable droppableId="drag-drop-list" direction="horizontal">

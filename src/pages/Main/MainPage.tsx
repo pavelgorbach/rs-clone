@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import cx from 'classnames'
 
@@ -5,6 +6,8 @@ import { Button, BoardCard, Loader, CreateBoardForm, Modal } from '@/components'
 import useMainPage from './useMainPage'
 
 export default function Main() {
+  const { t } = useTranslation()
+
   const {
     isLoading,
     isError,
@@ -26,7 +29,11 @@ export default function Main() {
   }
 
   if (isError) {
-    return <div>An error occured: {error?.message}</div>
+    return (
+      <div>
+        {t('boardPage.error')} {error?.message}
+      </div>
+    )
   }
 
   return (
@@ -44,7 +51,7 @@ export default function Main() {
           <input
             className="mr-1 w-60 border-none bg-gray-100 outline-none focus:ring-0"
             type="search"
-            placeholder="Search"
+            placeholder={t('boardPage.search')}
             onChange={(event) => {
               setSearchValue(event.target.value)
             }}
@@ -55,9 +62,9 @@ export default function Main() {
             <MagnifyingGlassIcon className="h-5 w-5 text-gray-300" />
           </div>
         </div>
-        <h2 className="!m-0">Boards</h2>
+        <h2 className="!m-0">{t('boardPage.board')}</h2>
 
-        <Button text="Create new board" onClick={openModal} className="col-start-6 col-end-7" />
+        <Button text={t('boardPage.new')} onClick={openModal} className="col-start-6 col-end-7" />
 
         <div className="col-span-6 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {boards.map((board) => {
@@ -75,7 +82,7 @@ export default function Main() {
         </div>
       </div>
 
-      <Modal isOpen={createModalOpen} onClose={closeModal} title="Create">
+      <Modal isOpen={createModalOpen} onClose={closeModal} title={t('createBoardForm.create')}>
         <CreateBoardForm onSubmit={createBoard} />
       </Modal>
     </>

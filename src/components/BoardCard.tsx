@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
+import { useTranslation } from 'react-i18next'
 
 import { Board } from '@/api'
 import { Button, Modal, EditBoardForm } from '@/components'
@@ -41,6 +42,8 @@ export function BoardCard({ id, name, description, onDelete, onUpdate }: Props) 
     onUpdate(data)
   }
 
+  const { t } = useTranslation()
+
   return (
     <>
       <Link to={`/board/${id}`}>
@@ -60,16 +63,16 @@ export function BoardCard({ id, name, description, onDelete, onUpdate }: Props) 
         </div>
       </Link>
 
-      <Modal isOpen={modal === 'edit'} onClose={closeModal} title="Edit">
+      <Modal isOpen={modal === 'edit'} onClose={closeModal} title={t('common.edit')}>
         <EditBoardForm {...{ name, description, id }} onSubmit={handleUpdate} />
       </Modal>
 
-      <Modal isOpen={modal === 'delete'} onClose={closeModal} title="Confirmation">
+      <Modal isOpen={modal === 'delete'} onClose={closeModal} title={t('common.confirmation')}>
         <div className="prose">
-          <p>Are you sure you want to delete the board?</p>
+          <p>{t('boardCard.question')}</p>
           <div className="flex justify-between">
-            <Button text="Cancel" onClick={closeModal} />
-            <Button text="Delete" onClick={handleDelete} />
+            <Button text={t('common.cancel')} onClick={closeModal} />
+            <Button text={t('common.delete')} onClick={handleDelete} />
           </div>
         </div>
       </Modal>

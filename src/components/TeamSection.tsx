@@ -1,29 +1,38 @@
-const MEMBERS = [
-  {
-    imgSrc: 'src/assets/photos/pavel.jfif',
-    name: 'Pavel',
-    role: 'Tech- and TeamLead',
-    contribution: ['Infrastructure', 'Organisation', 'Tasks', 'Code rewiew']
-  },
-  {
-    imgSrc: 'src/assets/photos/maxer.png',
-    name: 'Maksim',
-    role: 'Frontend developer',
-    contribution: ['Main Page', 'Board']
-  },
-  {
-    imgSrc: 'src/assets/photos/kirill.png',
-    name: 'Kirill',
-    role: 'Frontend developer',
-    contribution: ['Board List', 'Profile']
-  }
-]
+import { useTranslation } from 'react-i18next'
 
 export function TeamSection() {
+  const { t } = useTranslation()
+
+  const MEMBERS = [
+    {
+      imgSrc: 'src/assets/photos/pavel.jfif',
+      name: t('teamsection.pavel'),
+      role: t('teamsection.lead'),
+      contribution: [
+        t('teamsection.Infrastructure'),
+        t('teamsection.Organisation'),
+        t('teamsection.Tasks'),
+        t('teamsection.Code')
+      ]
+    },
+    {
+      imgSrc: 'src/assets/photos/maxer.png',
+      name: t('teamsection.maksim'),
+      role: t('teamsection.developer'),
+      contribution: [t('teamsection.Main'), t('teamsection.Board')]
+    },
+    {
+      imgSrc: 'src/assets/photos/kirill.png',
+      name: t('teamsection.Code'),
+      role: t('teamsection.developer'),
+      contribution: [t('teamsection.BoardList'), t('teamsection.Profile')]
+    }
+  ]
+
   return (
     <section className="bg-white pt-5 pb-10">
       <div className="container m-auto border-l-2 border-l-purple-100 text-center lg:px-3 lg:text-left">
-        <h3>Our Team</h3>
+        <h3>{t('teamsection.team')}</h3>
         <ul className="ml-0 flex flex-col justify-around pl-0 align-top md:flex-row">
           {MEMBERS.map((member, index) => (
             <li className="flex flex-col p-2" key={index}>
@@ -33,7 +42,7 @@ export function TeamSection() {
               <div className="font-bold md:pl-4">{member.name}</div>
               <div className="md:pl-4">{member.role}</div>
               <div className=" my-4 rounded-full border-2 text-center font-thin">
-                Main contribution
+                {t('teamsection.contribution')}
               </div>
               <div>
                 {member.contribution.map((feature, index) => (
