@@ -36,7 +36,7 @@
     "confirmationPhrase": "Confirm changes by current password"
   },
   "features": {
-    "features": "Особенности",
+    "features": "features",
     "firstF": "Create any number of boards and tasks",
     "secondF": "Expand tasks by adding checklists",
     "thirdF": "Track personal tasks in your profile",
