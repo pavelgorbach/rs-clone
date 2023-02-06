@@ -14,7 +14,7 @@ import { Button, Switch, Listbox } from '@/components'
 export function Header() {
   const [theme, setTheme] = useState(false)
 
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng)
@@ -42,7 +42,7 @@ export function Header() {
         <Listbox value={i18n.language} options={['ru', 'en']} onChange={changeLanguage} />
 
         <div className="ml-auto flex items-center gap-4">
-          <Button className="hidden md:block" text="+ New board" onClick={onAddBoard} />
+          <Button className="hidden md:block" text={t('header.addBoard')} onClick={onAddBoard} />
 
           <Link to={ROUTES.main}>
             <HomeIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />

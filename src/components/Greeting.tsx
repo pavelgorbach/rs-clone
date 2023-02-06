@@ -7,7 +7,7 @@ import { Banner, Button } from '@/components'
 export function Greeting() {
   const navigate = useNavigate()
 
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   const goToMainPage = () => {
     navigate(ROUTES.main)

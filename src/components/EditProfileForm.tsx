@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components'
 
@@ -15,21 +16,34 @@ type Props = {
 export function EditProfileForm({ onSubmit }: Props) {
   const { register, handleSubmit, formState } = useForm<FormData>()
   const { errors } = formState
+  const { t } = useTranslation()
 
   const submit = handleSubmit(onSubmit)
 
   return (
     <div className="flex flex-col gap-2">
-      <input type="text" {...register('name', { required: true })} placeholder="name" />
-      {errors.name && 'Name is required'}
-      <input type="email" {...register('email', { required: true })} placeholder="email" />
-      {errors.email && 'Email is required'}
+      <input
+        type="text"
+        {...register('name', { required: true })}
+        placeholder={t('editForm.name')}
+      />
+      {errors.name && t('editForm.namer')}
+      <input
+        type="email"
+        {...register('email', { required: true })}
+        placeholder={t('editForm.email')}
+      />
+      {errors.email && t('editForm.emailReqiured')}
 
-      <p>Confirm changes by current password</p>
-      <input type="password" {...register('password', { required: true })} placeholder="password" />
-      {errors.password && 'Password is required'}
+      <p>{t('editForm.confirmationPhrase')}</p>
+      <input
+        type="password"
+        {...register('password', { required: true })}
+        placeholder={t('editForm.password')}
+      />
+      {errors.password && t('editForm.passwordReqiured')}
 
-      <Button text="Change" onClick={submit} />
+      <Button text={t('common.change')} onClick={submit} />
     </div>
   )
 }

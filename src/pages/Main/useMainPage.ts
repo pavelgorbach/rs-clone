@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 import * as api from '@/api'
 import { Board } from '@/api'
 
 export default function useBoards() {
   const queryClient = useQueryClient()
+  const { t } = useTranslation()
 
   const { isLoading, isError, data, error } = useQuery<Board[], Error>('boards', api.getBoards)
   const [createModalOpen, setCreateModalOpen] = useState(false)
@@ -15,21 +17,21 @@ export default function useBoards() {
     onSuccess: (newBoard) => {
       queryClient.invalidateQueries('boards')
       closeModal()
-      toast(`${newBoard.name} created.`)
+      toast(`${newBoard.name} ${t('toast.created')}.`)
     }
   })
 
   const updateMutation = useMutation(api.updateBoard, {
     onSuccess: (updatedBoard) => {
       queryClient.invalidateQueries('boards')
-      toast(`${updatedBoard.id} updated.`)
+      toast(`${updatedBoard.id} ${t('toast.updated')}.`)
     }
   })
 
   const deleteMutation = useMutation(api.deleteBoard, {
     onSuccess: (id) => {
       queryClient.invalidateQueries('boards')
-      toast(`${id} deleted.`)
+      toast(`${id} ${t('toast.deleted')}.`)
     }
   })
 

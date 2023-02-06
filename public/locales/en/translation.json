@@ -1,7 +1,88 @@
 {
+  "common": {
+    "edit": "Edit",
+    "confirmation": "Confirmation",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "change": "Change",
+    "column": "Column"
+  },
+  "boardCard": {
+    "question": "Are you sure you want to delete the board?"
+  },
   "greeting": {
     "title": "Manage <1>any</1> task",
     "desc": "The simple but efficient way to organize, plan and track progress on your projects.",
     "button": "Get started"
+  },
+  "createBoardForm": {
+    "name": "Name",
+    "namer": "Name is required",
+    "descriptionRequired": "Description is required",
+    "description": "Description",
+    "create": "Create"
+  },
+  "devStack": {
+    "development": "Development",
+    "project": "This Project Management App is created as final task of <1>RS School Frontend course</1>"
+  },
+  "editForm": {
+    "name": "name",
+    "email": "email",
+    "namer": "Name is required",
+    "password": "password",
+    "emailReqiured": "Email is required",
+    "passwordReqiured": "Passsword is required",
+    "confirmationPhrase": "Confirm changes by current password"
+  },
+  "features": {
+    "features": "Особенности",
+    "firstF": "Create any number of boards and tasks",
+    "secondF": "Expand tasks by adding checklists",
+    "thirdF": "Track personal tasks in your profile",
+    "fourthF": "Change the order of tasks and columns",
+    "fifthF": "Find tasks through searchss",
+    "sixthF": "Elaborate tasks by attaching images"
+  },
+  "header": {
+    "addBoard": "+ New board"
+  },
+  "teamsection": {
+    "team": "Our Team",
+    "pavel": "Pavel",
+    "maksim": "Maksim",
+    "kirill": "Kirill",
+    "lead": "Tech- and TeamLead",
+    "developer": "Frontend developer",
+    "Infrastructure": "Infrastructure",
+    "Organisation": "Organisation",
+    "Tasks": "Tasks",
+    "Code": "Code rewiew",
+    "Main": "Main Page",
+    "Board": "Board",
+    "BoardList": "Board List",
+    "Profile": "Profile",
+    "contribution": "Main contribution"
+  },
+  "404": {
+    "404": "404 Page Not Found"
+  },
+  "profile": {
+    "confirmation": "Confirmation",
+    "sure": "Are you sure you want to do this?"
+  },
+  "boardPage": {
+    "board": "Board",
+    "new": "Create new column",
+    "error": "An error occured:",
+    "search": "Search"
+  },
+  "switch": {
+    "settings": "Use setting"
+  },
+  "toast":{
+    "created":"created",
+    "updated":"updated",
+    "deleted":"deleted"
   }
 }

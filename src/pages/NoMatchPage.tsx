@@ -1,3 +1,7 @@
+import { useTranslation } from 'react-i18next'
+
 export default function NoMatch() {
-  return <h2>404 Not Found</h2>
+  const { t } = useTranslation()
+
+  return <h2>{t('404.404')}</h2>
 }

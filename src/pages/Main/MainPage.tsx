@@ -1,7 +1,11 @@
+import { useTranslation } from 'react-i18next'
+
 import { Button, BoardCard, Loader, CreateBoardForm, Modal } from '@/components'
 import useMainPage from './useMainPage'
 
 export default function Main() {
+  const { t } = useTranslation()
+
   const {
     isLoading,
     isError,
@@ -20,17 +24,21 @@ export default function Main() {
   }
 
   if (isError) {
-    return <div>An error occured: {error?.message}</div>
+    return (
+      <div>
+        {t('boardPage.error')} {error?.message}
+      </div>
+    )
   }
 
   return (
     <>
       <div className="container m-auto">
-        <input type="search" placeholder="search" />
+        <input type="search" placeholder={t('boardPage.search')} />
 
-        <h2>Boards</h2>
+        <h2>{t('boardPage.board')}</h2>
 
-        <Button text="Create new board" onClick={openModal} />
+        <Button text={t('boardPage.new')} onClick={openModal} />
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {data?.map((board) => {
@@ -48,7 +56,7 @@ export default function Main() {
         </div>
       </div>
 
-      <Modal isOpen={createModalOpen} onClose={closeModal} title="Create">
+      <Modal isOpen={createModalOpen} onClose={closeModal} title={t('createBoardForm.create')}>
         <CreateBoardForm onSubmit={createBoard} />
       </Modal>
     </>
