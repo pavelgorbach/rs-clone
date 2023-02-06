@@ -16,7 +16,7 @@ const GITHUBS = [
 export function Footer() {
   return (
     <footer className="bg-white p-4">
-      <div className="flex container m-auto justify-between">
+      <div className="container m-auto flex justify-between">
         <div className="flex">
           <a className="text-black" href="https://rs.school/js/">
             <img className="w-20" src="src/assets/logo_rs_text.svg"></img>

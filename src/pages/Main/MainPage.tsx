@@ -1,32 +1,26 @@
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
+import cx from 'classnames'
+
 import { Button, BoardCard, Loader, CreateBoardForm, Modal } from '@/components'
 import useMainPage from './useMainPage'
-import { useState } from 'react'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
-import { Board } from '@/api'
-import cx from 'classnames'
+
 export default function Main() {
   const {
     isLoading,
     isError,
     error,
-    data,
+    boards,
     createModalOpen,
+    focusValue,
     closeModal,
     openModal,
     createBoard,
     updateBoard,
-    deleteBoard
+    deleteBoard,
+    setSearchValue,
+    setFocusValue
   } = useMainPage()
-  const [searchValue, setSearchValue] = useState('')
-  const [focusValue, setFocusValue] = useState(false)
-  const searchBoards = (data: Array<Board> | undefined) => {
-    return data?.filter((board) => board.name.toLowerCase().includes(searchValue))
-  }
-  let currentData = data
 
-  if (searchBoards(data)) {
-    currentData = searchBoards(data)
-  }
   if (isLoading) {
     return <Loader />
   }
@@ -66,7 +60,7 @@ export default function Main() {
         <Button text="Create new board" onClick={openModal} className="col-start-6 col-end-7" />
 
         <div className="col-span-6 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {currentData?.map((board) => {
+          {boards.map((board) => {
             return (
               <BoardCard
                 key={board.id}
