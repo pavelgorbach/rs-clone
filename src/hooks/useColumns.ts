@@ -16,7 +16,7 @@ export default function useColumns() {
   const postMutation = useMutation(createColumn, {
     onSuccess: (newColumn) => {
       queryClient.invalidateQueries('columns')
-      toast(`${newColumn.name} created.`)
+      toast(`${newColumn.name} ${t('toast.created')}.`)
     }
   })
 
