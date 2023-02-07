@@ -1,38 +1,26 @@
 import { Trans, useTranslation } from 'react-i18next'
 
-import Typescript from '../assets/typescript.svg'
-import React from '../assets/react.svg'
-import rtk from '../assets/rtk.svg'
-import tailwind from '../assets/tailwind.svg'
-import jwt from '../assets/JWT.svg'
-import reactHookForm from '../assets/rect_hook_form.svg'
-import i18next from '../assets/i18next.svg'
-import toastify from '../assets/toastify.svg'
-import dnd from '../assets/beautiful_dnd.svg'
-
-type StackDTO = {
-  img: string
-  text: string
-}
-
-const STACK: StackDTO[] = [
-  { img: React, text: 'React' },
-  { img: Typescript, text: 'Typescript' },
-  { img: rtk, text: 'RTK | RTK Query' },
-  { img: tailwind, text: 'Tailwind CSS' },
-  { img: jwt, text: 'JWT-decode' },
-  { img: reactHookForm, text: 'React-hook-form' },
-  { img: i18next, text: 'React-i18next' },
-  { img: toastify, text: 'React-Tostify' },
-  { img: dnd, text: 'React-beautiful-dnd' }
+const STACK = [
+  { src: 'icons/vite.svg', text: 'Vite.js' },
+  { src: 'icons/react.svg', text: 'React' },
+  { src: 'icons/typescript.svg', text: 'Typescript' },
+  { src: 'icons/react-query.svg', text: 'React Query' },
+  { src: 'icons/tailwind.svg', text: 'Tailwind CSS' },
+  { src: 'icons/jwt.svg', text: 'JWT-decode' },
+  { src: 'icons/react-hook-form.svg', text: 'React-hook-form' },
+  { src: 'icons/i18next.svg', text: 'React-i18next' },
+  { src: 'icons/toastify.svg', text: 'React-Tostify' },
+  { src: 'icons/beautiful-dnd.svg', text: 'React-beautiful-dnd' }
 ]
 
 export function DevStack() {
   const { t } = useTranslation()
+
   return (
     <section className="bg-white pt-5 pb-10">
       <div className="container m-auto border-l-2 border-l-purple-100 text-center lg:pl-3 lg:text-left">
         <h3>{t('devStack.development')}</h3>
+
         <p>
           <Trans i18nKey="devStack.project">
             This Project Management App is created as final task of
@@ -41,15 +29,16 @@ export function DevStack() {
             </a>
           </Trans>
         </p>
+
         <div className="flex flex-wrap justify-center gap-3">
-          {STACK.map(({ text, img }, idx) => (
+          {STACK.map(({ text, src }, idx) => (
             <div
               key={idx}
-              className={`not-prose flex flex-row items-center justify-between gap-3 rounded-full border-2 p-4`}
+              className={`not-prose flex flex-row items-center justify-between gap-3 rounded-full border-2 py-1 px-2`}
             >
               <div>{text}</div>
               <div className="w-10">
-                <img src={img} alt="icon" />
+                <img src={src} alt="icon" />
               </div>
             </div>
           ))}
