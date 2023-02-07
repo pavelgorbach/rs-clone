@@ -5,7 +5,10 @@
     "cancel": "Отмена",
     "delete": "Удалить",
     "change": "Изменить",
-    "column": "Колонка"
+    "column": "Колонка",
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "welcome": "Добро пожаловать!"
   },
   "boardCard": {
     "question": "Вы уверены, что хотите удалить доску?"
@@ -45,9 +48,7 @@
     "sixthF": "Дополняйте ваши задачи при помощи изображений"
   },
   "header": {
-    "addBoard": "+ Создать новую доску",
-    "signIn": "Войти",
-    "signUp": "Регистрация" 
+    "addBoard": "+ Создать новую доску"
   },
   "teamsection": {
     "team": "Наша Команда",
@@ -86,5 +87,15 @@
     "created":"создана",
     "updated":"обновлена",
     "deleted":"удалена"
+  },
+  "signUpForm": {
+    "name": "Имя",
+    "login": "Логин",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "nameRequired": "Введите имя",
+    "loginReqiured": "Введите логин",
+    "passwordReqiured": "Введите пароль",
+    "haveAccount": "Уже есть аккаунт?"
   }
 }

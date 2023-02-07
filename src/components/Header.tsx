@@ -56,8 +56,8 @@ export function Header() {
 
         {!auth.user && (
           <div className="ml-auto flex items-center gap-4">
-            <Button text={t('header.signIn')} onClick={goToSignInPage} />
-            <Button text={t('header.signUp')} onClick={goToSignUpPage} />
+            <Button text={t('common.signIn')} onClick={goToSignInPage} />
+            <Button text={t('common.signUp')} onClick={goToSignUpPage} />
           </div>
         )}
 

@@ -5,7 +5,10 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "change": "Change",
-    "column": "Column"
+    "column": "Column",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "welcome": "Welcome!"
   },
   "boardCard": {
     "question": "Are you sure you want to delete the board?"
@@ -45,9 +48,7 @@
     "sixthF": "Elaborate tasks by attaching images"
   },
   "header": {
-    "addBoard": "+ New board",
-    "signIn": "Sign in",
-    "signUp": "Sign up"
+    "addBoard": "+ New board"
   },
   "teamsection": {
     "team": "Our Team",
@@ -86,5 +87,15 @@
     "created":"created",
     "updated":"updated",
     "deleted":"deleted"
+  },
+  "signUpForm": {
+    "name": "Name",
+    "login": "Login",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "nameRequired": "Name is required",
+    "loginReqiured": "Email is required",
+    "passwordReqiured": "Passsword is required",
+    "haveAccount": "Already have an account?"
   }
 }

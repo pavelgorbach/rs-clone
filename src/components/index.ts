@@ -27,3 +27,6 @@ export * from './Column'
 
 // Profile page
 export * from './EditProfileForm'
+
+// Sign up page
+export * from './SignUpForm'
