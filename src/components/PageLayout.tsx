@@ -8,9 +8,9 @@ import 'react-toastify/dist/ReactToastify.css'
 
 export function PageLayout() {
   return (
-    <div className="bg-gray-100">
+    <div className="flex min-h-screen flex-col bg-gray-50">
       <Header />
-      <main className="prose-base m-auto p-4 lg:prose-lg xl:prose-xl 2xl:prose-2xl">
+      <main className="prose-base p-4 lg:prose-lg xl:prose-xl 2xl:prose-2xl">
         <Outlet />
       </main>
       <Footer />

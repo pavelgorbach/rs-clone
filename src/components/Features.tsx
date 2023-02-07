@@ -1,69 +1,64 @@
 import { useTranslation } from 'react-i18next'
-
-import IconInfinite from '../assets/infinite.svg'
-import Checks from '../assets/checks.svg'
-import Cursor from '../assets/cursor.svg'
-import Img from '../assets/img.svg'
-import Search from '../assets/search.svg'
-import Shelves from '../assets/shelves.svg'
-
-type feature = {
-  text: string
-  img: string
-  position: 'left' | 'right'
-}
+import cx from 'classnames'
 
 export function Features() {
   const { t } = useTranslation()
 
-  const FEATURES: feature[] = [
+  const FEATURES = [
     {
       text: t('features.firstF'),
-      img: IconInfinite,
+      img: 'icons/infinite.svg',
       position: 'right'
     },
     {
       text: t('features.secondF'),
-      img: Checks,
+      img: 'icons/checks.svg',
       position: 'left'
     },
     {
       text: t('features.thirdF'),
-      img: Cursor,
+      img: 'icons/cursor.svg',
       position: 'right'
     },
     {
       text: t('features.fourthF'),
-      img: Shelves,
+      img: 'icons/shelves.svg',
       position: 'left'
     },
     {
       text: t('features.fifthF'),
-      img: Search,
+      img: 'icons/search.svg',
       position: 'right'
     },
     {
       text: t('features.sixthF'),
-      img: Img,
+      img: 'icons/img-upload.svg',
       position: 'left'
     }
   ]
 
   return (
     <section className="bg-white pt-5 pb-10">
-      <div className="container m-auto border-l-2 border-l-purple-100 text-center lg:pl-3 lg:text-left">
-        <h3>{t('features.features')}</h3>
-        <div className="col-auto m-auto grid content-center items-center gap-2 self-center sm:grid-cols-1 md:grid-cols-2 lg:w-3/4 xl:w-2/3 ">
+      <div className="container m-auto border-l-2 border-l-purple-100 lg:pl-3">
+        <h3 className="text-center lg:text-left">{t('features.features')}</h3>
+
+        <div className="m-auto grid grid-cols-1 gap-4 md:w-4/5 md:grid-cols-2 lg:w-3/4">
           {FEATURES.map(({ text, position, img }, idx) => (
             <div
               key={idx}
-              className={`not-prose flex w-3/4 items-center justify-between justify-self-center p-4 ${
-                position === 'left' ? 'flex-row-reverse' : 'flex-row'
-              } rounded-full border-2`}
+              className={cx(
+                'not-prose h-30 w-30 flex items-center gap-2 rounded-full bg-gray-100 p-1',
+                {
+                  'flex-row-reverse': position === 'left',
+                  'text-left': position === 'left',
+                  'text-right': position === 'right',
+                  'flex-row': position === 'rigth'
+                }
+              )}
             >
-              <div>{text}</div>
-              <div>
-                <img src={img} alt="icon" />
+              <div className="flex-1 font-thin">{text}</div>
+              <div className="h-30 w-30 flex items-center justify-center rounded-full border-2 border-dashed border-gray-400">
+                <img src={img} alt="icon" className="h-30 w-30" />
               </div>
             </div>
           ))}

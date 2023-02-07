@@ -5,7 +5,10 @@
     "cancel": "Отмена",
     "delete": "Удалить",
     "change": "Изменить",
-    "column": "Колонка"
+    "column": "Колонка",
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "welcome": "Добро пожаловать!"
   },
   "boardCard": {
     "question": "Вы уверены, что хотите удалить доску?"
@@ -52,7 +55,7 @@
     "pavel": "Павел",
     "maksim": "Максим",
     "kirill": "Кирил",
-    "lead": "Тех- и Тимлид",
+    "lead": "Тех и Тимлид",
     "developer": "Фронтенд разработчик",
     "Infrastructure": "Инфраструктура",
     "Organisation": "Орагнизация",
@@ -84,5 +87,15 @@
     "created":"создана",
     "updated":"обновлена",
     "deleted":"удалена"
+  },
+  "signUpForm": {
+    "name": "Имя",
+    "login": "Логин",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "nameRequired": "Введите имя",
+    "loginReqiured": "Введите логин",
+    "passwordReqiured": "Введите пароль",
+    "haveAccount": "Уже есть аккаунт?"
   }
 }

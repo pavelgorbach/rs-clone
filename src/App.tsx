@@ -1,29 +1,50 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
 
-import { PageLayout } from '@/components'
-import { Home, Main, Board, Profile, NoMatch } from '@/pages'
 import { ROUTES } from '@/constants'
-
-const queryClient = new QueryClient()
+import { AuthProvider, QueryProvider } from '@/providers'
+import { PageLayout, RequireAuth } from '@/components'
+import { Home, Main, Board, Profile, NoMatch, SignIn, SignUp } from '@/pages'
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <Routes>
-          <Route path={ROUTES.home} element={<PageLayout />}>
-            <Route index element={<Home />} />
-            <Route path={ROUTES.main} element={<Main />} />
-            <Route path={`${ROUTES.board}/:id`} element={<Board />} />
-            <Route path={ROUTES.profile} element={<Profile />} />
-            <Route path="*" element={<NoMatch />} />
-          </Route>
-        </Routes>
-      </Router>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <Router>
+      <AuthProvider>
+        <QueryProvider>
+          <Routes>
+            <Route path={ROUTES.home} element={<PageLayout />}>
+              <Route index element={<Home />} />
+              <Route path={ROUTES.signIn} element={<SignIn />} />
+              <Route path={ROUTES.signUp} element={<SignUp />} />
+              <Route
+                path={ROUTES.main}
+                element={
+                  <RequireAuth>
+                    <Main />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path={ROUTES.profile}
+                element={
+                  <RequireAuth>
+                    <Profile />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path={`${ROUTES.board}/:id`}
+                element={
+                  <RequireAuth>
+                    <Board />
+                  </RequireAuth>
+                }
+              />
+              <Route path="*" element={<NoMatch />} />
+            </Route>
+          </Routes>
+        </QueryProvider>
+      </AuthProvider>
+    </Router>
   )
 }
 

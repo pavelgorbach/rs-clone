@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
   ViewColumnsIcon,
@@ -8,13 +8,18 @@ import {
   UserIcon
 } from '@heroicons/react/24/solid'
 
+import useAuth from '@/hooks/useAuth'
 import { ROUTES } from '@/constants'
 import { Button, Switch, Listbox } from '@/components'
 
 export function Header() {
+  console.log('HEADER render')
   const [theme, setTheme] = useState(false)
+  const navigate = useNavigate()
 
   const { t, i18n } = useTranslation()
+
+  const auth = useAuth()
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng)
@@ -26,6 +31,14 @@ export function Header() {
 
   const onSignOut = () => {
     console.log('sign out')
+  }
+
+  const goToSignInPage = () => {
+    navigate(ROUTES.signIn)
+  }
+
+  const goToSignUpPage = () => {
+    navigate(ROUTES.signUp)
   }
 
   return (
@@ -41,22 +54,31 @@ export function Header() {
 
         <Listbox value={i18n.language} options={['ru', 'en']} onChange={changeLanguage} />
 
-        <div className="ml-auto flex items-center gap-4">
-          <Button className="hidden md:block" text={t('header.addBoard')} onClick={onAddBoard} />
+        {!auth.user && (
+          <div className="ml-auto flex items-center gap-4">
+            <Button text={t('common.signIn')} onClick={goToSignInPage} />
+            <Button text={t('common.signUp')} onClick={goToSignUpPage} />
+          </div>
+        )}
 
-          <Link to={ROUTES.main}>
-            <HomeIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
-          </Link>
+        {auth.user && (
+          <div className="ml-auto flex items-center gap-4">
+            <Button className="hidden md:block" text={t('header.addBoard')} onClick={onAddBoard} />
 
-          <Link to={ROUTES.profile}>
-            <UserIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
-          </Link>
+            <Link to={ROUTES.main}>
+              <HomeIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
+            </Link>
 
-          <ArrowRightOnRectangleIcon
-            className="h-6 w-6 cursor-pointer text-purple-500 hover:text-purple-400"
-            onClick={onSignOut}
-          />
-        </div>
+            <Link to={ROUTES.profile}>
+              <UserIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
+            </Link>
+
+            <ArrowRightOnRectangleIcon
+              className="h-6 w-6 cursor-pointer text-purple-500 hover:text-purple-400"
+              onClick={onSignOut}
+            />
+          </div>
+        )}
       </div>
     </header>
   )
