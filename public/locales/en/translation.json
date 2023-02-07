@@ -45,7 +45,9 @@
     "sixthF": "Elaborate tasks by attaching images"
   },
   "header": {
-    "addBoard": "+ New board"
+    "addBoard": "+ New board",
+    "signIn": "Sign in",
+    "signUp": "Sign up"
   },
   "teamsection": {
     "team": "Our Team",

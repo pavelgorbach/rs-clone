@@ -1,3 +1,8 @@
+export type User = {
+  login: string
+  password: string
+}
+
 export type Board = {
   id: number
   name: string
