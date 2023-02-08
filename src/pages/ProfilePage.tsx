@@ -12,7 +12,7 @@ type profileProps = {
 export default function Profile({
   name = 'Maksim',
   login = 'Maxer',
-  avatar = '/src/assets/add_avatar.png'
+  avatar = '/public/icons/add_avatar.png'
 }: profileProps) {
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
@@ -42,29 +42,29 @@ export default function Profile({
           }}
         />
       </Modal>
-      <div className="m-auto w-1/3 rounded-md border-2 border-purple-500 px-20">
+      <div className="m-auto w-1/3 rounded-md border-2 border-purple-500 bg-white px-20">
         <h2 className="font-semibold">{t('teamsection.Profile')}</h2>
         <div className="flex items-center justify-between pt-10">
           <div className="not-prose w-1/4 cursor-pointer">
             <img src={avatar} alt={t('profile.altAvatar')} />
           </div>
           <div className="flex w-2/3 flex-col gap-7">
-            <div className="flex rounded-full bg-white px-5">
+            <div className="flex rounded-full bg-gray-50 px-5">
               <div className="w-24 border-r-2 border-purple-600">{t('profile.NAME')}</div>
               <div className="w-48 text-center">{name}</div>
             </div>
-            <div className=" flex rounded-full bg-white px-5">
+            <div className=" flex rounded-full bg-gray-50 px-5">
               <div className="w-24 border-r-2 border-purple-600">{t('profile.LOGIN')}</div>
               <div className="w-48 text-center">{login}</div>
             </div>
           </div>
         </div>
-        <div className="mt-7 flex gap-10 pt-10">
+        <div className="mt-7 flex justify-around pt-10">
           <Button text={t('common.delete')} onClick={toggleDeleteModal} />
           <Button text={t('common.edit')} onClick={toggleEditModal} />
         </div>
         {/* <hr className="my-1"/> */}
-        <div className="m-auto my-10 flex w-2/3 items-center justify-center gap-4 rounded-full border-2 border-purple-600 py-1 px-2">
+        <div className="m-auto my-10 flex w-2/3 items-center justify-center gap-4 rounded-full border-2 border-purple-600 bg-gray-50 py-1 px-2">
           <div>
             <svg
               className="w-7"
