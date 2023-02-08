@@ -5,7 +5,15 @@
     "cancel": "Отмена",
     "delete": "Удалить",
     "change": "Изменить",
-    "column": "Колонка"
+    "column": "Колонка",
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "welcome": "Добро пожаловать!",
+    "login": "Логин",
+    "password": "Пароль",
+    "nameRequired": "Введите имя",
+    "loginReqiured": "Введите логин",
+    "passwordReqiured": "Введите пароль"
   },
   "boardCard": {
     "question": "Вы уверены, что хотите удалить доску?"
@@ -52,7 +60,7 @@
     "pavel": "Павел",
     "maksim": "Максим",
     "kirill": "Кирил",
-    "lead": "Тех- и Тимлид",
+    "lead": "Тех и Тимлид",
     "developer": "Фронтенд разработчик",
     "Infrastructure": "Инфраструктура",
     "Organisation": "Орагнизация",
@@ -77,16 +85,21 @@
   },
   "boardPage": {
     "board": "Доска",
-    "new": "Создать новую колонку",
+    "new": "Новая доска",
     "error": "Произошла ошибка:",
     "search": "Поиск"
-  },
-  "switch": {
-    "settings": "Использовать настройку"
   },
   "toast":{
     "created":"создана",
     "updated":"обновлена",
     "deleted":"удалена"
+  },
+  "signUpForm": {
+    "name": "Имя",
+    "confirmPassword": "Подтвердите пароль",
+    "haveAnAccount": "Уже есть аккаунт?"
+  },
+  "signInForm": {
+    "doNotHaveAnAccount": "У вас нет аккаунта?"
   }
 }

@@ -5,7 +5,7 @@ export function TeamSection() {
 
   const MEMBERS = [
     {
-      imgSrc: 'src/assets/photos/pavel.jfif',
+      imgSrc: 'photos/pavel.jfif',
       name: t('teamsection.pavel'),
       role: t('teamsection.lead'),
       contribution: [
@@ -16,16 +16,16 @@ export function TeamSection() {
       ]
     },
     {
-      imgSrc: 'src/assets/photos/maxer.png',
+      imgSrc: 'photos/maxer.png',
       name: t('teamsection.maksim'),
       role: t('teamsection.developer'),
-      contribution: [t('teamsection.Main'), t('teamsection.Board')]
+      contribution: [t('teamsection.Main'), t('teamsection.Profile')]
     },
     {
-      imgSrc: 'src/assets/photos/kirill.png',
-      name: t('teamsection.Code'),
+      imgSrc: 'photos/kirill.png',
+      name: t('teamsection.kirill'),
       role: t('teamsection.developer'),
-      contribution: [t('teamsection.BoardList'), t('teamsection.Profile')]
+      contribution: [t('teamsection.BoardList'), t('teamsection.Board')]
     }
   ]
 
@@ -46,7 +46,7 @@ export function TeamSection() {
               </div>
               <div>
                 {member.contribution.map((feature, index) => (
-                  <div className="border-l-2 pl-3 text-left" key={index}>
+                  <div className="border-l-2 pl-3 text-left font-light" key={index}>
                     {feature}
                   </div>
                 ))}
