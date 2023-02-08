@@ -69,7 +69,14 @@
   },
   "profile": {
     "confirmation": "Confirmation",
-    "sure": "Are you sure you want to do this?"
+    "sure": "Are you sure you want to do this?",
+    "altAvatar":"Your Avatar",
+    "NAME": "NAME",
+    "LOGIN": "LOGIN",
+    "logout": "Logout after",
+    "tasks": "Your tasks",
+    "notasks": "You don't have any tasks yet"
+
   },
   "boardPage": {
     "board": "Board",
