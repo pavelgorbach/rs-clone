@@ -39,9 +39,10 @@
     "email": "email",
     "namer": "Name is required",
     "password": "password",
-    "emailReqiured": "Email is required",
+    "emailReqiured": "Correct Email is required",
     "passwordReqiured": "Passsword is required",
-    "confirmationPhrase": "Confirm changes by current password"
+    "confirmationPhrase": "Confirm changes by current password",
+    "editUser": "Edit user"
   },
   "features": {
     "features": "Features",
@@ -77,7 +78,15 @@
   },
   "profile": {
     "confirmation": "Confirmation",
-    "sure": "Are you sure you want to do this?"
+    "sure": "Are you sure you want to do this?",
+    "altAvatar":"Your Avatar",
+    "NAME": "NAME",
+    "LOGIN": "LOGIN",
+    "logout": "Logout after",
+    "name": "name",
+    "tasks": "Your tasks",
+    "notasks": "You don't have any tasks yet"
+
   },
   "boardPage": {
     "board": "Board",

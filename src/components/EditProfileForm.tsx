@@ -22,28 +22,32 @@ export function EditProfileForm({ onSubmit }: Props) {
 
   return (
     <div className="flex flex-col gap-2">
+      <h2 className="text-lg font-semibold">{t('editForm.editUser')}</h2>
       <input
         type="text"
+        className="rounded-full pl-5"
         {...register('name', { required: true })}
-        placeholder={t('editForm.name')}
+        placeholder={t('profile.name')}
       />
-      {errors.name && t('editForm.namer')}
+      <div className="text-red-500">{errors.name && t('editForm.namer')}</div>
       <input
         type="email"
+        className="rounded-full pl-5"
         {...register('email', { required: true })}
         placeholder={t('editForm.email')}
       />
-      {errors.email && t('editForm.emailReqiured')}
+      <div className="text-red-500">{errors.email && t('editForm.emailReqiured')}</div>
 
-      <p>{t('editForm.confirmationPhrase')}</p>
+      <p className="mt-4">{t('editForm.confirmationPhrase')}</p>
       <input
         type="password"
+        className="rounded-full pl-5"
         {...register('password', { required: true })}
         placeholder={t('editForm.password')}
       />
-      {errors.password && t('editForm.passwordReqiured')}
+      <div>{errors.password && t('editForm.passwordReqiured')}</div>
 
-      <Button text={t('common.change')} onClick={submit} />
+      <Button className="mt-4" text={t('common.change')} onClick={submit} />
     </div>
   )
 }
