@@ -96,8 +96,6 @@
     "haveAnAccount": "Уже есть аккаунт?"
   },
   "signInForm": {
-    "name": "Имя",
-    "confirmPassword": "Подтвердите пароль",
-    "haveAnAccount": "Уже есть аккаунт?"
+    "doNotHaveAnAccount": "У вас нет аккаунта?"
   }
 }
