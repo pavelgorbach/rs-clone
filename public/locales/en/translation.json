@@ -81,7 +81,7 @@
   },
   "boardPage": {
     "board": "Board",
-    "new": "Create new column",
+    "new": "New board",
     "error": "An error occured:",
     "search": "Search"
   },

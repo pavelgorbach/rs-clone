@@ -38,10 +38,10 @@ export default function Main() {
 
   return (
     <>
-      <div className="container m-auto grid grid-cols-6 grid-rows-[100px_100px_minmax(900px)] gap-y-6">
+      <div className="container m-auto grid grid-cols-4 grid-rows-[100px_100px_minmax(900px)] gap-y-6">
         <div
           className={cx(
-            'relative col-span-6 flex w-min rounded-lg border-2 pl-1 ',
+            'relative col-span-4 flex w-min rounded-lg border-2 pl-1 ',
             { 'border-gray-300': !focusValue },
             {
               ' border-purple-500': focusValue
@@ -62,11 +62,12 @@ export default function Main() {
             <MagnifyingGlassIcon className="h-5 w-5 text-gray-300" />
           </div>
         </div>
-        <h2 className="!m-0">{t('boardPage.board')}</h2>
 
-        <Button text={t('boardPage.new')} onClick={openModal} className="col-start-6 col-end-7" />
+        <h2 className="col-span-3 !m-0">{t('boardPage.board')}</h2>
 
-        <div className="col-span-6 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <Button text={t('boardPage.new')} onClick={openModal} className="justify-self-end" />
+
+        <div className="col-span-4 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {boards.map((board) => {
             return (
               <BoardCard
