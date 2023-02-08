@@ -26,7 +26,7 @@ export default function LoginPage() {
       <SignUpForm onSubmit={onSubmit} />
 
       <div className="prose-sm m-auto flex items-center gap-2">
-        <p>{t('signUpForm.haveAccount')}</p>
+        <p>{t('signUpForm.haveAnAccount')}</p>
         <Link className="text-purple-500 hover:text-purple-400" to={ROUTES.signIn}>
           {t('common.signIn')}
         </Link>
