@@ -8,7 +8,12 @@
     "column": "Колонка",
     "signIn": "Войти",
     "signUp": "Регистрация",
-    "welcome": "Добро пожаловать!"
+    "welcome": "Добро пожаловать!",
+    "login": "Логин",
+    "password": "Пароль",
+    "nameRequired": "Введите имя",
+    "loginReqiured": "Введите логин",
+    "passwordReqiured": "Введите пароль"
   },
   "boardCard": {
     "question": "Вы уверены, что хотите удалить доску?"
@@ -76,12 +81,9 @@
   },
   "boardPage": {
     "board": "Доска",
-    "new": "Создать новую колонку",
+    "new": "Новая доска",
     "error": "Произошла ошибка:",
     "search": "Поиск"
-  },
-  "switch": {
-    "settings": "Использовать настройку"
   },
   "toast":{
     "created":"создана",
@@ -90,12 +92,10 @@
   },
   "signUpForm": {
     "name": "Имя",
-    "login": "Логин",
-    "password": "Пароль",
     "confirmPassword": "Подтвердите пароль",
-    "nameRequired": "Введите имя",
-    "loginReqiured": "Введите логин",
-    "passwordReqiured": "Введите пароль",
-    "haveAccount": "Уже есть аккаунт?"
+    "haveAnAccount": "Уже есть аккаунт?"
+  },
+  "signInForm": {
+    "doNotHaveAnAccount": "У вас нет аккаунта?"
   }
 }

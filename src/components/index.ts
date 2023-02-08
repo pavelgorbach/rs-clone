@@ -30,3 +30,6 @@ export * from './EditProfileForm'
 
 // Sign up page
 export * from './SignUpForm'
+
+// Sign in page
+export * from './SignInForm'
