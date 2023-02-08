@@ -13,7 +13,8 @@ dist
 dist-ssr
 *.local
 .yarn
-.yarnrc.yml
+yarnrc.yml
+yarn.lock
 
 # Editor directories and files
 .vscode/*
