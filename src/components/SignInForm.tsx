@@ -4,17 +4,15 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@/components'
 
 type FormData = {
-  name: string
   login: string
   password: string
-  confirm: string
 }
 
 type Props = {
   onSubmit: (username: FormData) => void
 }
 
-export function SignUpForm({ onSubmit }: Props) {
+export function SignInForm({ onSubmit }: Props) {
   const { register, handleSubmit, formState } = useForm<FormData>()
   const { errors } = formState
   const { t } = useTranslation()
@@ -23,13 +21,6 @@ export function SignUpForm({ onSubmit }: Props) {
 
   return (
     <div className="flex flex-col gap-2">
-      <input
-        type="text"
-        {...register('name', { required: true })}
-        placeholder={t('signUpForm.name')}
-      />
-      <span className="text-sm text-red-500">{errors.name && t('common.nameRequired')}</span>
-
       <input
         type="email"
         {...register('login', { required: true })}
@@ -46,16 +37,7 @@ export function SignUpForm({ onSubmit }: Props) {
         {errors.password && t('common.passwordReqiured')}
       </span>
 
-      <input
-        type="password"
-        {...register('confirm', { required: true })}
-        placeholder={t('signUpForm.confirmPassword')}
-      />
-      <span className="text-sm text-red-500">
-        {errors.password && t('common.passwordReqiured')}
-      </span>
-
-      <Button text={t('common.signUp')} onClick={submit} />
+      <Button text={t('common.signIn')} onClick={submit} />
     </div>
   )
 }

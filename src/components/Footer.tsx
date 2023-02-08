@@ -23,7 +23,11 @@ export function Footer() {
 
         <div className="flex gap-4">
           {GITHUBS.map((github, idx) => (
-            <a key={idx} className="flex items-center gap-2 text-black" href={github.link}>
+            <a
+              key={idx}
+              className="flex items-center gap-2 text-black hover:text-purple-500"
+              href={github.link}
+            >
               <img className="!m-0 h-5 w-5" src="icons/github.svg" />
               <span className="flex items-center font-thin">{github.github}</span>
             </a>

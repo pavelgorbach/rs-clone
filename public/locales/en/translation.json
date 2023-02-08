@@ -8,7 +8,12 @@
     "column": "Column",
     "signIn": "Sign in",
     "signUp": "Sign up",
-    "welcome": "Welcome!"
+    "welcome": "Welcome!",
+    "login": "Login",
+    "password": "Password",
+    "nameRequired": "Name is required",
+    "loginReqiured": "Login is required",
+    "passwordReqiured": "Passsword is required"
   },
   "boardCard": {
     "question": "Are you sure you want to delete the board?"
@@ -55,7 +60,7 @@
     "pavel": "Pavel",
     "maksim": "Maksim",
     "kirill": "Kirill",
-    "lead": "Tech- and TeamLead",
+    "lead": "Tech and TeamLead",
     "developer": "Frontend developer",
     "Infrastructure": "Infrastructure",
     "Organisation": "Organisation",
@@ -80,9 +85,6 @@
     "error": "An error occured:",
     "search": "Search"
   },
-  "switch": {
-    "settings": "Use setting"
-  },
   "toast":{
     "created":"created",
     "updated":"updated",
@@ -90,12 +92,10 @@
   },
   "signUpForm": {
     "name": "Name",
-    "login": "Login",
-    "password": "Password",
     "confirmPassword": "Confirm password",
-    "nameRequired": "Name is required",
-    "loginReqiured": "Email is required",
-    "passwordReqiured": "Passsword is required",
-    "haveAccount": "Already have an account?"
+    "haveAnAccount": "Already have an account?"
+  },
+  "signInForm": {
+    "doNotHaveAnAccount": "Don't have an account?"
   }
 }
