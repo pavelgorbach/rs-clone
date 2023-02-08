@@ -23,7 +23,7 @@ export function TeamSection() {
     },
     {
       imgSrc: 'photos/kirill.png',
-      name: t('teamsection.Code'),
+      name: t('teamsection.kirill'),
       role: t('teamsection.developer'),
       contribution: [t('teamsection.BoardList'), t('teamsection.Board')]
     }
