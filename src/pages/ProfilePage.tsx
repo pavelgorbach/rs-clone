@@ -33,6 +33,11 @@ export default function Profile({
 
       <Modal isOpen={isDeleteOpen} onClose={toggleDeleteModal} title={t('profile.confirmation')}>
         <div>{t('profile.sure')}</div>
+        <div className="mt-4 flex justify-around">
+          {/* TODO: add deleteUser function after addin API */}
+          <Button className="px-10" text="Да"></Button>
+          <Button className="px-10" text="Нет" onClick={toggleDeleteModal}></Button>
+        </div>
       </Modal>
       <Modal isOpen={isEditOpen} onClose={toggleEditModal}>
         <EditProfileForm
@@ -59,12 +64,12 @@ export default function Profile({
             </div>
           </div>
         </div>
-        <div className="mt-7 flex justify-around pt-10">
+        <div className="mt-7 flex justify-between pt-10">
           <Button text={t('common.delete')} onClick={toggleDeleteModal} />
           <Button text={t('common.edit')} onClick={toggleEditModal} />
         </div>
         {/* <hr className="my-1"/> */}
-        <div className="m-auto my-10 flex w-2/3 items-center justify-center gap-4 rounded-full border-2 border-purple-600 bg-gray-50 py-1 px-2">
+        <div className="m-auto my-10 flex w-2/3 items-center justify-center gap-4 rounded-full border-2 border-purple-600 bg-gray-50 py-1 px-2 text-xs">
           <div>
             <svg
               className="w-7"
