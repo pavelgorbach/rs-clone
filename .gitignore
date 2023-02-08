@@ -4,17 +4,15 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 .yarn
 .yarnrc.yml
+yarn.lock
+pnpm-debug.log*
+lerna-debug.log*
 node_modules
 dist
 dist-ssr
 *.local
-.yarn
-yarnrc.yml
-yarn.lock
 
 # Editor directories and files
 .vscode/*
