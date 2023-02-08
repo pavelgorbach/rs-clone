@@ -12,7 +12,7 @@ type profileProps = {
 export default function Profile({
   name = 'Maksim',
   login = 'Maxer',
-  avatar = '/public/icons/add_avatar.png'
+  avatar = '/icons/add_avatar.png'
 }: profileProps) {
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
