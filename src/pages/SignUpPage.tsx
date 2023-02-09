@@ -14,7 +14,7 @@ export default function SignUpPageView() {
   const { mutate: registerUser } = useMutation((userData: RegisterInput) => signUp(userData), {
     onSuccess(createdUser) {
       toast.success(`${createdUser.name} created. You can login now.`)
-      navigate('/signin', { replace: true })
+      navigate(ROUTES.signIn, { replace: true })
     },
     onError(e) {
       if (e instanceof Error) {
