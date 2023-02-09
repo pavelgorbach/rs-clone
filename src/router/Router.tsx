@@ -7,8 +7,7 @@ export const ROUTES = {
   home: '/',
   signIn: '/sign-in',
   signUp: '/sign-up',
-  main: '/main',
-  board: '/board',
+  boards: '/boards',
   profile: '/profile'
 }
 
@@ -19,9 +18,9 @@ export default function Router() {
         <Route index element={<Home />} />
         <Route path={ROUTES.signIn} element={<SignIn />} />
         <Route path={ROUTES.signUp} element={<SignUp />} />
-        <Route path={ROUTES.main} element={<Main />} />
+        <Route path={ROUTES.boards} element={<Main />} />
         <Route path={ROUTES.profile} element={<Profile />} />
-        <Route path={`${ROUTES.board}/:id`} element={<Board />} />
+        <Route path={`${ROUTES.boards}/:id`} element={<Board />} />
         <Route path="*" element={<NoMatch />} />
       </Route>
     </Routes>

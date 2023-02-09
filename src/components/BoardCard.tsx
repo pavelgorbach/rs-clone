@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Board } from '@/api'
 import { Button, Modal, EditBoardForm } from '@/components'
+import { ROUTES } from '@/router'
 
 type Props = Board & {
   onDelete(id: string): void
@@ -46,7 +47,7 @@ export function BoardCard({ _id, title, onDelete, onUpdate }: Props) {
 
   return (
     <>
-      <Link to={`/board/${_id}`}>
+      <Link to={`${ROUTES.boards}/${_id}`}>
         <div className="mt-3 rounded bg-white p-3 shadow-md">
           <h3 className="!m-0">{title}</h3>
 

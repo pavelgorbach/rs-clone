@@ -20,7 +20,7 @@ export default function SignInPageView() {
     onSuccess: (data) => {
       authStore.setToken(data.token)
       toast.success('You successfully logged in')
-      navigate('/main', { replace: true })
+      navigate(ROUTES.boards, { replace: true })
     },
     onError(e) {
       if (e instanceof Error) {

@@ -50,7 +50,7 @@ function HeaderView() {
           <div className="ml-auto flex items-center gap-4">
             <Button className="hidden md:block" text={t('header.addBoard')} onClick={onAddBoard} />
 
-            <Link to={ROUTES.main}>
+            <Link to={ROUTES.boards}>
               <HomeIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
             </Link>
 

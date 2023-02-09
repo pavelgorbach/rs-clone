@@ -10,7 +10,7 @@ export function Greeting() {
   const { t } = useTranslation()
 
   const goToMainPage = () => {
-    navigate(ROUTES.main)
+    navigate(ROUTES.boards)
   }
 
   return (
