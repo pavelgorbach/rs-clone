@@ -10,7 +10,7 @@ import useBoardPage from './useBoardPage'
 function BoardPageView() {
   const { t } = useTranslation()
 
-  const { isAuthenticated, boardId, isLoading, isError, error, data, addNew, onDragComplete } =
+  const { isAuthenticated, board, isLoading, isError, error, columns, handleAdd, onDragComplete } =
     useBoardPage()
 
   if (!isAuthenticated) {
@@ -28,25 +28,23 @@ function BoardPageView() {
   if (isError) {
     return (
       <div className="container m-auto">
-        {t('boardPage.error')} {error instanceof Error ? error.message : 'something went wrong'}
+        {t('boardsPage.error')} {error instanceof Error ? error.message : 'something went wrong'}
       </div>
     )
   }
 
   return (
     <div className="continer m-auto">
-      <h2>
-        {t('boardPage.board')} {boardId}
-      </h2>
+      <h2>{board?.title}</h2>
 
-      <Button text={t('boardPage.new')} onClick={addNew} />
+      <Button text={t('boardPage.newColumn')} onClick={handleAdd} />
 
       <DragDropContext onDragEnd={onDragComplete}>
         <Droppable droppableId="drag-drop-list" direction="horizontal">
           {(provided) => (
             <div className="flex gap-4" {...provided.droppableProps} ref={provided.innerRef}>
-              {data?.map((column, idx) => (
-                <Draggable key={column._id} draggableId={column.title} index={idx}>
+              {columns?.map((column, idx) => (
+                <Draggable key={column._id} draggableId={column._id} index={idx}>
                   {(provided) => (
                     <div
                       ref={provided.innerRef}

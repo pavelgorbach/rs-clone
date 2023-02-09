@@ -87,11 +87,13 @@
     "tasks": "Ваши задачи",
     "notasks": "У вас пока еще нет задач"
   },
-  "boardPage": {
-    "board": "Доска",
+  "boardsPage": {
     "new": "Новая доска",
     "error": "Произошла ошибка:",
     "search": "Поиск"
+  },
+  "boardPage": {
+    "newColumn": "Hовая колонка"
   },
   "toast":{
     "created":"создана",

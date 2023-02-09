@@ -15,7 +15,7 @@ import useHeader from './useHeader'
 function HeaderView() {
   const {
     i18n,
-    authenticated,
+    isAuthenticated,
     theme,
     t,
     setTheme,
@@ -39,14 +39,14 @@ function HeaderView() {
 
         <Listbox value={i18n.language} options={['ru', 'en']} onChange={changeLanguage} />
 
-        {!authenticated && (
+        {!isAuthenticated && (
           <div className="ml-auto flex items-center gap-4">
             <Button text={t('common.signIn')} onClick={goToSignInPage} />
             <Button text={t('common.signUp')} onClick={goToSignUpPage} />
           </div>
         )}
 
-        {authenticated && (
+        {isAuthenticated && (
           <div className="ml-auto flex items-center gap-4">
             <Button className="hidden md:block" text={t('header.addBoard')} onClick={onAddBoard} />
 

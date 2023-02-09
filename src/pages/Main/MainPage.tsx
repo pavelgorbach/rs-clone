@@ -39,7 +39,7 @@ function MainPageView() {
   if (isError) {
     return (
       <div>
-        {t('boardPage.error')} {error instanceof Error ? error.message : 'Something went wrong'}
+        {t('boardsPage.error')} {error instanceof Error ? error.message : 'Something went wrong'}
       </div>
     )
   }
@@ -56,7 +56,7 @@ function MainPageView() {
           <input
             className="mr-1 w-60 border-none bg-gray-100 outline-none focus:ring-0"
             type="search"
-            placeholder={t('boardPage.search')}
+            placeholder={t('boardsPage.search')}
             onChange={(event) => {
               setSearchValue(event.target.value)
             }}
@@ -68,9 +68,9 @@ function MainPageView() {
           </div>
         </div>
 
-        <h2 className="col-span-3 !m-0">{t('boardPage.board')}</h2>
+        <h2 className="col-span-3 !m-0">{t('boardsPage.board')}</h2>
 
-        <Button text={t('boardPage.new')} onClick={openModal} className="justify-self-end" />
+        <Button text={t('boardsPage.new')} onClick={openModal} className="justify-self-end" />
 
         <div className="col-span-4 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {boards.map((board) => {

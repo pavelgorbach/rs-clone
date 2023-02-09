@@ -1,16 +1,15 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { StoreContext } from '@/store.context'
 import { ROUTES } from '@/router'
+import useAuthStore from '@/hooks/useAuthStore'
 
 export default function useHeader() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
 
-  const { authStore } = useContext(StoreContext)
-  const authenticated = authStore.isAuthenticated()
+  const { isAuthenticated } = useAuthStore()
 
   const [theme, setTheme] = useState(false)
 
@@ -37,7 +36,7 @@ export default function useHeader() {
   return {
     i18n,
     theme,
-    authenticated,
+    isAuthenticated,
     t,
     setTheme,
     changeLanguage,
