@@ -14,7 +14,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<string | null>(null)
 
   const signin = (newUser: string, callback: VoidFunction) => {
-    console.log({ newUser })
     return fakeAuthProvider.signin(() => {
       setUser(newUser)
       callback()

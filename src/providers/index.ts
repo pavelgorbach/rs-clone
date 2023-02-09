@@ -1,2 +1,2 @@
-export * from './auth'
-export * from './query'
+export * from './authProvider'
+export * from './queryProvider'

@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { OnDragEndResponder } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
@@ -11,18 +11,18 @@ export default function useColumns() {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
-  const { isLoading, isError, data, error } = useQuery<Column[], Error>('columns', getColumns)
+  const { isLoading, isError, data, error } = useQuery<Column[], Error>(['columns'], getColumns)
 
   const postMutation = useMutation(createColumn, {
     onSuccess: (newColumn) => {
-      queryClient.invalidateQueries('columns')
+      queryClient.invalidateQueries(['columns'])
       toast(`${newColumn.name} ${t('toast.created')}.`)
     }
   })
 
   const setMutation = useMutation(setColumns, {
     onSuccess: () => {
-      queryClient.invalidateQueries('columns')
+      queryClient.invalidateQueries(['columns'])
     }
   })
 
