@@ -17,6 +17,7 @@ export default function useBoards() {
   const authUser = authStore.getUser()
 
   const { isLoading, isError, data, error } = useQuery(['boards'], fetchBoards)
+
   const [createModalOpen, setCreateModalOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
   const [focusValue, setFocusValue] = useState(false)
