@@ -2,9 +2,9 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { User } from '@/api'
-import { ROUTES } from '@/constants'
-import useAuth from '@/hooks/useAuth'
+import { ROUTES } from '@/router'
 import { SignUpForm } from '@/components'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -14,7 +14,7 @@ export default function LoginPage() {
 
   const from = location.state?.from?.pathname || '/'
 
-  function onSubmit(data: User) {
+  function onSubmit(data: Omit<User, '_id'>) {
     auth.signin(data.login, () => {
       navigate(from, { replace: true })
     })

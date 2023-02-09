@@ -16,21 +16,21 @@ export default function useBoards() {
   const [focusValue, setFocusValue] = useState(false)
 
   const searchBoards = useMemo(() => {
-    return data ? data.filter((board) => board.name.toLowerCase().includes(searchValue)) : []
+    return data ? data.filter((board) => board.title.toLowerCase().includes(searchValue)) : []
   }, [data, searchValue])
 
   const createMutation = useMutation(api.createBoard, {
     onSuccess: (newBoard) => {
       queryClient.invalidateQueries(['boards'])
       closeModal()
-      toast(`${newBoard.name} ${t('toast.created')}.`)
+      toast(`${newBoard.title} ${t('toast.created')}.`)
     }
   })
 
   const updateMutation = useMutation(api.updateBoard, {
     onSuccess: (updatedBoard) => {
       queryClient.invalidateQueries(['boards'])
-      toast(`${updatedBoard.id} ${t('toast.updated')}.`)
+      toast(`${updatedBoard._id} ${t('toast.updated')}.`)
     }
   })
 
@@ -49,7 +49,7 @@ export default function useBoards() {
     updateMutation.mutate(data)
   }
 
-  const deleteBoard = (id: number) => {
+  const deleteBoard = (id: string) => {
     deleteMutation.mutate(id)
   }
 

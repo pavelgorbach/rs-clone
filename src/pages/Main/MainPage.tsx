@@ -70,14 +70,7 @@ export default function Main() {
         <div className="col-span-4 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {boards.map((board) => {
             return (
-              <BoardCard
-                key={board.id}
-                name={board.name}
-                id={board.id}
-                description={board.description}
-                onDelete={deleteBoard}
-                onUpdate={updateBoard}
-              />
+              <BoardCard key={board._id} {...board} onDelete={deleteBoard} onUpdate={updateBoard} />
             )
           })}
         </div>

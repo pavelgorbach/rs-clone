@@ -1,15 +1,13 @@
-import { useParams } from 'react-router-dom'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
 
 import { Button, Loader } from '@/components'
-import useColumns from '@/hooks/useColumns'
+import useBoardPage from './useBoardPage'
 
 export default function Board() {
-  const { id } = useParams()
   const { t } = useTranslation()
 
-  const { isLoading, isError, error, data, addNew, onDragComplete } = useColumns()
+  const { boardId, isLoading, isError, error, data, addNew, onDragComplete } = useBoardPage()
 
   if (isLoading) {
     return <Loader />
@@ -26,7 +24,7 @@ export default function Board() {
   return (
     <>
       <h2>
-        {t('boardPage.board')} {id}
+        {t('boardPage.board')} {boardId}
       </h2>
       <Button text={t('boardPage.new')} onClick={addNew} />
 
@@ -35,14 +33,14 @@ export default function Board() {
           {(provided) => (
             <div className="flex gap-4" {...provided.droppableProps} ref={provided.innerRef}>
               {data?.map((column, idx) => (
-                <Draggable key={column.id} draggableId={column.name} index={idx}>
+                <Draggable key={column._id} draggableId={column.title} index={idx}>
                   {(provided) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <p>{column.name}</p>
+                      <p>{column.title}</p>
                     </div>
                   )}
                 </Draggable>

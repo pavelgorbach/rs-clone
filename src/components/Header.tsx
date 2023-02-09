@@ -8,8 +8,8 @@ import {
   UserIcon
 } from '@heroicons/react/24/solid'
 
-import useAuth from '@/hooks/useAuth'
-import { ROUTES } from '@/constants'
+import { useAuth } from '@/hooks'
+import { ROUTES } from '@/router'
 import { Button, Switch, Listbox } from '@/components'
 
 export function Header() {

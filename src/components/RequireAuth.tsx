@@ -1,7 +1,7 @@
 import { useLocation, Navigate } from 'react-router-dom'
 
-import useAuth from '@/hooks/useAuth'
-import { ROUTES } from '@/constants'
+import { useAuth } from '@/hooks'
+import { ROUTES } from '@/router'
 
 export function RequireAuth({ children }: { children: JSX.Element }) {
   const auth = useAuth()

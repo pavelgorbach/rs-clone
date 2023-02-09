@@ -2,12 +2,12 @@ import { Column } from './types'
 
 let columns: Map<string, Column> = new Map()
 
-function Column(data: Partial<Column>, boardId: string): Column {
+function Column(data: Partial<Column>): Column {
   return {
     _id: Math.random().toString(),
     title: data.title || '',
     order: data.order || 0,
-    boardId
+    boardId: data.boardId || ''
   }
 }
 
@@ -15,8 +15,8 @@ export function getColumns() {
   return Promise.resolve([...columns.values()])
 }
 
-export function createColumn(data: Column, boardId: string) {
-  const newColumn = Column(data, boardId)
+export function createColumn(data: Column) {
+  const newColumn = Column(data)
   columns.set(newColumn._id, newColumn)
   return Promise.resolve(newColumn)
 }

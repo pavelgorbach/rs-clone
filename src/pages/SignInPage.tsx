@@ -1,8 +1,8 @@
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { ROUTES } from '@/constants'
-import useAuth from '@/hooks/useAuth'
+import { ROUTES } from '@/router'
+import { useAuth } from '@/hooks'
 import { SignInForm } from '@/components'
 
 export default function LoginPage() {

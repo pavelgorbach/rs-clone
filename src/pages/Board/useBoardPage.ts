@@ -2,21 +2,23 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { OnDragEndResponder } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router-dom'
 
 import { Column, getColumns, createColumn, setColumns } from '@/api'
 
 let counter = 0
 
-export default function useColumns() {
-  const queryClient = useQueryClient()
+export default function useBoardPage() {
   const { t } = useTranslation()
+  const queryClient = useQueryClient()
+  const { id: boardId } = useParams()
 
   const { isLoading, isError, data, error } = useQuery<Column[], Error>(['columns'], getColumns)
 
   const postMutation = useMutation(createColumn, {
     onSuccess: (newColumn) => {
       queryClient.invalidateQueries(['columns'])
-      toast(`${newColumn.name} ${t('toast.created')}.`)
+      toast(`${newColumn.title} ${t('toast.created')}.`)
     }
   })
 
@@ -30,9 +32,10 @@ export default function useColumns() {
     counter++
 
     postMutation.mutate({
-      id: counter,
+      _id: counter.toString(),
       order: counter,
-      name: `${t('common.column')} ${counter}`
+      title: `${t('common.column')} ${counter}`,
+      boardId: boardId || ''
     })
   }
 
@@ -47,6 +50,7 @@ export default function useColumns() {
   }
 
   return {
+    boardId,
     isLoading,
     isError,
     data,
