@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 
-import { PageLayout, RequireAuth } from '@/components'
+import { PageLayout } from '@/components'
 import { Home, Main, Board, Profile, NoMatch, SignIn, SignUp } from '@/pages'
 
 export const ROUTES = {
@@ -19,30 +19,9 @@ export default function Router() {
         <Route index element={<Home />} />
         <Route path={ROUTES.signIn} element={<SignIn />} />
         <Route path={ROUTES.signUp} element={<SignUp />} />
-        <Route
-          path={ROUTES.main}
-          element={
-            <RequireAuth>
-              <Main />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path={ROUTES.profile}
-          element={
-            <RequireAuth>
-              <Profile />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path={`${ROUTES.board}/:id`}
-          element={
-            <RequireAuth>
-              <Board />
-            </RequireAuth>
-          }
-        />
+        <Route path={ROUTES.main} element={<Main />} />
+        <Route path={ROUTES.profile} element={<Profile />} />
+        <Route path={`${ROUTES.board}/:id`} element={<Board />} />
         <Route path="*" element={<NoMatch />} />
       </Route>
     </Routes>

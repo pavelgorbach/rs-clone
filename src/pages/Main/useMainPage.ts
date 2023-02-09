@@ -1,16 +1,22 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useContext } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 
-import * as api from '@/api'
-import { Board } from '@/api'
+import { StoreContext } from '@/store.context'
+import { fetchBoards, createBoard, patchBoard, deleteBoard } from '@/api'
+import { CreateBoardFormData } from '@/components'
+import { Board } from '@/api/types'
 
 export default function useBoards() {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
-  const { isLoading, isError, data, error } = useQuery<Board[], Error>(['boards'], api.getBoards)
+  const { authStore } = useContext(StoreContext)
+  const isAuthenticated = authStore.isAuthenticated()
+  const authUser = authStore.getUser()
+
+  const { isLoading, isError, data, error } = useQuery(['boards'], fetchBoards)
   const [createModalOpen, setCreateModalOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
   const [focusValue, setFocusValue] = useState(false)
@@ -19,37 +25,50 @@ export default function useBoards() {
     return data ? data.filter((board) => board.title.toLowerCase().includes(searchValue)) : []
   }, [data, searchValue])
 
-  const createMutation = useMutation(api.createBoard, {
+  const createMutation = useMutation(createBoard, {
     onSuccess: (newBoard) => {
       queryClient.invalidateQueries(['boards'])
       closeModal()
       toast(`${newBoard.title} ${t('toast.created')}.`)
+    },
+    onError: (e) => {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
     }
   })
 
-  const updateMutation = useMutation(api.updateBoard, {
+  const updateMutation = useMutation(patchBoard, {
     onSuccess: (updatedBoard) => {
       queryClient.invalidateQueries(['boards'])
       toast(`${updatedBoard._id} ${t('toast.updated')}.`)
+    },
+    onError: (e) => {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
     }
   })
 
-  const deleteMutation = useMutation(api.deleteBoard, {
+  const deleteMutation = useMutation(deleteBoard, {
     onSuccess: (id) => {
       queryClient.invalidateQueries(['boards'])
       toast(`${id} ${t('toast.deleted')}.`)
+    },
+    onError: (e) => {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
     }
   })
 
-  const createBoard = (data: Omit<Board, 'id'>) => {
-    createMutation.mutate(data)
+  const addBoard = (data: CreateBoardFormData) => {
+    createMutation.mutate({
+      ...data,
+      owner: authUser?._id || '',
+      users: []
+    })
   }
 
   const updateBoard = (data: Board) => {
     updateMutation.mutate(data)
   }
 
-  const deleteBoard = (id: string) => {
+  const removeBoard = (id: string) => {
     deleteMutation.mutate(id)
   }
 
@@ -62,6 +81,7 @@ export default function useBoards() {
   }
 
   return {
+    isAuthenticated,
     isLoading,
     isError,
     boards: searchBoards,
@@ -70,9 +90,9 @@ export default function useBoards() {
     focusValue,
     openModal,
     closeModal,
-    createBoard,
+    addBoard,
     updateBoard,
-    deleteBoard,
+    removeBoard,
     setSearchValue,
     setFocusValue
   }

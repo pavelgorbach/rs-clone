@@ -1,32 +1,46 @@
+import client from './client'
 import { Board } from './types'
 
-const boards: Map<string, Board> = new Map()
-
-function Board(data: Partial<Board>): Board {
+function Board(data: Omit<Board, '_id'>): Omit<Board, '_id'> {
   return {
-    _id: Math.random().toString(),
-    title: data.title || '',
-    owner: data.owner || '',
+    title: data.title,
+    owner: data.owner,
     users: []
   }
 }
 
-export function getBoards() {
-  return Promise.resolve([...boards.values()])
+export async function fetchBoards() {
+  const resp = await client.get<Board[]>('/boards')
+  return resp.data
 }
 
-export function createBoard(data: Omit<Board, '_id'>) {
+export async function createBoard(data: Omit<Board, '_id'>) {
   const newBoard = Board(data)
-  boards.set(newBoard._id, newBoard)
-  return Promise.resolve(newBoard)
+  const resp = await client.post<Board>('/boards', newBoard)
+  return resp.data
 }
 
-export function deleteBoard(id: string) {
-  boards.delete(id)
-  return Promise.resolve(id)
+export async function fetchBoardById(id: string) {
+  const resp = await client.get<Board>(`/boards${id}`)
+  return resp.data
 }
 
-export function updateBoard(data: Board) {
-  boards.set(data._id, data)
-  return Promise.resolve(data)
+export async function patchBoard(data: Board) {
+  const resp = await client.put<Board>(`/boards${data._id}`, data)
+  return resp.data
+}
+
+export async function deleteBoard(id: string) {
+  const resp = await client.delete(`boards/${id}`)
+  return resp.data
+}
+
+export async function fetchBoardsSet(ids: string[]) {
+  const resp = await client.get<Board[]>('/boardsSet', { params: { ids } })
+  return resp.data
+}
+
+export async function fetchUserBoards(uid: string) {
+  const resp = await client.get<Board[]>(`/boardsSet/${uid}`)
+  return resp.data
 }

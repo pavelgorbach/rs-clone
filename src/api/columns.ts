@@ -1,27 +1,56 @@
+import client from './client'
 import { Column } from './types'
 
-let columns: Map<string, Column> = new Map()
-
-function Column(data: Partial<Column>): Column {
+function Column(data: Omit<Column, '_id'>): Omit<Column, '_id'> {
   return {
-    _id: Math.random().toString(),
-    title: data.title || '',
-    order: data.order || 0,
-    boardId: data.boardId || ''
+    title: data.title,
+    order: data.order,
+    boardId: data.boardId
   }
 }
 
-export function getColumns() {
-  return Promise.resolve([...columns.values()])
+export async function fetchColumns(boardId: string) {
+  const resp = await client.get<Column[]>(`/boards/${boardId}/columns`)
+  return resp.data
 }
 
-export function createColumn(data: Column) {
+export async function createColumn(data: Omit<Column, '_id'>) {
   const newColumn = Column(data)
-  columns.set(newColumn._id, newColumn)
-  return Promise.resolve(newColumn)
+  const resp = await client.post<Column>(`/boards/${data.boardId}/columns`, newColumn)
+  return resp.data
 }
 
-export function setColumns(data: Column[]) {
-  columns = new Map(data.map((c) => [c._id, c]))
-  return Promise.resolve(columns)
+export async function fetchColumnById(boardId: string, columnId: string) {
+  const resp = await client.get<Column[]>(`/boards/${boardId}/columns/${columnId}`)
+  return resp.data
+}
+
+export async function updateColumn(boardId: string, columnId: string, data: Partial<Column>) {
+  const resp = await client.put<Column[]>(`/boards/${boardId}/columns/${columnId}`, data)
+  return resp.data
+}
+
+export async function deleteColumn(boardId: string, columnId: string) {
+  const resp = await client.delete(`boards/${boardId}/columns/${columnId}`)
+  return resp.data
+}
+
+export async function fetchColumnsSet(ids: string[]) {
+  const resp = await client.get<Column[]>('/columnsSet', { params: { ids } })
+  return resp.data
+}
+
+export async function fetchUserColumns(uid: string) {
+  const resp = await client.get<Column[]>('/columnsSet', { params: { uid } })
+  return resp.data
+}
+
+export async function updateColumnsSet(columns: Pick<Column, '_id' | 'order'>[]) {
+  const resp = await client.patch<Column[]>('/columnsSet', { columns })
+  return resp.data
+}
+
+export async function createColumnsSet(columns: Omit<Column, '_id'>[]) {
+  const resp = await client.post<Column[]>('/columnsSet', { columns })
+  return resp.data
 }

@@ -1,8 +1,19 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { useQuery } from '@tanstack/react-query'
+
+import { fetchUser } from '@/api/users'
+import { StoreContext } from '@/store.context'
+import { User } from '@/api'
 
 export default function useProfilePage() {
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+
+  const { authStore } = useContext(StoreContext)
+  const authUser = authStore.getUser()
+  const isAuthenticated = authStore.isAuthenticated()
+
+  const { data: user, isLoading } = useQuery<User>(['user'], () => fetchUser(authUser?._id || ''))
 
   function toggleEditModal() {
     setIsEditOpen((state) => !state)
@@ -17,8 +28,11 @@ export default function useProfilePage() {
   }
 
   return {
+    isAuthenticated,
+    isLoading,
     isEditOpen,
     isDeleteOpen,
+    user,
     deleteUser,
     toggleDeleteModal,
     toggleEditModal

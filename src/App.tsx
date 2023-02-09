@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom'
 
-import Providers from '@/providers'
+import Providers from '@/providers/QueryProvider'
 import Router from './router/Router'
 
 function App() {

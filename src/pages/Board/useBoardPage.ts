@@ -1,19 +1,29 @@
+import { useContext } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { OnDragEndResponder } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Column, getColumns, createColumn, setColumns } from '@/api'
-
-let counter = 0
+import { StoreContext } from '@/store.context'
+import { createColumn, fetchColumns, updateColumnsSet } from '@/api'
 
 export default function useBoardPage() {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const { id: boardId } = useParams()
 
-  const { isLoading, isError, data, error } = useQuery<Column[], Error>(['columns'], getColumns)
+  const { authStore } = useContext(StoreContext)
+  const isAuthenticated = authStore.isAuthenticated()
+
+  const { isLoading, isError, data, error } = useQuery(
+    ['columns'],
+    () => fetchColumns(boardId || ''),
+    {
+      enabled: isAuthenticated && !!boardId,
+      select: (data) => data
+    }
+  )
 
   const postMutation = useMutation(createColumn, {
     onSuccess: (newColumn) => {
@@ -22,20 +32,17 @@ export default function useBoardPage() {
     }
   })
 
-  const setMutation = useMutation(setColumns, {
+  const setMutation = useMutation(updateColumnsSet, {
     onSuccess: () => {
       queryClient.invalidateQueries(['columns'])
     }
   })
 
   const addNew = () => {
-    counter++
-
     postMutation.mutate({
-      _id: counter.toString(),
-      order: counter,
-      title: `${t('common.column')} ${counter}`,
-      boardId: boardId || ''
+      order: data?.length || 0,
+      title: `${t('common.column')}`,
+      boardId: ''
     })
   }
 
@@ -50,6 +57,7 @@ export default function useBoardPage() {
   }
 
   return {
+    isAuthenticated,
     boardId,
     isLoading,
     isError,

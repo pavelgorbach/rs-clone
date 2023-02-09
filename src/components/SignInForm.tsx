@@ -3,19 +3,20 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components'
 
-type FormData = {
+export type LoginInput = {
   login: string
   password: string
 }
 
 type Props = {
-  onSubmit: (username: FormData) => void
+  onSubmit: (data: LoginInput) => void
 }
 
 export function SignInForm({ onSubmit }: Props) {
-  const { register, handleSubmit, formState } = useForm<FormData>()
-  const { errors } = formState
   const { t } = useTranslation()
+
+  const { register, handleSubmit, formState } = useForm<LoginInput>()
+  const { errors } = formState
 
   const submit = handleSubmit(onSubmit)
 

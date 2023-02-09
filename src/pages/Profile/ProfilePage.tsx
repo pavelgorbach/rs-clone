@@ -1,18 +1,32 @@
 import { useTranslation } from 'react-i18next'
+import { observer } from 'mobx-react-lite'
+import { Navigate } from 'react-router-dom'
 
-import { Button, EditProfileForm, Modal } from '@/components'
+import { ROUTES } from '@/router'
+import { Button, EditProfileForm, Loader, Modal } from '@/components'
 import useProfilePage from './useProfilePage'
 
-const user = {
-  name: 'Maksim',
-  login: 'Maxer',
-  avatar: '/icons/add_avatar.png'
-}
-
-export default function Profile() {
+function ProfilePageView() {
   const { t } = useTranslation()
-  const { isDeleteOpen, isEditOpen, toggleDeleteModal, toggleEditModal, deleteUser } =
-    useProfilePage()
+
+  const {
+    isAuthenticated,
+    isLoading,
+    isDeleteOpen,
+    isEditOpen,
+    user,
+    toggleDeleteModal,
+    toggleEditModal,
+    deleteUser
+  } = useProfilePage()
+
+  if (!isAuthenticated) {
+    return <Navigate to={ROUTES.home} replace />
+  }
+
+  if (isLoading) {
+    return <Loader />
+  }
 
   return (
     <div className="container m-auto">
@@ -21,16 +35,16 @@ export default function Profile() {
 
         <div className="flex flex-col items-center justify-between gap-3 pt-10 sm:flex-row">
           <div className="not-prose w-1/4 cursor-pointer">
-            <img src={user.avatar} alt={t('profile.altAvatar')} />
+            <img src="icons/add_avatar.png" alt={t('profile.altAvatar')} />
           </div>
           <div className="flex w-2/3 flex-col gap-7">
             <div className="flex rounded-full bg-gray-50 px-5">
               <div className="w-24 border-r-2 border-purple-600 pr-2">{t('profile.NAME')}</div>
-              <div className="w-48 px-2 text-center">{user.name}</div>
+              <div className="w-48 px-2 text-center">{user?.name}</div>
             </div>
             <div className=" flex rounded-full bg-gray-50 px-5">
               <div className="w-24 border-r-2 border-purple-600 pr-2">{t('profile.LOGIN')}</div>
-              <div className="w-48 px-2 text-center">{user.login}</div>
+              <div className="w-48 px-2 text-center">{user?.login}</div>
             </div>
           </div>
         </div>
@@ -85,3 +99,6 @@ export default function Profile() {
     </div>
   )
 }
+
+const Profile = observer(ProfilePageView)
+export default Profile

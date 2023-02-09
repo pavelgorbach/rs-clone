@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import { observer } from 'mobx-react-lite'
+
 import {
   ViewColumnsIcon,
   ArrowRightOnRectangleIcon,
@@ -8,38 +8,23 @@ import {
   UserIcon
 } from '@heroicons/react/24/solid'
 
-import { useAuth } from '@/hooks'
 import { ROUTES } from '@/router'
 import { Button, Switch, Listbox } from '@/components'
+import useHeader from './useHeader'
 
-export function Header() {
-  console.log('HEADER render')
-  const [theme, setTheme] = useState(false)
-  const navigate = useNavigate()
-
-  const { t, i18n } = useTranslation()
-
-  const auth = useAuth()
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng)
-  }
-
-  const onAddBoard = () => {
-    console.log('add new board')
-  }
-
-  const onSignOut = () => {
-    console.log('sign out')
-  }
-
-  const goToSignInPage = () => {
-    navigate(ROUTES.signIn)
-  }
-
-  const goToSignUpPage = () => {
-    navigate(ROUTES.signUp)
-  }
+function HeaderView() {
+  const {
+    i18n,
+    authenticated,
+    theme,
+    t,
+    setTheme,
+    changeLanguage,
+    goToSignInPage,
+    goToSignUpPage,
+    onAddBoard,
+    onSignOut
+  } = useHeader()
 
   return (
     <header className="bg-white py-2 px-4">
@@ -54,14 +39,14 @@ export function Header() {
 
         <Listbox value={i18n.language} options={['ru', 'en']} onChange={changeLanguage} />
 
-        {!auth.user && (
+        {!authenticated && (
           <div className="ml-auto flex items-center gap-4">
             <Button text={t('common.signIn')} onClick={goToSignInPage} />
             <Button text={t('common.signUp')} onClick={goToSignUpPage} />
           </div>
         )}
 
-        {auth.user && (
+        {authenticated && (
           <div className="ml-auto flex items-center gap-4">
             <Button className="hidden md:block" text={t('header.addBoard')} onClick={onAddBoard} />
 
@@ -83,3 +68,5 @@ export function Header() {
     </header>
   )
 }
+
+export const Header = observer(HeaderView)

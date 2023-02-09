@@ -1,23 +1,32 @@
-import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
-import { User } from '@/api'
+import { signUp } from '@/api'
 import { ROUTES } from '@/router'
-import { SignUpForm } from '@/components'
-import { useAuth } from '@/hooks/useAuth'
+import { RegisterInput, SignUpForm } from '@/components'
 
-export default function LoginPage() {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const auth = useAuth()
+export default function SignUpPageView() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
-  const from = location.state?.from?.pathname || '/'
+  const { mutate: registerUser } = useMutation((userData: RegisterInput) => signUp(userData), {
+    onSuccess(createdUser) {
+      toast.success(`${createdUser.name} created. You can login now.`)
+      navigate('/signin', { replace: true })
+    },
+    onError(e) {
+      if (e instanceof Error) {
+        toast.error(e.message)
+      } else {
+        toast.error('Something went wrong')
+      }
+    }
+  })
 
-  function onSubmit(data: Omit<User, '_id'>) {
-    auth.signin(data.login, () => {
-      navigate(from, { replace: true })
-    })
+  function onSubmit(data: RegisterInput) {
+    registerUser(data)
   }
 
   return (
