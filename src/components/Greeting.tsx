@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation, Trans } from 'react-i18next'
 
-import { ROUTES } from '@/constants'
+import { ROUTES } from '@/router'
 import { Banner, Button } from '@/components'
 
 export function Greeting() {
@@ -10,7 +10,7 @@ export function Greeting() {
   const { t } = useTranslation()
 
   const goToMainPage = () => {
-    navigate(ROUTES.main)
+    navigate(ROUTES.boards)
   }
 
   return (

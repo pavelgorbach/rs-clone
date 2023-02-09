@@ -3,21 +3,21 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components'
 
-type FormData = {
+export type RegisterInput = {
   name: string
   login: string
   password: string
-  confirm: string
 }
 
 type Props = {
-  onSubmit: (username: FormData) => void
+  onSubmit: (data: RegisterInput) => void
 }
 
 export function SignUpForm({ onSubmit }: Props) {
-  const { register, handleSubmit, formState } = useForm<FormData>()
-  const { errors } = formState
   const { t } = useTranslation()
+
+  const { register, handleSubmit, formState } = useForm<RegisterInput>()
+  const { errors } = formState
 
   const submit = handleSubmit(onSubmit)
 
@@ -41,15 +41,6 @@ export function SignUpForm({ onSubmit }: Props) {
         type="password"
         {...register('password', { required: true })}
         placeholder={t('common.password')}
-      />
-      <span className="text-sm text-red-500">
-        {errors.password && t('common.passwordReqiured')}
-      </span>
-
-      <input
-        type="password"
-        {...register('confirm', { required: true })}
-        placeholder={t('signUpForm.confirmPassword')}
       />
       <span className="text-sm text-red-500">
         {errors.password && t('common.passwordReqiured')}

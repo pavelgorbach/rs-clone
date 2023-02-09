@@ -5,15 +5,16 @@ import { useTranslation } from 'react-i18next'
 
 import { Board } from '@/api'
 import { Button, Modal, EditBoardForm } from '@/components'
+import { ROUTES } from '@/router'
 
 type Props = Board & {
-  onDelete(id: number): void
+  onDelete(id: string): void
   onUpdate(data: Board): void
 }
 
 type Modal = 'create' | 'edit' | 'delete'
 
-export function BoardCard({ id, name, description, onDelete, onUpdate }: Props) {
+export function BoardCard({ _id, title, onDelete, onUpdate }: Props) {
   const [modal, setModal] = useState<Modal | null>(null)
 
   const openModal = (name: Modal) => {
@@ -35,7 +36,7 @@ export function BoardCard({ id, name, description, onDelete, onUpdate }: Props) 
   }
 
   const handleDelete = () => {
-    onDelete(id)
+    onDelete(_id)
   }
 
   const handleUpdate = (data: Board) => {
@@ -46,10 +47,9 @@ export function BoardCard({ id, name, description, onDelete, onUpdate }: Props) 
 
   return (
     <>
-      <Link to={`/board/${id}`}>
+      <Link to={`${ROUTES.boards}/${_id}`}>
         <div className="mt-3 rounded bg-white p-3 shadow-md">
-          <h3 className="!m-0">{name}</h3>
-          <p>{description}</p>
+          <h3 className="!m-0">{title}</h3>
 
           <div className="flex justify-end gap-2">
             <button onClick={openEditModal} className="rounded-md bg-purple-100 p-1">
@@ -64,7 +64,7 @@ export function BoardCard({ id, name, description, onDelete, onUpdate }: Props) 
       </Link>
 
       <Modal isOpen={modal === 'edit'} onClose={closeModal} title={t('common.edit')}>
-        <EditBoardForm {...{ name, description, id }} onSubmit={handleUpdate} />
+        <EditBoardForm {...{ title, _id }} onSubmit={handleUpdate} />
       </Modal>
 
       <Modal isOpen={modal === 'delete'} onClose={closeModal} title={t('common.confirmation')}>

@@ -1,8 +1,7 @@
 // Core
 export * from './PageLayout'
 export * from './Footer'
-export * from './Header'
-export * from './RequireAuth'
+export * from './Header/Header'
 
 // UI
 export * from './Button'
