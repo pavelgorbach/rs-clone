@@ -47,24 +47,24 @@ export default function Profile({
           }}
         />
       </Modal>
-      <div className="m-auto w-1/3 rounded-md border-2 border-purple-500 bg-white px-20">
+      <div className="m-auto w-11/12 rounded-md border-2 border-purple-500 bg-white px-1 sm:px-2 md:w-2/3 md:px-5 lg:px-20 lg:w-1/2">
         <h2 className="font-semibold">{t('teamsection.Profile')}</h2>
-        <div className="flex items-center justify-between pt-10">
+        <div className="flex flex-col gap-3 sm:flex-row items-center justify-between pt-10">
           <div className="not-prose w-1/4 cursor-pointer">
             <img src={avatar} alt={t('profile.altAvatar')} />
           </div>
           <div className="flex w-2/3 flex-col gap-7">
             <div className="flex rounded-full bg-gray-50 px-5">
-              <div className="w-24 border-r-2 border-purple-600">{t('profile.NAME')}</div>
-              <div className="w-48 text-center">{name}</div>
+              <div className="w-24 border-r-2 border-purple-600 pr-2">{t('profile.NAME')}</div>
+              <div className="w-48 px-2 text-center">{name}</div>
             </div>
             <div className=" flex rounded-full bg-gray-50 px-5">
-              <div className="w-24 border-r-2 border-purple-600">{t('profile.LOGIN')}</div>
-              <div className="w-48 text-center">{login}</div>
+              <div className="w-24 border-r-2 border-purple-600 pr-2">{t('profile.LOGIN')}</div>
+              <div className="w-48 px-2 text-center">{login}</div>
             </div>
           </div>
         </div>
-        <div className="mt-7 flex justify-between pt-10">
+        <div className="mt-7 flex justify-between pt-10 px-10 lg:px-20">
           <Button text={t('common.delete')} onClick={toggleDeleteModal} />
           <Button text={t('common.edit')} onClick={toggleEditModal} />
         </div>
