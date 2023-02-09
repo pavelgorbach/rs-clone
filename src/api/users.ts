@@ -1,3 +1,4 @@
+import { EditProfileFormData } from '@/components'
 import client from './client'
 import { User } from './types'
 
@@ -6,13 +7,14 @@ export async function fetchUsers() {
   return resp.data
 }
 
-export async function fetchUser(id: string) {
+export async function fetchUser(id?: string) {
+  if (!id) Promise.reject('User id is not provided.')
   const resp = await client.get<User>(`/users/${id}`)
   return resp.data
 }
 
-export async function updateUser(id: string, data: Partial<User>) {
-  const resp = await client.put<User>(`/users/${id}`, data)
+export async function updateUser(uid: string, data: EditProfileFormData) {
+  const resp = await client.put<User>(`/users/${uid}`, data)
   return resp.data
 }
 

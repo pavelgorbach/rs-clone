@@ -20,8 +20,9 @@ export async function createBoard(data: Omit<Board, '_id'>) {
   return resp.data
 }
 
-export async function fetchBoardById(id: string) {
-  const resp = await client.get<Board>(`/boards${id}`)
+export async function fetchBoardById(id?: string) {
+  if (!id) Promise.reject('Board id is not provided.')
+  const resp = await client.get<Board>(`/boards/${id}`)
   return resp.data
 }
 
@@ -40,7 +41,11 @@ export async function fetchBoardsSet(ids: string[]) {
   return resp.data
 }
 
-export async function fetchUserBoards(uid: string) {
+export async function fetchUserBoards(uid?: string) {
+  if (!uid) {
+    Promise.reject('User id is not provided.')
+  }
+
   const resp = await client.get<Board[]>(`/boardsSet/${uid}`)
   return resp.data
 }

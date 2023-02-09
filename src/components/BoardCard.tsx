@@ -12,12 +12,12 @@ type Props = Board & {
   onUpdate(data: Board): void
 }
 
-type Modal = 'create' | 'edit' | 'delete'
+type ModalName = 'create' | 'edit' | 'delete'
 
 export function BoardCard({ _id, title, onDelete, onUpdate }: Props) {
-  const [modal, setModal] = useState<Modal | null>(null)
+  const [modal, setModal] = useState<ModalName | null>(null)
 
-  const openModal = (name: Modal) => {
+  const openModal = (name: ModalName) => {
     setModal(name)
   }
 
@@ -36,10 +36,12 @@ export function BoardCard({ _id, title, onDelete, onUpdate }: Props) {
   }
 
   const handleDelete = () => {
+    closeModal()
     onDelete(_id)
   }
 
   const handleUpdate = (data: Board) => {
+    closeModal()
     onUpdate(data)
   }
 

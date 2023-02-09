@@ -1,22 +1,24 @@
-import { useState, useMemo, useContext } from 'react'
+import { useState, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 
-import { StoreContext } from '@/store.context'
-import { fetchBoards, createBoard, patchBoard, deleteBoard } from '@/api'
+import { createBoard, patchBoard, deleteBoard, fetchUserBoards } from '@/api'
 import { CreateBoardFormData } from '@/components'
 import { Board } from '@/api/types'
+import useAuthStore from '@/hooks/useAuthStore'
 
 export default function useBoards() {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
-  const { authStore } = useContext(StoreContext)
-  const isAuthenticated = authStore.isAuthenticated()
-  const authUser = authStore.getUser()
+  const { userId, isAuthenticated } = useAuthStore()
 
-  const { isLoading, isError, data, error } = useQuery(['boards'], fetchBoards)
+  const { isLoading, isError, data, error } = useQuery({
+    queryKey: ['boards', userId, isAuthenticated],
+    queryFn: () => fetchUserBoards(userId),
+    enabled: isAuthenticated && !!userId
+  })
 
   const [createModalOpen, setCreateModalOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
@@ -57,11 +59,16 @@ export default function useBoards() {
     }
   })
 
-  const addBoard = (data: CreateBoardFormData) => {
+  const addBoard = ({ title }: CreateBoardFormData) => {
+    if (!userId) {
+      console.warn('User id is not provided.')
+      return
+    }
+
     createMutation.mutate({
-      ...data,
-      owner: authUser?._id || '',
-      users: []
+      title,
+      owner: userId,
+      users: [userId]
     })
   }
 

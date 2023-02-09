@@ -1,54 +1,38 @@
 import { makeAutoObservable } from 'mobx'
-
-import { User, client } from '@/api'
 import jwtDecode, { JwtPayload } from 'jwt-decode'
 
+import { client } from '@/api'
 export class AuthStore {
-  private authenticated = false
-  private authUser: Omit<User, 'name'> | null = null
+  isAuthenticated = false
+  userId: string | undefined
+  exp: number | undefined
+  iat: number | undefined
 
   constructor() {
     makeAutoObservable(this)
+
     const token = this.getToken()
-    this.authenticated = !!token
+    this.isAuthenticated = !!token
 
     if (token) {
-      this.setToken(token)
+      this.authenticate(token)
     }
-  }
-
-  private setAuthenticated(authenticated: boolean) {
-    this.authenticated = authenticated
-  }
-
-  setToken(token: string) {
-    const decoded = jwtDecode<JwtPayload & { id: string; login: string }>(token)
-
-    this.setAuthUser({
-      _id: decoded.id,
-      login: decoded.login
-    })
-
-    this.setAuthenticated(true)
-
-    client.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
-    localStorage.setItem('token', token)
-  }
-
-  setAuthUser(data: Omit<User, 'name'>) {
-    this.authUser = data
   }
 
   private getToken() {
     return localStorage.getItem('token')
   }
 
-  getUser() {
-    return this.authUser
-  }
+  authenticate(token: string) {
+    localStorage.setItem('token', token)
 
-  isAuthenticated() {
-    return this.authenticated
+    const decoded = jwtDecode<JwtPayload & { id: string }>(token)
+
+    this.userId = decoded.id
+    this.exp = decoded.exp
+    this.iat = decoded.iat
+    this.isAuthenticated = true
+
+    client.defaults.headers.common['Authorization'] = `Bearer ${token}`
   }
 }

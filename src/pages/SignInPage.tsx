@@ -18,7 +18,7 @@ export default function SignInPageView() {
 
   const { mutate: loginUser } = useMutation((userData: LoginInput) => signIn(userData), {
     onSuccess: (data) => {
-      authStore.setToken(data.token)
+      authStore.authenticate(data.token)
       toast.success('You successfully logged in')
       navigate(ROUTES.boards, { replace: true })
     },

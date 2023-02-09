@@ -88,11 +88,14 @@
     "notasks": "You don't have any tasks yet"
 
   },
-  "boardPage": {
+  "boardsPage": {
     "board": "Board",
     "new": "New board",
     "error": "An error occured:",
     "search": "Search"
+  },
+  "boardPage": {
+    "newColumn": "New column"
   },
   "toast":{
     "created":"created",

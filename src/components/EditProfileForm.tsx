@@ -3,18 +3,18 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components'
 
-type FormData = {
+export type EditProfileFormData = {
   name: string
   email: string
   password: string
 }
 
 type Props = {
-  onSubmit: (data: FormData) => void
+  onSubmit: (data: EditProfileFormData) => void
 }
 
 export function EditProfileForm({ onSubmit }: Props) {
-  const { register, handleSubmit, formState } = useForm<FormData>()
+  const { register, handleSubmit, formState } = useForm<EditProfileFormData>()
   const { errors } = formState
   const { t } = useTranslation()
 

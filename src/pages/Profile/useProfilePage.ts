@@ -1,39 +1,54 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { fetchUser } from '@/api/users'
-import { StoreContext } from '@/store.context'
+import useAuthStore from '@/hooks/useAuthStore'
+import { EditProfileFormData } from '@/components'
+
+type ModalName = 'edit' | 'delete'
 
 export default function useProfilePage() {
-  const [isEditOpen, setIsEditOpen] = useState(false)
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  const [modal, setModal] = useState<ModalName | null>(null)
 
-  const { authStore } = useContext(StoreContext)
-  const authUser = authStore.getUser()
-  const isAuthenticated = authStore.isAuthenticated()
+  const { userId, isAuthenticated } = useAuthStore()
 
-  const { data: user, isLoading } = useQuery(['user'], () => fetchUser(authUser?._id || ''))
+  const { data: user, isLoading } = useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => fetchUser(userId),
+    enabled: !!userId
+  })
 
-  function toggleEditModal() {
-    setIsEditOpen((state) => !state)
+  function closeModal() {
+    setModal(null)
   }
 
-  function toggleDeleteModal() {
-    setIsDeleteOpen((state) => !state)
+  function openEditModal() {
+    setModal('edit')
   }
 
-  function deleteUser() {
-    console.log('delete user')
+  function openDeleteModal() {
+    setModal('delete')
+  }
+
+  function handleDelete() {
+    console.log('delete user', userId)
+    closeModal()
+  }
+
+  function handleUpdate(data: EditProfileFormData) {
+    console.log('update user', data)
+    closeModal()
   }
 
   return {
     isAuthenticated,
     isLoading,
-    isEditOpen,
-    isDeleteOpen,
     user,
-    deleteUser,
-    toggleDeleteModal,
-    toggleEditModal
+    modal,
+    closeModal,
+    openEditModal,
+    openDeleteModal,
+    handleDelete,
+    handleUpdate
   }
 }

@@ -12,12 +12,13 @@ function ProfilePageView() {
   const {
     isAuthenticated,
     isLoading,
-    isDeleteOpen,
-    isEditOpen,
     user,
-    toggleDeleteModal,
-    toggleEditModal,
-    deleteUser
+    modal,
+    handleDelete,
+    handleUpdate,
+    openDeleteModal,
+    openEditModal,
+    closeModal
   } = useProfilePage()
 
   if (!isAuthenticated) {
@@ -50,8 +51,8 @@ function ProfilePageView() {
         </div>
 
         <div className="mt-7 flex justify-between px-10 pt-10 lg:px-20">
-          <Button text={t('common.delete')} onClick={toggleDeleteModal} />
-          <Button text={t('common.edit')} onClick={toggleEditModal} />
+          <Button text={t('common.delete')} onClick={openDeleteModal} />
+          <Button text={t('common.edit')} onClick={openEditModal} />
         </div>
 
         <div className="m-auto my-10 flex w-2/3 items-center justify-center gap-4 rounded-full border-2 border-purple-600 bg-gray-50 py-1 px-2 text-xs">
@@ -80,21 +81,16 @@ function ProfilePageView() {
         </div>
       </div>
 
-      <Modal isOpen={isDeleteOpen} onClose={toggleDeleteModal} title={t('profile.confirmation')}>
+      <Modal isOpen={modal === 'delete'} onClose={closeModal} title={t('profile.confirmation')}>
         <div>{t('profile.sure')}</div>
         <div className="mt-4 flex justify-around">
-          <Button className="px-10" text="Да" onClick={deleteUser}></Button>
-          <Button className="px-10" text="Нет" onClick={toggleDeleteModal}></Button>
+          <Button className="px-10" text="Да" onClick={handleDelete}></Button>
+          <Button className="px-10" text="Нет" onClick={closeModal}></Button>
         </div>
       </Modal>
 
-      <Modal isOpen={isEditOpen} onClose={toggleEditModal}>
-        <EditProfileForm
-          onSubmit={(data) => {
-            console.log('update user', data)
-            toggleEditModal()
-          }}
-        />
+      <Modal isOpen={modal === 'edit'} onClose={closeModal}>
+        <EditProfileForm onSubmit={handleUpdate} />
       </Modal>
     </div>
   )

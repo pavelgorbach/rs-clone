@@ -1,17 +1,17 @@
 import client from './client'
 import { Column } from './types'
 
-function Column(data: Omit<Column, '_id'>): Omit<Column, '_id'> {
+function Column(data: Omit<Column, '_id' | 'boardId'>): Omit<Column, '_id' | 'boardId'> {
   return {
     title: data.title,
-    order: data.order,
-    boardId: data.boardId
+    order: data.order
   }
 }
 
-export async function fetchColumns(boardId: string) {
-  const resp = await client.get<Column[]>(`/boards/${boardId}/columns`)
-  return resp.data
+export async function fetchColumns(boardId?: string) {
+  if (!boardId) Promise.reject('Board id is not provided.')
+  const { data } = await client.get<Column[]>(`/boards/${boardId}/columns`)
+  return data
 }
 
 export async function createColumn(data: Omit<Column, '_id'>) {
@@ -46,11 +46,11 @@ export async function fetchUserColumns(uid: string) {
 }
 
 export async function updateColumnsSet(columns: Pick<Column, '_id' | 'order'>[]) {
-  const resp = await client.patch<Column[]>('/columnsSet', { columns })
+  const resp = await client.patch<Column[]>('/columnsSet', columns)
   return resp.data
 }
 
 export async function createColumnsSet(columns: Omit<Column, '_id'>[]) {
-  const resp = await client.post<Column[]>('/columnsSet', { columns })
+  const resp = await client.post<Column[]>('/columnsSet', columns)
   return resp.data
 }

@@ -1,29 +1,39 @@
-import { useContext } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { OnDragEndResponder } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { StoreContext } from '@/store.context'
-import { createColumn, fetchColumns, updateColumnsSet } from '@/api'
+import { createColumn, fetchColumns, updateColumnsSet, fetchBoardById } from '@/api'
+import useAuthStore from '@/hooks/useAuthStore'
+import { useMemo } from 'react'
 
 export default function useBoardPage() {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const { id: boardId } = useParams()
+  const { isAuthenticated } = useAuthStore()
 
-  const { authStore } = useContext(StoreContext)
-  const isAuthenticated = authStore.isAuthenticated()
+  const { data: board } = useQuery({
+    queryKey: ['board', boardId],
+    queryFn: () => fetchBoardById(boardId),
+    enabled: isAuthenticated && !!boardId
+  })
 
-  const { isLoading, isError, data, error } = useQuery(
-    ['columns'],
-    () => fetchColumns(boardId || ''),
-    {
-      enabled: isAuthenticated && !!boardId,
-      select: (data) => data
-    }
-  )
+  const {
+    isLoading,
+    isError,
+    data: columns,
+    error
+  } = useQuery({
+    queryKey: ['columns', boardId, isAuthenticated],
+    queryFn: () => fetchColumns(boardId),
+    enabled: isAuthenticated && !!boardId
+  })
+
+  const sortedColumns = useMemo(() => {
+    return columns?.sort((a, b) => a.order - b.order)
+  }, [columns])
 
   const postMutation = useMutation(createColumn, {
     onSuccess: (newColumn) => {
@@ -38,32 +48,47 @@ export default function useBoardPage() {
     }
   })
 
-  const addNew = () => {
+  const handleAdd = () => {
+    if (!boardId) {
+      console.warn('Board id is not provided.')
+      return
+    }
+
     postMutation.mutate({
-      order: data?.length || 0,
-      title: `${t('common.column')}`,
-      boardId: ''
+      boardId,
+      order: columns?.length || 0,
+      title: `${t('common.column')} ${Math.random().toFixed(3)}`
     })
   }
 
   const onDragComplete: OnDragEndResponder = (result) => {
-    if (!result.destination) return
+    if (!result.destination || !columns) return
 
-    const arr = data ? [...data] : []
-    const removedItem = arr.splice(result.source.index, 1)[0]
-    arr.splice(result.destination.index, 0, removedItem)
+    const a = columns[result.source.index]
+    const b = columns[result.destination.index]
 
-    setMutation.mutate(arr)
+    const data = [
+      {
+        _id: a._id,
+        order: b.order
+      },
+      {
+        _id: b._id,
+        order: a.order
+      }
+    ]
+
+    setMutation.mutate(data)
   }
 
   return {
     isAuthenticated,
-    boardId,
+    board,
     isLoading,
     isError,
-    data,
+    columns: sortedColumns,
     error,
-    addNew,
+    handleAdd,
     onDragComplete
   }
 }
