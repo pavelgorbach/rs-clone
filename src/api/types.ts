@@ -36,3 +36,16 @@ export type File = {
   boardId: string
   path: string
 }
+
+export type Point = {
+  _id: string
+  title: string
+  taskId: number
+  boardId: string
+  done: boolean
+}
+
+export type ErrorResponse = {
+  statusCode: number
+  message: string
+}
