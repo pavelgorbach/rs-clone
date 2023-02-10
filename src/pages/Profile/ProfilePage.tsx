@@ -96,5 +96,4 @@ function ProfilePageView() {
   )
 }
 
-const Profile = observer(ProfilePageView)
-export default Profile
+export default observer(ProfilePageView)

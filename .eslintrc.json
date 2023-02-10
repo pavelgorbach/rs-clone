@@ -11,7 +11,8 @@
         "plugin:import/recommended",
         "plugin:import/typescript",
         "plugin:prettier/recommended",
-        "prettier"
+        "prettier",
+        "plugin:@tanstack/eslint-plugin-query/recommended"
     ],
     "ignorePatterns": ["tailwind.config.cjs", "prettier.config.js", "postcss.config.cjs"],
     "overrides": [
@@ -25,7 +26,8 @@
         "react",
         "@typescript-eslint",
         "react-hooks",
-        "prettier"
+        "prettier",
+        "@tanstack/query"
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
