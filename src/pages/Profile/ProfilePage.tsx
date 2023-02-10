@@ -30,8 +30,6 @@ function ProfilePageView() {
     return <Loader />
   }
 
-  // const taskSet = getTasks().then((tasks) => console.log(tasks))
-
   return (
     <div className="container m-auto">
       <div className="m-auto w-11/12 rounded-md border-2 border-purple-500 bg-white px-1 sm:px-2 md:w-2/3 md:px-5 lg:w-1/2 lg:px-20">

@@ -5,7 +5,6 @@ import { deleteUser, fetchUser, updateUser } from '@/api/users'
 import useAuthStore from '@/hooks/useAuthStore'
 import { EditProfileFormData } from '@/components'
 import { fetchTasks } from '@/api/tasks'
-import jwtDecode from 'jwt-decode'
 
 type ModalName = 'edit' | 'delete'
 
@@ -68,6 +67,5 @@ export default function useProfilePage() {
     handleDelete,
     handleUpdate,
     getTasks,
-
   }
 }
