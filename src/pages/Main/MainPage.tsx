@@ -88,5 +88,4 @@ function MainPageView() {
   )
 }
 
-const Main = observer(MainPageView)
-export default Main
+export default observer(MainPageView)

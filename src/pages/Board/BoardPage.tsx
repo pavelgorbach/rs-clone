@@ -66,5 +66,4 @@ function BoardPageView() {
   )
 }
 
-const Board = observer(BoardPageView)
-export default Board
+export default observer(BoardPageView)
