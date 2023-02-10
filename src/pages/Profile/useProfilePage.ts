@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import { deleteUser, fetchUser } from '@/api/users'
+import { deleteUser, fetchUser, updateUser } from '@/api/users'
 import useAuthStore from '@/hooks/useAuthStore'
 import { EditProfileFormData } from '@/components'
 
@@ -13,7 +13,11 @@ export default function useProfilePage() {
   const authStore = useAuthStore()
   const { isAuthenticated, userId } = authStore
 
-  const { data: user, isLoading } = useQuery({
+  const {
+    data: user,
+    isLoading,
+    refetch
+  } = useQuery({
     queryKey: ['user', userId],
     queryFn: () => fetchUser(userId),
     enabled: !!userId
@@ -38,9 +42,12 @@ export default function useProfilePage() {
     authStore.unauth()
   }
 
-  function handleUpdate(data: EditProfileFormData) {
-    console.log('update user', data)
-    closeModal()
+  async function handleUpdate(data: EditProfileFormData) {
+    if (userId) {
+      await updateUser(userId, data)
+      refetch()
+      closeModal()
+    }
   }
 
   return {

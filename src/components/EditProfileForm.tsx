@@ -5,7 +5,7 @@ import { Button } from '@/components'
 
 export type EditProfileFormData = {
   name: string
-  email: string
+  login: string
   password: string
 }
 
@@ -33,10 +33,10 @@ export function EditProfileForm({ onSubmit }: Props) {
       <input
         type="email"
         className="rounded-full pl-5"
-        {...register('email', { required: true })}
+        {...register('login', { required: true })}
         placeholder={t('editForm.email')}
       />
-      <div className="text-red-500">{errors.email && t('editForm.emailReqiured')}</div>
+      <div className="text-red-500">{errors.login && t('editForm.emailReqiured')}</div>
 
       <p className="mt-4">{t('editForm.confirmationPhrase')}</p>
       <input
