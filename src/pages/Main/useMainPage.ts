@@ -28,7 +28,8 @@ export default function useBoards() {
     return data ? data.filter((board) => board.title.toLowerCase().includes(searchValue)) : []
   }, [data, searchValue])
 
-  const createMutation = useMutation(createBoard, {
+  const createMutation = useMutation({
+    mutationFn: createBoard,
     onSuccess: (newBoard) => {
       queryClient.invalidateQueries(['boards'])
       closeModal()
@@ -39,7 +40,8 @@ export default function useBoards() {
     }
   })
 
-  const updateMutation = useMutation(patchBoard, {
+  const updateMutation = useMutation({
+    mutationFn: patchBoard,
     onSuccess: (updatedBoard) => {
       queryClient.invalidateQueries(['boards'])
       toast(`${updatedBoard._id} ${t('toast.updated')}.`)
@@ -49,7 +51,8 @@ export default function useBoards() {
     }
   })
 
-  const deleteMutation = useMutation(deleteBoard, {
+  const deleteMutation = useMutation({
+    mutationFn: deleteBoard,
     onSuccess: (id) => {
       queryClient.invalidateQueries(['boards'])
       toast(`${id} ${t('toast.deleted')}.`)
