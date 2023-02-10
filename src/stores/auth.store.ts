@@ -35,4 +35,13 @@ export class AuthStore {
 
     client.defaults.headers.common['Authorization'] = `Bearer ${token}`
   }
+
+  unauth() {
+    this.isAuthenticated = false
+    this.userId = undefined
+    this.exp = undefined
+    this.iat = undefined
+    localStorage.removeItem('token')
+    client.defaults.headers.common['Authorization'] = null
+  }
 }

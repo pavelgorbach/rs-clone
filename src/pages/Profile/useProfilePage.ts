@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import { fetchUser } from '@/api/users'
+import { deleteUser, fetchUser } from '@/api/users'
 import useAuthStore from '@/hooks/useAuthStore'
 import { EditProfileFormData } from '@/components'
 
@@ -10,7 +10,8 @@ type ModalName = 'edit' | 'delete'
 export default function useProfilePage() {
   const [modal, setModal] = useState<ModalName | null>(null)
 
-  const { userId, isAuthenticated } = useAuthStore()
+  const authStore = useAuthStore()
+  const { isAuthenticated, userId } = authStore
 
   const { data: user, isLoading } = useQuery({
     queryKey: ['user', userId],
@@ -31,8 +32,10 @@ export default function useProfilePage() {
   }
 
   function handleDelete() {
-    console.log('delete user', userId)
-    closeModal()
+    if (userId) {
+      deleteUser(userId)
+    }
+    authStore.unauth()
   }
 
   function handleUpdate(data: EditProfileFormData) {
