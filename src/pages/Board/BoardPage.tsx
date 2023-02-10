@@ -6,13 +6,13 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { ROUTES } from '@/router'
 import { Button, Loader } from '@/components'
 import useBoardPage from './useBoardPage'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 function BoardPageView() {
   const { t } = useTranslation()
 
   const { isAuthenticated, board, isLoading, isError, error, columns, handleAdd, onDragComplete } =
     useBoardPage()
-
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.home} replace />
   }
@@ -34,34 +34,35 @@ function BoardPageView() {
   }
 
   return (
-    <div className="continer m-auto">
-      <h2>{board?.title}</h2>
+    <>
+      <Breadcrumbs title={board?.title} />
+      <div className="continer m-auto">
+        <Button text={t('boardPage.newColumn')} onClick={handleAdd} />
 
-      <Button text={t('boardPage.newColumn')} onClick={handleAdd} />
-
-      <DragDropContext onDragEnd={onDragComplete}>
-        <Droppable droppableId="drag-drop-list" direction="horizontal">
-          {(provided) => (
-            <div className="flex gap-4" {...provided.droppableProps} ref={provided.innerRef}>
-              {columns?.map((column, idx) => (
-                <Draggable key={column._id} draggableId={column._id} index={idx}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <p>{column.title}</p>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
+        <DragDropContext onDragEnd={onDragComplete}>
+          <Droppable droppableId="drag-drop-list" direction="horizontal">
+            {(provided) => (
+              <div className="flex gap-4" {...provided.droppableProps} ref={provided.innerRef}>
+                {columns?.map((column, idx) => (
+                  <Draggable key={column._id} draggableId={column._id} index={idx}>
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <p>{column.title}</p>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
+    </>
   )
 }
 

@@ -23,6 +23,7 @@ export * from './CreateBoardForm'
 
 // Board page
 export * from './Column'
+export * from './Breadcrumbs'
 
 // Profile page
 export * from './EditProfileForm'
