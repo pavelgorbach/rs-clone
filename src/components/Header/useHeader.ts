@@ -9,7 +9,7 @@ export default function useHeader() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
 
-  const { isAuthenticated } = useAuthStore()
+  const authStore = useAuthStore()
 
   const [theme, setTheme] = useState(false)
 
@@ -22,7 +22,7 @@ export default function useHeader() {
   }
 
   const onSignOut = () => {
-    console.log('sign out')
+    authStore.unauth()
   }
 
   const goToSignInPage = () => {
@@ -36,7 +36,7 @@ export default function useHeader() {
   return {
     i18n,
     theme,
-    isAuthenticated,
+    isAuthenticated: authStore.isAuthenticated,
     t,
     setTheme,
     changeLanguage,
