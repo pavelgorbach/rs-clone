@@ -4,15 +4,26 @@ import { Navigate } from 'react-router-dom'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 import { ROUTES } from '@/router'
-import { Button, Loader } from '@/components'
+import { Button, CreateBoardForm, Loader, Modal } from '@/components'
 import useBoardPage from './useBoardPage'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 function BoardPageView() {
   const { t } = useTranslation()
 
-  const { isAuthenticated, board, isLoading, isError, error, columns, handleAdd, onDragComplete } =
-    useBoardPage()
+  const {
+    isAuthenticated,
+    board,
+    isLoading,
+    isError,
+    error,
+    columns,
+    createModalOpen,
+    handleAdd,
+    openModal,
+    closeModal,
+    onDragComplete
+  } = useBoardPage()
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.home} replace />
   }
@@ -37,7 +48,7 @@ function BoardPageView() {
     <>
       <Breadcrumbs title={board?.title} />
       <div className="continer m-auto">
-        <Button text={t('boardPage.newColumn')} onClick={handleAdd} />
+        <Button text={t('boardPage.newColumn')} onClick={openModal} />
 
         <DragDropContext onDragEnd={onDragComplete}>
           <Droppable droppableId="drag-drop-list" direction="horizontal">
@@ -62,6 +73,9 @@ function BoardPageView() {
           </Droppable>
         </DragDropContext>
       </div>
+      <Modal isOpen={createModalOpen} onClose={closeModal} title={t('createBoardForm.create')}>
+        <CreateBoardForm onSubmit={handleAdd} />
+      </Modal>
     </>
   )
 }
