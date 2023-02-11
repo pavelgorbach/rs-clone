@@ -6,13 +6,15 @@ import { useParams } from 'react-router-dom'
 
 import { createColumn, fetchColumns, updateColumnsSet, fetchBoardById } from '@/api'
 import useAuthStore from '@/hooks/useAuthStore'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
+import { CreateBoardFormData } from '@/components'
 
 export default function useBoardPage() {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const { id: boardId } = useParams()
   const { isAuthenticated } = useAuthStore()
+  const [createModalOpen, setCreateModalOpen] = useState(false)
 
   const { data: board } = useQuery({
     queryKey: ['board', boardId],
@@ -48,7 +50,7 @@ export default function useBoardPage() {
     }
   })
 
-  const handleAdd = () => {
+  const handleAdd = ({ title }: CreateBoardFormData) => {
     if (!boardId) {
       console.warn('Board id is not provided.')
       return
@@ -57,7 +59,7 @@ export default function useBoardPage() {
     postMutation.mutate({
       boardId,
       order: columns?.length || 0,
-      title: `${t('common.column')} ${Math.random().toFixed(3)}`
+      title: `${title}`
     })
   }
 
@@ -80,7 +82,12 @@ export default function useBoardPage() {
 
     setMutation.mutate(data)
   }
-
+  const openModal = () => {
+    setCreateModalOpen(true)
+  }
+  const closeModal = () => {
+    setCreateModalOpen(false)
+  }
   return {
     isAuthenticated,
     board,
@@ -88,7 +95,10 @@ export default function useBoardPage() {
     isError,
     columns: sortedColumns,
     error,
+    createModalOpen,
     handleAdd,
+    openModal,
+    closeModal,
     onDragComplete
   }
 }
