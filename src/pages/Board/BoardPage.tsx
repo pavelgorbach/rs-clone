@@ -7,6 +7,7 @@ import { ROUTES } from '@/router'
 import { Button, CreateBoardForm, Loader, Modal } from '@/components'
 import useBoardPage from './useBoardPage'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
+import { Column } from '@/components'
 
 function BoardPageView() {
   const { t } = useTranslation()
@@ -62,7 +63,7 @@ function BoardPageView() {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <p>{column.title}</p>
+                        <Column title={column.title} />
                       </div>
                     )}
                   </Draggable>
