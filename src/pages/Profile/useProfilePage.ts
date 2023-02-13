@@ -50,9 +50,10 @@ export default function useProfilePage() {
       closeModal()
     }
   }
-  async function getTasks() {
+
+   async function getTasks() {
     if (userId) {
-      return fetchTasks(userId)
+      const tasks = await fetchTasks(userId)
     }
   }
 

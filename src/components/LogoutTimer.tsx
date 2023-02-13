@@ -31,7 +31,7 @@ export default function LogoutTimer() {
     const hours = Math.trunc(time / secondsInOneHour)
     const minutes = Math.trunc((time - hours * secondsInOneHour) / secondsInOneMinute)
     const seconds = Math.trunc(time - (hours * secondsInOneHour + minutes * secondsInOneMinute))
-    if (time) {
+    if (time && time > 0 ) {
       setHours(hours.toString().padStart(2, '0'))
       setMinutes(minutes.toString().padStart(2, '0'))
       setSeconds(seconds.toString().padStart(2, '0'))
