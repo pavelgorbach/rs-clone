@@ -29,7 +29,7 @@ export function EditBoardForm({ title, onSubmit }: Props) {
       />
       {errors.title && t('createBoardForm.namer')}
 
-      <Button text={t('common.change')} onClick={submit} />
+      <Button type="success" text={t('common.change')} onClick={submit} />
     </div>
   )
 }
