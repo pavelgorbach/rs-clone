@@ -2,17 +2,37 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
-import { Button, Modal, EditColumnForm, EditColumnFormData } from '@/components'
-import { Column as ColumnDTO, deleteColumn } from '@/api'
+import {
+  Button,
+  Modal,
+  EditColumnForm,
+  EditColumnFormData,
+  CreateTaskForm,
+  CreateTaskFormData
+} from '@/components'
+import { Column as ColumnDTO, Task } from '@/api'
 
-type ModalName = 'edit' | 'delete'
+type ModalName = 'edit' | 'delete' | 'create-task'
 
 type Props = ColumnDTO & {
+  tasks?: Task[]
   onDelete(id: string): void
   onUpdate(data: ColumnDTO): void
+  onAddTask(data: Pick<Task, 'boardId' | 'columnId' | 'title' | 'description'>): void
+  onUpdateTask(): void
+  onDeleteTask(): void
 }
 
-export function Column({ _id, title, order, boardId, onDelete, onUpdate }: Props) {
+export function Column({
+  _id,
+  title,
+  order,
+  boardId,
+  tasks,
+  onDelete,
+  onUpdate,
+  onAddTask
+}: Props) {
   const { t } = useTranslation()
   const [modal, setModal] = useState<ModalName | null>(null)
 
@@ -49,6 +69,20 @@ export function Column({ _id, title, order, boardId, onDelete, onUpdate }: Props
     })
   }
 
+  const openCreateTaskModal = (e: React.MouseEvent) => {
+    e.preventDefault()
+    openModal('create-task')
+  }
+
+  const handleAddTask = (data: CreateTaskFormData) => {
+    closeModal()
+    onAddTask({
+      boardId,
+      columnId: _id,
+      ...data
+    })
+  }
+
   return (
     <>
       <div className="flex flex-1 flex-col bg-gray-100">
@@ -64,9 +98,18 @@ export function Column({ _id, title, order, boardId, onDelete, onUpdate }: Props
           </button>
         </div>
 
-        <div className="m-3 w-64 flex-1 border border-dashed border-gray-300"></div>
+        <div className="m-2 flex w-64 flex-1 flex-col gap-1 border border-dashed border-gray-300 p-1">
+          {tasks?.map((task) => {
+            return (
+              <div key={task._id} className="bg-white p-1">
+                <div>{task.title}</div>
+                <div className="font-thin">{task.description}</div>
+              </div>
+            )
+          })}
+        </div>
 
-        <Button text={t('column.addTask')} onClick={() => console.log('button add task')} />
+        <Button text={t('column.addTask')} onClick={openCreateTaskModal} />
       </div>
 
       <Modal isOpen={modal === 'edit'} onClose={closeModal} title={t('common.edit')}>
@@ -83,6 +126,10 @@ export function Column({ _id, title, order, boardId, onDelete, onUpdate }: Props
             <Button type="error" text={t('common.delete')} onClick={handleDelete} />
           </div>
         </div>
+      </Modal>
+
+      <Modal isOpen={modal === 'create-task'} onClose={closeModal}>
+        <CreateTaskForm onSubmit={handleAddTask} />
       </Modal>
     </>
   )

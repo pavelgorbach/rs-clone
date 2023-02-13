@@ -15,7 +15,9 @@
     "loginReqiured": "Введите логин",
     "passwordReqiured": "Введите пароль",
     "create": "Создать",
-    "name": "Имя"
+    "name": "Имя",
+    "description": "Описание",
+    "descriptionReqiured": "Введите описание"
   },
   "boardCard": {
     "question": "Вы уверены, что хотите удалить доску?"

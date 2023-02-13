@@ -25,7 +25,7 @@ export type Task = {
   boardId: string
   columnId: string
   description: string
-  userId: number
+  userId: string
   users: string[]
 }
 
@@ -40,7 +40,7 @@ export type File = {
 export type Point = {
   _id: string
   title: string
-  taskId: number
+  taskId: string
   boardId: string
   done: boolean
 }

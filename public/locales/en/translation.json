@@ -15,7 +15,9 @@
     "loginReqiured": "Login is required",
     "passwordReqiured": "Passsword is required",
     "create": "Create",
-    "name": "Name"
+    "name": "Name",
+    "description": "Description",
+    "descriptionReqiured": "Description is required"
   },
   "boardCard": {
     "question": "Are you sure you want to delete the board?"
