@@ -20,12 +20,13 @@ export * from './DevStack'
 export * from './BoardCard'
 export * from './EditBoardForm'
 export * from './CreateBoardForm'
-export * from './CreateColumnForm'
 
 // Board page
 export * from './Column'
 export * from './Breadcrumbs'
 export * from './EditColumnForm'
+export * from './CreateColumnForm'
+export * from './CreateTaskForm'
 
 // Profile page
 export * from './EditProfileForm'

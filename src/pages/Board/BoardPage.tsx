@@ -18,12 +18,16 @@ function BoardPageView() {
     error,
     columns,
     createModalOpen,
+    tasks,
+    openCreateColumnModal,
+    closeCreateColumnModal,
     addColumn,
     updateColumn,
     removeColumn,
-    openCreateColumnModal,
-    closeCreateColumnModal,
-    onDragComplete
+    onDragColumnComplete,
+    addTask,
+    updateTask,
+    deleteTask
   } = useBoardPage()
 
   if (!isAuthenticated) {
@@ -52,7 +56,7 @@ function BoardPageView() {
 
       <div className="flex flex-1 flex-col overflow-auto pb-4 pt-1">
         <div className="flex flex-1">
-          <DragDropContext onDragEnd={onDragComplete}>
+          <DragDropContext onDragEnd={onDragColumnComplete}>
             <Droppable droppableId="drag-drop-list" direction="horizontal">
               {(provided) => (
                 <div className="flex gap-2" {...provided.droppableProps} ref={provided.innerRef}>
@@ -65,7 +69,15 @@ function BoardPageView() {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <Column {...column} onUpdate={updateColumn} onDelete={removeColumn} />
+                          <Column
+                            tasks={tasks[column._id]}
+                            {...column}
+                            onUpdate={updateColumn}
+                            onDelete={removeColumn}
+                            onAddTask={addTask}
+                            onUpdateTask={updateTask}
+                            onDeleteTask={deleteTask}
+                          />
                         </div>
                       )}
                     </Draggable>

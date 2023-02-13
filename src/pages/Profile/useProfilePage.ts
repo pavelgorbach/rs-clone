@@ -66,6 +66,6 @@ export default function useProfilePage() {
     openDeleteModal,
     handleDelete,
     handleUpdate,
-    getTasks,
+    getTasks
   }
 }
