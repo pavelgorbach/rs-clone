@@ -47,7 +47,7 @@ function BoardPageView() {
     <>
       <Breadcrumbs title={board?.title} />
 
-      <div className="flex flex-1 flex-col overflow-auto pb-4">
+      <div className="flex flex-1 flex-col overflow-auto pb-4 pt-1">
         <div className="flex flex-1">
           <DragDropContext onDragEnd={onDragComplete}>
             <Droppable droppableId="drag-drop-list" direction="horizontal">

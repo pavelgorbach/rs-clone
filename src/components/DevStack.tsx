@@ -34,7 +34,7 @@ export function DevStack() {
           {STACK.map(({ text, src }, idx) => (
             <div
               key={idx}
-              className={`not-prose flex flex-row items-center justify-between gap-3 rounded-full border-2 py-1 px-2`}
+              className={`not-prose flex flex-row items-center justify-between gap-3 border-2 py-1 px-2`}
             >
               <div>{text}</div>
               <div className="w-10">

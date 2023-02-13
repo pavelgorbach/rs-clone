@@ -50,16 +50,16 @@ export function BoardCard({ _id, title, onDelete, onUpdate }: Props) {
   return (
     <>
       <Link to={`${ROUTES.boards}/${_id}`}>
-        <div className="mt-3 rounded bg-white p-3 shadow-md">
-          <h3 className="!m-0">{title}</h3>
+        <div className="mt-3 bg-white p-3 shadow-sm">
+          <h3 className="!mt-0 mb-2">{title}</h3>
 
           <div className="flex justify-end gap-2">
-            <button onClick={openEditModal} className="rounded-md bg-purple-100 p-1">
-              <PencilIcon className="h-6 w-6 text-purple-500" />
+            <button onClick={openEditModal}>
+              <PencilIcon className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-green-100 hover:text-green-500" />
             </button>
 
-            <button onClick={openDeleteModal} className="rounded-md bg-purple-100 p-1">
-              <TrashIcon className="h-6 w-6 text-purple-500" />
+            <button onClick={openDeleteModal}>
+              <TrashIcon className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-red-100 hover:text-red-500" />
             </button>
           </div>
         </div>
