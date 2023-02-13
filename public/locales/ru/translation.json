@@ -79,7 +79,7 @@
   "profile": {
     "confirmation": "Подтверждение",
     "sure": "Вы уверены, что хотите сделать это?",
-    "altAvatar":"Ваш аватар",
+    "altAvatar": "Ваш аватар",
     "NAME": "ИМЯ",
     "LOGIN": "ЛОГИН",
     "logout": "Выход через",
@@ -95,10 +95,10 @@
   "boardPage": {
     "newColumn": "Hовая колонка"
   },
-  "toast":{
-    "created":"создана",
-    "updated":"обновлена",
-    "deleted":"удалена"
+  "toast": {
+    "created": "создана",
+    "updated": "обновлена",
+    "deleted": "удалена"
   },
   "signUpForm": {
     "name": "Имя",
@@ -107,5 +107,8 @@
   },
   "signInForm": {
     "doNotHaveAnAccount": "У вас нет аккаунта?"
+  },
+  "column": {
+    "question": "Вы уверены, что хотите удалить колонку?"
   }
 }
