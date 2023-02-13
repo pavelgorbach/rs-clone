@@ -4,7 +4,7 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { useTranslation } from 'react-i18next'
 
 import { Board } from '@/api'
-import { Button, Modal, EditBoardForm } from '@/components'
+import { Button, Modal, EditBoardForm, EditBoardFormData } from '@/components'
 import { ROUTES } from '@/router'
 
 type Props = Board & {
@@ -14,7 +14,7 @@ type Props = Board & {
 
 type ModalName = 'create' | 'edit' | 'delete'
 
-export function BoardCard({ _id, title, onDelete, onUpdate }: Props) {
+export function BoardCard({ onDelete, onUpdate, _id, title, users, owner }: Props) {
   const [modal, setModal] = useState<ModalName | null>(null)
 
   const openModal = (name: ModalName) => {
@@ -40,9 +40,14 @@ export function BoardCard({ _id, title, onDelete, onUpdate }: Props) {
     onDelete(_id)
   }
 
-  const handleUpdate = (data: Board) => {
+  const handleUpdate = ({ title }: EditBoardFormData) => {
     closeModal()
-    onUpdate(data)
+    onUpdate({
+      title,
+      _id,
+      owner,
+      users
+    })
   }
 
   const { t } = useTranslation()
@@ -66,15 +71,23 @@ export function BoardCard({ _id, title, onDelete, onUpdate }: Props) {
       </Link>
 
       <Modal isOpen={modal === 'edit'} onClose={closeModal} title={t('common.edit')}>
-        <EditBoardForm {...{ title, _id }} onSubmit={handleUpdate} />
+        <EditBoardForm title={title} onSubmit={handleUpdate} />
       </Modal>
 
       <Modal isOpen={modal === 'delete'} onClose={closeModal} title={t('common.confirmation')}>
         <div className="prose">
           <p>{t('boardCard.question')}</p>
           <div className="flex justify-between">
-            <Button text={t('common.cancel')} onClick={closeModal} />
-            <Button text={t('common.delete')} onClick={handleDelete} />
+            <Button
+              text={t('common.cancel')}
+              className="bg-green-500 text-white hover:bg-green-400 focus:ring-green-600"
+              onClick={closeModal}
+            />
+            <Button
+              text={t('common.delete')}
+              className="bg-red-500 text-white hover:bg-red-400 focus:ring-red-600"
+              onClick={handleDelete}
+            />
           </div>
         </div>
       </Modal>

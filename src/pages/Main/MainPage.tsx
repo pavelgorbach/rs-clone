@@ -48,7 +48,7 @@ function MainPageView() {
     <>
       <div className="container mx-auto grid grid-cols-4 grid-rows-[100px_100px_minmax(900px)] gap-y-6">
         <div
-          className={cx('relative col-span-4 flex w-min border-2', {
+          className={cx('relative col-span-4 flex w-min border', {
             'border-gray-300': !focusValue,
             ' border-purple-500': focusValue
           })}

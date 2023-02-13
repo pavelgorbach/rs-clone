@@ -23,6 +23,7 @@ function BoardPageView() {
     closeModal,
     onDragComplete
   } = useBoardPage()
+
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.home} replace />
   }

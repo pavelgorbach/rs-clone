@@ -30,10 +30,10 @@ export default function useBoards() {
 
   const createMutation = useMutation({
     mutationFn: createBoard,
-    onSuccess: (newBoard) => {
+    onSuccess: (board) => {
       queryClient.invalidateQueries(['boards'])
       closeModal()
-      toast(`${newBoard.title} ${t('toast.created')}.`)
+      toast.success(`${board.title} ${t('toast.created')}.`)
     },
     onError: (e) => {
       toast.error(e instanceof Error ? e.message : 'Something went wrong')
@@ -42,9 +42,9 @@ export default function useBoards() {
 
   const updateMutation = useMutation({
     mutationFn: patchBoard,
-    onSuccess: (updatedBoard) => {
+    onSuccess: (board) => {
       queryClient.invalidateQueries(['boards'])
-      toast(`${updatedBoard._id} ${t('toast.updated')}.`)
+      toast.success(`${board.title} ${t('toast.updated')}.`)
     },
     onError: (e) => {
       toast.error(e instanceof Error ? e.message : 'Something went wrong')
@@ -53,9 +53,9 @@ export default function useBoards() {
 
   const deleteMutation = useMutation({
     mutationFn: deleteBoard,
-    onSuccess: (id) => {
+    onSuccess: (board) => {
       queryClient.invalidateQueries(['boards'])
-      toast(`${id} ${t('toast.deleted')}.`)
+      toast.success(`${board.title} ${t('toast.deleted')}.`)
     },
     onError: (e) => {
       toast.error(e instanceof Error ? e.message : 'Something went wrong')
@@ -76,6 +76,11 @@ export default function useBoards() {
   }
 
   const updateBoard = (data: Board) => {
+    if (!userId) {
+      console.warn('User id is not provided.')
+      return
+    }
+
     updateMutation.mutate(data)
   }
 

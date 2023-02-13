@@ -26,13 +26,13 @@ export async function fetchBoardById(id?: string) {
   return resp.data
 }
 
-export async function patchBoard(data: Board) {
-  const resp = await client.put<Board>(`/boards${data._id}`, data)
+export async function patchBoard({ _id, ...rest }: Board) {
+  const resp = await client.put<Board>(`/boards/${_id}`, rest)
   return resp.data
 }
 
 export async function deleteBoard(id: string) {
-  const resp = await client.delete(`boards/${id}`)
+  const resp = await client.delete<Board>(`/boards/${id}`)
   return resp.data
 }
 
