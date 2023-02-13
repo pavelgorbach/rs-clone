@@ -30,6 +30,7 @@ export * from './CreateTaskForm'
 
 // Profile page
 export * from './EditProfileForm'
+export * from './LogoutTimer'
 
 // Sign up page
 export * from './SignUpForm'

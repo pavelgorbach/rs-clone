@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { deleteUser, fetchUser, updateUser } from '@/api/users'
 import useAuthStore from '@/hooks/useAuthStore'
 import { EditProfileFormData } from '@/components'
-import { fetchTasks } from '@/api/tasks'
+import { fetchTasksByUserId } from '@/api/tasks'
 
 type ModalName = 'edit' | 'delete'
 
@@ -21,6 +21,12 @@ export default function useProfilePage() {
   } = useQuery({
     queryKey: ['user', userId],
     queryFn: () => fetchUser(userId),
+    enabled: !!userId
+  })
+
+  const { data: tasks } = useQuery({
+    queryKey: ['my-tasks', userId],
+    queryFn: () => fetchTasksByUserId(userId),
     enabled: !!userId
   })
 
@@ -51,22 +57,16 @@ export default function useProfilePage() {
     }
   }
 
-   async function getTasks() {
-    if (userId) {
-      const tasks = await fetchTasks(userId)
-    }
-  }
-
   return {
     isAuthenticated,
     isLoading,
     user,
     modal,
+    tasks,
     closeModal,
     openEditModal,
     openDeleteModal,
     handleDelete,
-    handleUpdate,
-    getTasks
+    handleUpdate
   }
 }
