@@ -54,7 +54,7 @@ function BoardPageView() {
         <DragDropContext onDragEnd={onDragComplete}>
           <Droppable droppableId="drag-drop-list" direction="horizontal">
             {(provided) => (
-              <div className="flex gap-4" {...provided.droppableProps} ref={provided.innerRef}>
+              <div className="mt-4 flex gap-4" {...provided.droppableProps} ref={provided.innerRef}>
                 {columns?.map((column, idx) => (
                   <Draggable key={column._id} draggableId={column._id} index={idx}>
                     {(provided) => (

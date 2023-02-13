@@ -79,14 +79,13 @@
   "profile": {
     "confirmation": "Confirmation",
     "sure": "Are you sure you want to do this?",
-    "altAvatar":"Your Avatar",
+    "altAvatar": "Your Avatar",
     "NAME": "NAME",
     "LOGIN": "LOGIN",
     "logout": "Logout after",
     "name": "name",
     "tasks": "Your tasks",
     "notasks": "You don't have any tasks yet"
-
   },
   "boardsPage": {
     "board": "Board",
@@ -97,10 +96,10 @@
   "boardPage": {
     "newColumn": "New column"
   },
-  "toast":{
-    "created":"created",
-    "updated":"updated",
-    "deleted":"deleted"
+  "toast": {
+    "created": "created",
+    "updated": "updated",
+    "deleted": "deleted"
   },
   "signUpForm": {
     "name": "Name",
@@ -110,7 +109,8 @@
   "signInForm": {
     "doNotHaveAnAccount": "Don't have an account?"
   },
-  "column":{
-    "question":"Are you sure you want to delete the column?"
+  "column": {
+    "question": "Are you sure you want to delete the column?",
+    "addTask": "+ Add task"
   }
 }
