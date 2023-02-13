@@ -31,17 +31,17 @@ export function Column(props: { title: string }) {
   return (
     <>
       <div className="flex flex-1 flex-col bg-gray-100">
-        <div className="flex w-72 gap-2">
-          <h3 className="!my-0 ml-4">{props.title}</h3>{' '}
-          <button onClick={openEditModal} className="ml-auto rounded-md  p-1">
-            <PencilIcon className="h-4 w-4 text-green-500" />
+        <div className="m-3 mb-0 flex gap-2">
+          <h3 className="!my-0 flex-1">{props.title}</h3>{' '}
+          <button onClick={openEditModal}>
+            <PencilIcon className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-green-100 hover:text-green-500" />
           </button>
-          <button onClick={openDeleteModal} className="rounded-md  p-1">
-            <TrashIcon className="h-4 w-4 text-red-500" />
+          <button onClick={openDeleteModal}>
+            <TrashIcon className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-red-100 hover:text-red-500" />
           </button>
         </div>
 
-        <div className="my-3 mx-auto h-16 w-64 flex-1 border border-dashed border-gray-200"></div>
+        <div className="m-3 w-64 flex-1 border border-dashed border-gray-300"></div>
 
         <Button text={t('column.addTask')} onClick={() => console.log('button add task')} />
       </div>
