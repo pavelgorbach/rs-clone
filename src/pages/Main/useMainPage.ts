@@ -14,26 +14,34 @@ export default function useBoards() {
 
   const { userId, isAuthenticated } = useAuthStore()
 
+  const [createModalOpen, setCreateModalOpen] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
+  const [focusValue, setFocusValue] = useState(false)
+
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ['boards', userId, isAuthenticated],
     queryFn: () => fetchUserBoards(userId),
     enabled: isAuthenticated && !!userId
   })
 
-  const [createModalOpen, setCreateModalOpen] = useState(false)
-  const [searchValue, setSearchValue] = useState('')
-  const [focusValue, setFocusValue] = useState(false)
-
   const searchBoards = useMemo(() => {
     return data ? data.filter((board) => board.title.toLowerCase().includes(searchValue)) : []
   }, [data, searchValue])
 
+  const openCreateBoardModal = () => {
+    setCreateModalOpen(true)
+  }
+
+  const closeCreateBoardModal = () => {
+    setCreateModalOpen(false)
+  }
+
   const createMutation = useMutation({
     mutationFn: createBoard,
-    onSuccess: (newBoard) => {
+    onSuccess: (board) => {
       queryClient.invalidateQueries(['boards'])
-      closeModal()
-      toast(`${newBoard.title} ${t('toast.created')}.`)
+      closeCreateBoardModal()
+      toast.success(`${board.title} ${t('toast.created')}.`)
     },
     onError: (e) => {
       toast.error(e instanceof Error ? e.message : 'Something went wrong')
@@ -42,9 +50,10 @@ export default function useBoards() {
 
   const updateMutation = useMutation({
     mutationFn: patchBoard,
-    onSuccess: (updatedBoard) => {
+    onSuccess: (board) => {
       queryClient.invalidateQueries(['boards'])
-      toast(`${updatedBoard._id} ${t('toast.updated')}.`)
+      queryClient.invalidateQueries(['board'])
+      toast.success(`${board.title} ${t('toast.updated')}.`)
     },
     onError: (e) => {
       toast.error(e instanceof Error ? e.message : 'Something went wrong')
@@ -53,9 +62,9 @@ export default function useBoards() {
 
   const deleteMutation = useMutation({
     mutationFn: deleteBoard,
-    onSuccess: (id) => {
+    onSuccess: (board) => {
       queryClient.invalidateQueries(['boards'])
-      toast(`${id} ${t('toast.deleted')}.`)
+      toast.success(`${board.title} ${t('toast.deleted')}.`)
     },
     onError: (e) => {
       toast.error(e instanceof Error ? e.message : 'Something went wrong')
@@ -76,21 +85,17 @@ export default function useBoards() {
   }
 
   const updateBoard = (data: Board) => {
+    if (!userId) {
+      console.warn('User id is not provided.')
+      return
+    }
+
     updateMutation.mutate(data)
   }
 
   const removeBoard = (id: string) => {
     deleteMutation.mutate(id)
   }
-
-  const openModal = () => {
-    setCreateModalOpen(true)
-  }
-
-  const closeModal = () => {
-    setCreateModalOpen(false)
-  }
-
   return {
     isAuthenticated,
     isLoading,
@@ -99,8 +104,8 @@ export default function useBoards() {
     error,
     createModalOpen,
     focusValue,
-    openModal,
-    closeModal,
+    openCreateBoardModal,
+    closeCreateBoardModal,
     addBoard,
     updateBoard,
     removeBoard,

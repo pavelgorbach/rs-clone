@@ -4,13 +4,15 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@/components'
 import { Board } from '@/api'
 
-type Props = Omit<Board, 'owner' | 'users'> & {
-  onSubmit: (data: Board) => void
+export type EditBoardFormData = Pick<Board, 'title'>
+
+type Props = EditBoardFormData & {
+  onSubmit: (data: EditBoardFormData) => void
 }
 
-export function EditBoardForm({ _id, title, onSubmit }: Props) {
-  const { register, handleSubmit, formState } = useForm<Board>({
-    defaultValues: { _id, title }
+export function EditBoardForm({ title, onSubmit }: Props) {
+  const { register, handleSubmit, formState } = useForm<EditBoardFormData>({
+    defaultValues: { title }
   })
 
   const { t } = useTranslation()
@@ -19,17 +21,15 @@ export function EditBoardForm({ _id, title, onSubmit }: Props) {
   const submit = handleSubmit(onSubmit)
 
   return (
-    <div className="flex flex-col gap-2">
-      <input className="hidden" type="hidden" {...register('_id')} />
-
+    <div className="flex flex-col gap-4">
       <input
         type="text"
         {...register('title', { required: true })}
-        placeholder={t('createBoardForm.name')}
+        placeholder={t('common.name')}
       />
-      {errors.title && t('createBoardForm.namer')}
+      {errors.title && t('common.nameRequired')}
 
-      <Button text={t('common.change')} onClick={submit} />
+      <Button type="success" text={t('common.change')} onClick={submit} />
     </div>
   )
 }

@@ -1,18 +1,18 @@
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components'
-import { Board } from '@/api'
+import { Task } from '@/api'
 
-export type CreateBoardFormData = Pick<Board, 'title'>
+export type CreateTaskFormData = Pick<Task, 'title' | 'description'>
 
 type Props = {
-  onSubmit: (data: CreateBoardFormData) => void
+  onSubmit: (data: CreateTaskFormData) => void
 }
 
-export function CreateBoardForm({ onSubmit }: Props) {
+export function CreateTaskForm({ onSubmit }: Props) {
   const { t } = useTranslation()
 
-  const { register, handleSubmit, formState } = useForm<CreateBoardFormData>()
+  const { register, handleSubmit, formState } = useForm<CreateTaskFormData>()
   const { errors } = formState
 
   const submit = handleSubmit(onSubmit)
@@ -23,6 +23,13 @@ export function CreateBoardForm({ onSubmit }: Props) {
         type="text"
         {...register('title', { required: true })}
         placeholder={t('common.name')}
+      />
+      {errors.title && <span className="text-sm text-red-500">{t('common.nameRequired')}</span>}
+
+      <input
+        type="text"
+        {...register('description', { required: true })}
+        placeholder={t('common.description')}
       />
       {errors.title && <span className="text-sm text-red-500">{t('common.nameRequired')}</span>}
 

@@ -4,10 +4,8 @@ import { Navigate } from 'react-router-dom'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 import { ROUTES } from '@/router'
-import { Button, CreateBoardForm, Loader, Modal } from '@/components'
+import { Button, CreateColumnForm, Loader, Modal, Column, Breadcrumbs } from '@/components'
 import useBoardPage from './useBoardPage'
-import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { Column } from '@/components'
 
 function BoardPageView() {
   const { t } = useTranslation()
@@ -20,11 +18,18 @@ function BoardPageView() {
     error,
     columns,
     createModalOpen,
-    handleAdd,
-    openModal,
-    closeModal,
-    onDragComplete
+    tasks,
+    openCreateColumnModal,
+    closeCreateColumnModal,
+    addColumn,
+    updateColumn,
+    removeColumn,
+    onDragColumnComplete,
+    addTask,
+    updateTask,
+    deleteTask
   } = useBoardPage()
+
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.home} replace />
   }
@@ -48,35 +53,52 @@ function BoardPageView() {
   return (
     <>
       <Breadcrumbs title={board?.title} />
-      <div className="continer m-auto">
-        <Button text={t('boardPage.newColumn')} onClick={openModal} />
 
-        <DragDropContext onDragEnd={onDragComplete}>
-          <Droppable droppableId="drag-drop-list" direction="horizontal">
-            {(provided) => (
-              <div className="mt-4 flex gap-4" {...provided.droppableProps} ref={provided.innerRef}>
-                {columns?.map((column, idx) => (
-                  <Draggable key={column._id} draggableId={column._id} index={idx}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <Column title={column.title} />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+      <div className="flex flex-1 flex-col overflow-auto pb-4 pt-1">
+        <div className="flex flex-1">
+          <DragDropContext onDragEnd={onDragColumnComplete}>
+            <Droppable droppableId="drag-drop-list" direction="horizontal">
+              {(provided) => (
+                <div className="flex gap-2" {...provided.droppableProps} ref={provided.innerRef}>
+                  {columns?.map((column, idx) => (
+                    <Draggable key={column._id} draggableId={column._id} index={idx}>
+                      {(provided) => (
+                        <div
+                          className="flex"
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Column
+                            tasks={tasks[column._id]}
+                            {...column}
+                            onUpdate={updateColumn}
+                            onDelete={removeColumn}
+                            onAddTask={addTask}
+                            onUpdateTask={updateTask}
+                            onDeleteTask={deleteTask}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+
+          <Button
+            text={t('boardPage.newColumn')}
+            className="ml-4 self-start"
+            onClick={openCreateColumnModal}
+          />
+        </div>
+
+        <Modal isOpen={createModalOpen} onClose={closeCreateColumnModal} title={t('common.create')}>
+          <CreateColumnForm onSubmit={addColumn} />
+        </Modal>
       </div>
-      <Modal isOpen={createModalOpen} onClose={closeModal} title={t('createBoardForm.create')}>
-        <CreateBoardForm onSubmit={handleAdd} />
-      </Modal>
     </>
   )
 }

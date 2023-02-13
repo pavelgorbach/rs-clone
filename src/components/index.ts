@@ -25,6 +25,8 @@ export * from './CreateBoardForm'
 export * from './Column'
 export * from './Breadcrumbs'
 export * from './EditColumnForm'
+export * from './CreateColumnForm'
+export * from './CreateTaskForm'
 
 // Profile page
 export * from './EditProfileForm'

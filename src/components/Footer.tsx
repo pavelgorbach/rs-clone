@@ -34,7 +34,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="font-bold">2022</div>
+        <div className="font-bold">2023</div>
       </div>
     </footer>
   )

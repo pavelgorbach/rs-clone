@@ -13,7 +13,11 @@
     "password": "Пароль",
     "nameRequired": "Введите имя",
     "loginReqiured": "Введите логин",
-    "passwordReqiured": "Введите пароль"
+    "passwordReqiured": "Введите пароль",
+    "create": "Создать",
+    "name": "Имя",
+    "description": "Описание",
+    "descriptionReqiured": "Введите описание"
   },
   "boardCard": {
     "question": "Вы уверены, что хотите удалить доску?"
@@ -22,13 +26,6 @@
     "title": "Для <1>любых</1> задач",
     "desc": "Простой и эффективный способ организации и отслеживания прогресса ваших проектов.",
     "button": "Продолжить"
-  },
-  "createBoardForm": {
-    "name": "Название",
-    "namer": "Введите название",
-    "descriptionRequired": "Введите описание",
-    "description": "Описание",
-    "create": "Создать"
   },
   "devStack": {
     "development": "Разработка",
@@ -88,6 +85,7 @@
     "notasks": "У вас пока еще нет задач"
   },
   "boardsPage": {
+    "board": "Доска",
     "new": "Новая доска",
     "error": "Произошла ошибка:",
     "search": "Поиск"

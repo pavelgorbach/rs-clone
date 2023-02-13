@@ -1,19 +1,29 @@
+import { useMemo, useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { OnDragEndResponder } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { createColumn, fetchColumns, updateColumnsSet, fetchBoardById } from '@/api'
+import {
+  createColumn,
+  fetchColumns,
+  updateColumnsSet,
+  fetchBoardById,
+  Column,
+  deleteColumn,
+  patchColumn,
+  Task
+} from '@/api'
 import useAuthStore from '@/hooks/useAuthStore'
-import { useMemo, useState } from 'react'
-import { CreateBoardFormData } from '@/components'
+import { CreateColumnFormData } from '@/components'
+import { createTask, fetchTasksByBoardId } from '@/api/tasks'
 
 export default function useBoardPage() {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const { id: boardId } = useParams()
-  const { isAuthenticated } = useAuthStore()
+  const { isAuthenticated, userId } = useAuthStore()
   const [createModalOpen, setCreateModalOpen] = useState(false)
 
   const { data: board } = useQuery({
@@ -37,20 +47,71 @@ export default function useBoardPage() {
     return columns?.sort((a, b) => a.order - b.order)
   }, [columns])
 
-  const postMutation = useMutation(createColumn, {
+  const { data: tasks } = useQuery({
+    queryKey: ['tasks', boardId, columns, isAuthenticated],
+    queryFn: () => fetchTasksByBoardId(boardId),
+    enabled: isAuthenticated && !!boardId
+  })
+
+  const tasksByColumn = useMemo(() => {
+    return (tasks || []).reduce((acc, curr) => {
+      if (acc[curr.columnId]) {
+        acc[curr.columnId].push(curr)
+      } else {
+        acc[curr.columnId] = [curr]
+      }
+
+      return acc
+    }, {} as { [key: string]: Task[] })
+  }, [tasks])
+
+  const openCreateColumnModal = () => {
+    setCreateModalOpen(true)
+  }
+
+  const closeCreateColumnModal = () => {
+    setCreateModalOpen(false)
+  }
+
+  const postMutation = useMutation({
+    mutationFn: createColumn,
     onSuccess: (newColumn) => {
       queryClient.invalidateQueries(['columns'])
-      toast(`${newColumn.title} ${t('toast.created')}.`)
+      closeCreateColumnModal()
+      toast.success(`${newColumn.title} ${t('toast.created')}.`)
     }
   })
 
-  const setMutation = useMutation(updateColumnsSet, {
+  const setMutation = useMutation({
+    mutationFn: updateColumnsSet,
     onSuccess: () => {
       queryClient.invalidateQueries(['columns'])
     }
   })
 
-  const handleAdd = ({ title }: CreateBoardFormData) => {
+  const deleteMutation = useMutation({
+    mutationFn: (columnId: string) => deleteColumn(boardId, columnId),
+    onSuccess: (column) => {
+      queryClient.invalidateQueries(['columns'])
+      toast.success(`${column.title} ${t('toast.deleted')}.`)
+    },
+    onError: (e) => {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
+    }
+  })
+
+  const updateMutation = useMutation({
+    mutationFn: patchColumn,
+    onSuccess: (column) => {
+      queryClient.invalidateQueries(['columns'])
+      toast.success(`${column.title} ${t('toast.updated')}.`)
+    },
+    onError: (e) => {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
+    }
+  })
+
+  const addColumn = ({ title }: CreateColumnFormData) => {
     if (!boardId) {
       console.warn('Board id is not provided.')
       return
@@ -63,7 +124,15 @@ export default function useBoardPage() {
     })
   }
 
-  const onDragComplete: OnDragEndResponder = (result) => {
+  const updateColumn = (data: Column) => {
+    updateMutation.mutate(data)
+  }
+
+  const removeColumn = (columnId: string) => {
+    deleteMutation.mutate(columnId)
+  }
+
+  const onDragColumnComplete: OnDragEndResponder = (result) => {
     if (!result.destination || !columns) return
 
     const a = columns[result.source.index]
@@ -82,12 +151,49 @@ export default function useBoardPage() {
 
     setMutation.mutate(data)
   }
-  const openModal = () => {
-    setCreateModalOpen(true)
+
+  const postTaskMutation = useMutation({
+    mutationFn: createTask,
+    onSuccess: (newColumn) => {
+      queryClient.invalidateQueries(['columns'])
+      queryClient.invalidateQueries(['tasks'])
+      closeCreateColumnModal()
+      toast.success(`${newColumn.title} ${t('toast.created')}.`)
+    }
+  })
+
+  const addTask = ({
+    boardId,
+    columnId,
+    title,
+    description
+  }: Pick<Task, 'boardId' | 'columnId' | 'title' | 'description'>) => {
+    if (!userId) {
+      console.warn('User id is not provided.')
+      return
+    }
+
+    const order = tasksByColumn[columnId]?.length || 0
+
+    postTaskMutation.mutate({
+      userId,
+      users: [userId],
+      boardId,
+      columnId,
+      title,
+      description,
+      order
+    })
   }
-  const closeModal = () => {
-    setCreateModalOpen(false)
+
+  const updateTask = () => {
+    console.log('updatee task')
   }
+
+  const deleteTask = () => {
+    console.log('delete task')
+  }
+
   return {
     isAuthenticated,
     board,
@@ -96,9 +202,15 @@ export default function useBoardPage() {
     columns: sortedColumns,
     error,
     createModalOpen,
-    handleAdd,
-    openModal,
-    closeModal,
-    onDragComplete
+    tasks: tasksByColumn,
+    openCreateColumnModal,
+    closeCreateColumnModal,
+    addColumn,
+    updateColumn,
+    removeColumn,
+    onDragColumnComplete,
+    addTask,
+    updateTask,
+    deleteTask
   }
 }
