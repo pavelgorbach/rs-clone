@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom'
 import { ROUTES } from '@/router'
 import { Button, EditProfileForm, Loader, Modal } from '@/components'
 import useProfilePage from './useProfilePage'
+import LogoutTimer from '@/components/LogoutTimer'
 
 function ProfilePageView() {
   const { t } = useTranslation()
@@ -69,7 +70,7 @@ function ProfilePageView() {
             </svg>
           </div>
           <div>{t('profile.logout')}</div>
-          <div>11:11:11</div>
+          <LogoutTimer></LogoutTimer>
         </div>
       </div>
 
