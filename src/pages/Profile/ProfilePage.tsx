@@ -19,12 +19,11 @@ function ProfilePageView() {
     handleUpdate,
     openDeleteModal,
     openEditModal,
-    closeModal
+    closeModal,
+    getTasks
   } = useProfilePage()
 
-  if (!isAuthenticated) {
-    return <Navigate to={ROUTES.home} replace />
-  }
+  const TASKS = getTasks().then((tasks) => tasks)
 
   if (isLoading) {
     return <Loader />
@@ -74,11 +73,34 @@ function ProfilePageView() {
         </div>
       </div>
 
-      <div className="text-center">
+      <div className="m-auto w-11/12 text-center sm:w-2/3">
         <h2>{t('profile.tasks')}</h2>
         <div>
-          <div>{t('profile.notasks')}</div>
-          <ul></ul>
+          <div className="hidden">{t('profile.notasks')}</div>
+          <ul className="not-prose  rounded-lg border-2 border-purple-600">
+            <h2 className="text-left text-2xl font-semibold">Название таски</h2>
+            <div className="text-left text-2xl line-clamp-2">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est culpa ad possimus
+              incidunt iste suscipit recusandae placeat accusantium blanditiis quisquam eaque, nobis
+              libero voluptatibus nostrum cumque aperiam. Cupiditate, laboriosam velit.
+            </div>
+          </ul>
+          <ul className="not-prose  rounded-lg border-2 border-purple-600">
+            <h2 className="text-left text-2xl font-semibold">Название таски</h2>
+            <div className="text-left text-2xl line-clamp-2">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est culpa ad possimus
+              incidunt iste suscipit recusandae placeat accusantium blanditiis quisquam eaque, nobis
+              libero voluptatibus nostrum cumque aperiam. Cupiditate, laboriosam velit.
+            </div>
+          </ul>
+          <ul className="not-prose  rounded-lg border-2 border-purple-600">
+            <h2 className="text-left text-2xl font-semibold">Название таски</h2>
+            <div className="text-left text-2xl line-clamp-2">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est culpa ad possimus
+              incidunt iste suscipit recusandae placeat accusantium blanditiis quisquam eaque, nobis
+              libero voluptatibus nostrum cumque aperiam. Cupiditate, laboriosam velit.
+            </div>
+          </ul>
         </div>
       </div>
 
