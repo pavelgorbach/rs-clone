@@ -14,8 +14,12 @@ function Task(
   }
 }
 
-export async function fetchTasks(id: string) {
-  const { data } = await client.get<Task[]>(`/tasksSet?${id}`)
+export async function fetchTasksByUserId(uid?: string) {
+  if (!uid) {
+    throw new Error('User id is not provided')
+  }
+
+  const { data } = await client.get<Task[]>(`/tasksSet?userId=${uid}`)
   return data
 }
 

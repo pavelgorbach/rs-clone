@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react'
 import jwtDecode from 'jwt-decode'
-import React, { useEffect, useState } from 'react'
 
 type decoded = {
   id: string
@@ -8,7 +8,7 @@ type decoded = {
   exp: number
 }
 
-export default function LogoutTimer() {
+export function LogoutTimer() {
   const [hours, setHours] = useState('00')
   const [minutes, setMinutes] = useState('00')
   const [seconds, setSeconds] = useState('00')
@@ -16,11 +16,13 @@ export default function LogoutTimer() {
   function getTimeToLogout(): number {
     const rawToken = localStorage.getItem('token')
     const milliseconds = 1000
+
     if (rawToken) {
       const decode: decoded = jwtDecode(rawToken)
       const date = new Date().getTime()
       return (decode.exp * milliseconds - date) / milliseconds
     }
+
     return 0
   }
 
@@ -31,7 +33,8 @@ export default function LogoutTimer() {
     const hours = Math.trunc(time / secondsInOneHour)
     const minutes = Math.trunc((time - hours * secondsInOneHour) / secondsInOneMinute)
     const seconds = Math.trunc(time - (hours * secondsInOneHour + minutes * secondsInOneMinute))
-    if (time && time > 0 ) {
+
+    if (time && time > 0) {
       setHours(hours.toString().padStart(2, '0'))
       setMinutes(minutes.toString().padStart(2, '0'))
       setSeconds(seconds.toString().padStart(2, '0'))

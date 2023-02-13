@@ -157,6 +157,7 @@ export default function useBoardPage() {
     onSuccess: (newColumn) => {
       queryClient.invalidateQueries(['columns'])
       queryClient.invalidateQueries(['tasks'])
+      queryClient.invalidateQueries(['my-tasks'])
       closeCreateColumnModal()
       toast.success(`${newColumn.title} ${t('toast.created')}.`)
     }
