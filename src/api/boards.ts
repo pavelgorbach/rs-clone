@@ -5,7 +5,7 @@ function Board(data: Omit<Board, '_id'>): Omit<Board, '_id'> {
   return {
     title: data.title,
     owner: data.owner,
-    users: []
+    users: data.users
   }
 }
 

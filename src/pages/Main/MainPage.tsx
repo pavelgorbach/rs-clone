@@ -46,7 +46,7 @@ function MainPageView() {
 
   return (
     <>
-      <div className="container m-auto grid grid-cols-4 grid-rows-[100px_100px_minmax(900px)] gap-y-6">
+      <div className="container mx-auto grid grid-cols-4 grid-rows-[100px_100px_minmax(900px)] gap-y-6">
         <div
           className={cx('relative col-span-4 flex w-min rounded-lg border-2 pl-1 ', {
             'border-gray-300': !focusValue,
