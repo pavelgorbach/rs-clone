@@ -78,16 +78,8 @@ export function BoardCard({ onDelete, onUpdate, _id, title, users, owner }: Prop
         <div className="prose">
           <p>{t('boardCard.question')}</p>
           <div className="flex justify-between">
-            <Button
-              text={t('common.cancel')}
-              className="bg-green-500 text-white hover:bg-green-400 focus:ring-green-600"
-              onClick={closeModal}
-            />
-            <Button
-              text={t('common.delete')}
-              className="bg-red-500 text-white hover:bg-red-400 focus:ring-red-600"
-              onClick={handleDelete}
-            />
+            <Button text={t('common.cancel')} type="success" onClick={closeModal} />
+            <Button type="error" text={t('common.delete')} onClick={handleDelete} />
           </div>
         </div>
       </Modal>

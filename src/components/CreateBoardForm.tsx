@@ -18,7 +18,7 @@ export function CreateBoardForm({ onSubmit }: Props) {
   const submit = handleSubmit(onSubmit)
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <input
         type="text"
         {...register('title', { required: true })}
@@ -26,11 +26,7 @@ export function CreateBoardForm({ onSubmit }: Props) {
       />
       {errors.title && <span className="text-sm text-red-500">{t('createBoardForm.namer')}</span>}
 
-      <Button
-        text={t('createBoardForm.create')}
-        className="border-green-500  text-green-500 hover:bg-green-500"
-        onClick={submit}
-      />
+      <Button type="success" text={t('createBoardForm.create')} onClick={submit} />
     </div>
   )
 }
