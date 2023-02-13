@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 import { ROUTES } from '@/router'
-import { Button, CreateBoardForm, Loader, Modal, Column, Breadcrumbs } from '@/components'
+import { Button, CreateColumnForm, Loader, Modal, Column, Breadcrumbs } from '@/components'
 import useBoardPage from './useBoardPage'
 
 function BoardPageView() {
@@ -18,9 +18,11 @@ function BoardPageView() {
     error,
     columns,
     createModalOpen,
-    handleAdd,
-    openModal,
-    closeModal,
+    addColumn,
+    updateColumn,
+    removeColumn,
+    openCreateColumnModal,
+    closeCreateColumnModal,
     onDragComplete
   } = useBoardPage()
 
@@ -53,7 +55,7 @@ function BoardPageView() {
           <DragDropContext onDragEnd={onDragComplete}>
             <Droppable droppableId="drag-drop-list" direction="horizontal">
               {(provided) => (
-                <div className="flex gap-4" {...provided.droppableProps} ref={provided.innerRef}>
+                <div className="flex gap-2" {...provided.droppableProps} ref={provided.innerRef}>
                   {columns?.map((column, idx) => (
                     <Draggable key={column._id} draggableId={column._id} index={idx}>
                       {(provided) => (
@@ -63,7 +65,7 @@ function BoardPageView() {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <Column title={column.title} />
+                          <Column {...column} onUpdate={updateColumn} onDelete={removeColumn} />
                         </div>
                       )}
                     </Draggable>
@@ -74,11 +76,15 @@ function BoardPageView() {
             </Droppable>
           </DragDropContext>
 
-          <Button text={t('boardPage.newColumn')} className="ml-4 self-start" onClick={openModal} />
+          <Button
+            text={t('boardPage.newColumn')}
+            className="ml-4 self-start"
+            onClick={openCreateColumnModal}
+          />
         </div>
 
-        <Modal isOpen={createModalOpen} onClose={closeModal} title={t('createBoardForm.create')}>
-          <CreateBoardForm onSubmit={handleAdd} />
+        <Modal isOpen={createModalOpen} onClose={closeCreateColumnModal} title={t('common.create')}>
+          <CreateColumnForm onSubmit={addColumn} />
         </Modal>
       </div>
     </>

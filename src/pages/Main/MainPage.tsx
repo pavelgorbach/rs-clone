@@ -19,8 +19,8 @@ function MainPageView() {
     boards,
     createModalOpen,
     focusValue,
-    closeModal,
-    openModal,
+    closeCreateBoardModal,
+    openCreateBoardModal,
     addBoard,
     updateBoard,
     removeBoard,
@@ -70,7 +70,11 @@ function MainPageView() {
 
         <h2 className="col-span-3 !m-0">{t('boardsPage.board')}</h2>
 
-        <Button text={t('boardsPage.new')} onClick={openModal} className="justify-self-end" />
+        <Button
+          text={t('boardsPage.new')}
+          onClick={openCreateBoardModal}
+          className="justify-self-end"
+        />
 
         <div className="col-span-4 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {boards.map((board) => {
@@ -81,7 +85,7 @@ function MainPageView() {
         </div>
       </div>
 
-      <Modal isOpen={createModalOpen} onClose={closeModal} title={t('createBoardForm.create')}>
+      <Modal isOpen={createModalOpen} onClose={closeCreateBoardModal} title={t('common.create')}>
         <CreateBoardForm onSubmit={addBoard} />
       </Modal>
     </>

@@ -21,13 +21,13 @@ export function EditBoardForm({ title, onSubmit }: Props) {
   const submit = handleSubmit(onSubmit)
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <input
         type="text"
         {...register('title', { required: true })}
-        placeholder={t('createBoardForm.name')}
+        placeholder={t('common.name')}
       />
-      {errors.title && t('createBoardForm.namer')}
+      {errors.title && t('common.nameRequired')}
 
       <Button type="success" text={t('common.change')} onClick={submit} />
     </div>

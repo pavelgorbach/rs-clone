@@ -14,7 +14,7 @@ type Props = Board & {
 
 type ModalName = 'create' | 'edit' | 'delete'
 
-export function BoardCard({ onDelete, onUpdate, _id, title, users, owner }: Props) {
+export function BoardCard({ _id, title, users, owner, onDelete, onUpdate }: Props) {
   const [modal, setModal] = useState<ModalName | null>(null)
 
   const openModal = (name: ModalName) => {

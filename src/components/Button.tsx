@@ -15,8 +15,8 @@ export function Button({ text, className, type, onClick }: Props) {
         className,
         {
           'focus:ring-purple-600': !type,
-          'border-red-500 text-red-500 hover:bg-red-500 focus:ring-red-600': type === 'error',
-          'border-green-500 text-green-500 hover:bg-green-500 focus:ring-green-600':
+          'border-red-500 text-red-500 hover:bg-red-500 focus:ring-red-500': type === 'error',
+          'border-green-400 text-green-500 hover:bg-green-400 focus:ring-green-400':
             type === 'success'
         }
       )}

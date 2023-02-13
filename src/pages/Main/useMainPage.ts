@@ -14,25 +14,33 @@ export default function useBoards() {
 
   const { userId, isAuthenticated } = useAuthStore()
 
+  const [createModalOpen, setCreateModalOpen] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
+  const [focusValue, setFocusValue] = useState(false)
+
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ['boards', userId, isAuthenticated],
     queryFn: () => fetchUserBoards(userId),
     enabled: isAuthenticated && !!userId
   })
 
-  const [createModalOpen, setCreateModalOpen] = useState(false)
-  const [searchValue, setSearchValue] = useState('')
-  const [focusValue, setFocusValue] = useState(false)
-
   const searchBoards = useMemo(() => {
     return data ? data.filter((board) => board.title.toLowerCase().includes(searchValue)) : []
   }, [data, searchValue])
+
+  const openCreateBoardModal = () => {
+    setCreateModalOpen(true)
+  }
+
+  const closeCreateBoardModal = () => {
+    setCreateModalOpen(false)
+  }
 
   const createMutation = useMutation({
     mutationFn: createBoard,
     onSuccess: (board) => {
       queryClient.invalidateQueries(['boards'])
-      closeModal()
+      closeCreateBoardModal()
       toast.success(`${board.title} ${t('toast.created')}.`)
     },
     onError: (e) => {
@@ -44,6 +52,7 @@ export default function useBoards() {
     mutationFn: patchBoard,
     onSuccess: (board) => {
       queryClient.invalidateQueries(['boards'])
+      queryClient.invalidateQueries(['board'])
       toast.success(`${board.title} ${t('toast.updated')}.`)
     },
     onError: (e) => {
@@ -87,15 +96,6 @@ export default function useBoards() {
   const removeBoard = (id: string) => {
     deleteMutation.mutate(id)
   }
-
-  const openModal = () => {
-    setCreateModalOpen(true)
-  }
-
-  const closeModal = () => {
-    setCreateModalOpen(false)
-  }
-
   return {
     isAuthenticated,
     isLoading,
@@ -104,8 +104,8 @@ export default function useBoards() {
     error,
     createModalOpen,
     focusValue,
-    openModal,
-    closeModal,
+    openCreateBoardModal,
+    closeCreateBoardModal,
     addBoard,
     updateBoard,
     removeBoard,
