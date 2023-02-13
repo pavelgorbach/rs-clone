@@ -37,14 +37,16 @@ export default function useBoardPage() {
     return columns?.sort((a, b) => a.order - b.order)
   }, [columns])
 
-  const postMutation = useMutation(createColumn, {
+  const postMutation = useMutation({
+    mutationFn: createColumn,
     onSuccess: (newColumn) => {
       queryClient.invalidateQueries(['columns'])
       toast(`${newColumn.title} ${t('toast.created')}.`)
     }
   })
 
-  const setMutation = useMutation(updateColumnsSet, {
+  const setMutation = useMutation({
+    mutationFn: updateColumnsSet,
     onSuccess: () => {
       queryClient.invalidateQueries(['columns'])
     }
@@ -82,12 +84,15 @@ export default function useBoardPage() {
 
     setMutation.mutate(data)
   }
+
   const openModal = () => {
     setCreateModalOpen(true)
   }
+
   const closeModal = () => {
     setCreateModalOpen(false)
   }
+
   return {
     isAuthenticated,
     board,
