@@ -13,7 +13,9 @@
     "password": "Password",
     "nameRequired": "Name is required",
     "loginReqiured": "Login is required",
-    "passwordReqiured": "Passsword is required"
+    "passwordReqiured": "Passsword is required",
+    "create": "Create",
+    "name": "Name"
   },
   "boardCard": {
     "question": "Are you sure you want to delete the board?"
@@ -22,13 +24,6 @@
     "title": "Manage <1>any</1> task",
     "desc": "The simple but efficient way to organize, plan and track progress on your projects.",
     "button": "Get started"
-  },
-  "createBoardForm": {
-    "name": "Name",
-    "namer": "Name is required",
-    "descriptionRequired": "Description is required",
-    "description": "Description",
-    "create": "Create"
   },
   "devStack": {
     "development": "Development",

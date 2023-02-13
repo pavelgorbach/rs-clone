@@ -1,18 +1,18 @@
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components'
-import { Board } from '@/api'
+import { Column } from '@/api'
 
-export type CreateBoardFormData = Pick<Board, 'title'>
+export type CreateColumnFormData = Pick<Column, 'title'>
 
 type Props = {
-  onSubmit: (data: CreateBoardFormData) => void
+  onSubmit: (data: CreateColumnFormData) => void
 }
 
-export function CreateBoardForm({ onSubmit }: Props) {
+export function CreateColumnForm({ onSubmit }: Props) {
   const { t } = useTranslation()
 
-  const { register, handleSubmit, formState } = useForm<CreateBoardFormData>()
+  const { register, handleSubmit, formState } = useForm<CreateColumnFormData>()
   const { errors } = formState
 
   const submit = handleSubmit(onSubmit)

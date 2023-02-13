@@ -25,14 +25,17 @@ export async function fetchColumnById(boardId: string, columnId: string) {
   return resp.data
 }
 
-export async function updateColumn(boardId: string, columnId: string, data: Partial<Column>) {
-  const resp = await client.put<Column[]>(`/boards/${boardId}/columns/${columnId}`, data)
+export async function patchColumn({ boardId, _id, ...rest }: Column) {
+  const resp = await client.put<Column>(`/boards/${boardId}/columns/${_id}`, rest)
   return resp.data
 }
 
-export async function deleteColumn(boardId: string, columnId: string) {
-  const resp = await client.delete(`boards/${boardId}/columns/${columnId}`)
-  return resp.data
+export async function deleteColumn(boardId?: string, columnId?: string) {
+  if (!boardId || !columnId) {
+    throw new Error('Board or column id is not provided.')
+  }
+  const { data } = await client.delete<Column>(`boards/${boardId}/columns/${columnId}`)
+  return data
 }
 
 export async function fetchColumnsSet(ids: string[]) {

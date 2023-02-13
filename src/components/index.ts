@@ -20,6 +20,7 @@ export * from './DevStack'
 export * from './BoardCard'
 export * from './EditBoardForm'
 export * from './CreateBoardForm'
+export * from './CreateColumnForm'
 
 // Board page
 export * from './Column'

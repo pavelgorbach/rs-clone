@@ -1,13 +1,21 @@
+import { useMemo, useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { OnDragEndResponder } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { createColumn, fetchColumns, updateColumnsSet, fetchBoardById } from '@/api'
+import {
+  createColumn,
+  fetchColumns,
+  updateColumnsSet,
+  fetchBoardById,
+  Column,
+  deleteColumn,
+  patchColumn
+} from '@/api'
 import useAuthStore from '@/hooks/useAuthStore'
-import { useMemo, useState } from 'react'
-import { CreateBoardFormData } from '@/components'
+import { CreateColumnFormData } from '@/components'
 
 export default function useBoardPage() {
   const { t } = useTranslation()
@@ -37,11 +45,20 @@ export default function useBoardPage() {
     return columns?.sort((a, b) => a.order - b.order)
   }, [columns])
 
+  const openCreateColumnModal = () => {
+    setCreateModalOpen(true)
+  }
+
+  const closeCreateColumnModal = () => {
+    setCreateModalOpen(false)
+  }
+
   const postMutation = useMutation({
     mutationFn: createColumn,
     onSuccess: (newColumn) => {
       queryClient.invalidateQueries(['columns'])
-      toast(`${newColumn.title} ${t('toast.created')}.`)
+      closeCreateColumnModal()
+      toast.success(`${newColumn.title} ${t('toast.created')}.`)
     }
   })
 
@@ -52,7 +69,29 @@ export default function useBoardPage() {
     }
   })
 
-  const handleAdd = ({ title }: CreateBoardFormData) => {
+  const deleteMutation = useMutation({
+    mutationFn: (columnId: string) => deleteColumn(boardId, columnId),
+    onSuccess: (column) => {
+      queryClient.invalidateQueries(['columns'])
+      toast.success(`${column.title} ${t('toast.deleted')}.`)
+    },
+    onError: (e) => {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
+    }
+  })
+
+  const updateMutation = useMutation({
+    mutationFn: patchColumn,
+    onSuccess: (column) => {
+      queryClient.invalidateQueries(['columns'])
+      toast.success(`${column.title} ${t('toast.updated')}.`)
+    },
+    onError: (e) => {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
+    }
+  })
+
+  const addColumn = ({ title }: CreateColumnFormData) => {
     if (!boardId) {
       console.warn('Board id is not provided.')
       return
@@ -63,6 +102,14 @@ export default function useBoardPage() {
       order: columns?.length || 0,
       title: `${title}`
     })
+  }
+
+  const updateColumn = (data: Column) => {
+    updateMutation.mutate(data)
+  }
+
+  const removeColumn = (columnId: string) => {
+    deleteMutation.mutate(columnId)
   }
 
   const onDragComplete: OnDragEndResponder = (result) => {
@@ -85,14 +132,6 @@ export default function useBoardPage() {
     setMutation.mutate(data)
   }
 
-  const openModal = () => {
-    setCreateModalOpen(true)
-  }
-
-  const closeModal = () => {
-    setCreateModalOpen(false)
-  }
-
   return {
     isAuthenticated,
     board,
@@ -101,9 +140,11 @@ export default function useBoardPage() {
     columns: sortedColumns,
     error,
     createModalOpen,
-    handleAdd,
-    openModal,
-    closeModal,
+    addColumn,
+    updateColumn,
+    removeColumn,
+    openCreateColumnModal,
+    closeCreateColumnModal,
     onDragComplete
   }
 }
