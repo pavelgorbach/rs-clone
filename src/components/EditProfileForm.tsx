@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components'
+import useProfilePage from '@/pages/Profile/useProfilePage'
 
 export type EditProfileFormData = {
   name: string
@@ -13,12 +14,17 @@ type Props = {
   onSubmit: (data: EditProfileFormData) => void
 }
 
+
 export function EditProfileForm({ onSubmit }: Props) {
-  const { register, handleSubmit, formState } = useForm<EditProfileFormData>()
+  const { register, handleSubmit, formState, getValues } = useForm<EditProfileFormData>()
   const { errors } = formState
   const { t } = useTranslation()
-
+  
   const submit = handleSubmit(onSubmit)
+  
+  const {
+    user
+  } = useProfilePage()
 
   return (
     <div className="flex flex-col gap-2">
@@ -27,6 +33,7 @@ export function EditProfileForm({ onSubmit }: Props) {
         type="text"
         className="rounded-full pl-5"
         {...register('name', { required: true })}
+        value={user?.name}
         placeholder={t('profile.name')}
       />
       <div className="text-red-500">{errors.name && t('editForm.namer')}</div>
@@ -34,6 +41,7 @@ export function EditProfileForm({ onSubmit }: Props) {
         type="email"
         className="rounded-full pl-5"
         {...register('login', { required: true })}
+        value={user?.login}
         placeholder={t('editForm.email')}
       />
       <div className="text-red-500">{errors.login && t('editForm.emailReqiured')}</div>
