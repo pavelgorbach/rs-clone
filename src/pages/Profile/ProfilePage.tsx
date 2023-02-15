@@ -27,40 +27,54 @@ function ProfilePageView() {
     return <Navigate to={ROUTES.home} replace />
   }
 
-  if (isLoading) {
+  if (isLoading || !user) {
     return <Loader />
   }
 
   return (
     <>
       <div className="container m-auto">
-        <div className="m-auto w-11/12 rounded-md border-2 border-purple-500 bg-white px-1 sm:px-2 md:w-2/3 md:px-5 lg:w-1/2 lg:px-20">
-          <h2 className="font-semibold">{t('teamsection.Profile')}</h2>
+        <h1 className="text-center">{t('teamsection.Profile')}</h1>
 
-          <div className="flex flex-col items-center justify-between gap-3 pt-10 sm:flex-row">
-            <div className="not-prose w-1/4 cursor-pointer">
-              <img src="icons/add_avatar.png" alt={t('profile.altAvatar')} />
+        <div className="m-auto flex max-w-md flex-col gap-10 bg-white p-10 shadow-md">
+          <div className="flex flex-col items-center justify-between gap-10 md:flex-row md:gap-0">
+            <div className="cursor-pointer">
+              <img src="icons/add_avatar.png" className="!m-0 w-20" alt={t('profile.altAvatar')} />
             </div>
 
-            <div className="flex w-2/3 flex-col gap-7">
-              <div className="flex rounded-full bg-gray-50 px-5">
-                <div className="w-24 border-r-2 border-purple-600 pr-2">{t('profile.NAME')}</div>
-                <div className="w-48 px-2 text-center">{user?.name}</div>
+            <div className="flex flex-col gap-7">
+              <div className="flex w-60 bg-gray-100">
+                <div className="w-24 border-r border-purple-500 pl-5 text-gray-500">
+                  {t('profile.NAME')}
+                </div>
+                <div className="w-36 truncate px-5 text-center">{user?.name}</div>
               </div>
 
-              <div className=" flex rounded-full bg-gray-50 px-5">
-                <div className="w-24 border-r-2 border-purple-600 pr-2">{t('profile.LOGIN')}</div>
-                <div className="w-48 px-2 text-center">{user?.login}</div>
+              <div className="flex bg-gray-100">
+                <div className="w-24 border-r border-purple-500 pl-5 text-gray-500">
+                  {t('profile.LOGIN')}
+                </div>
+                <div className="w-36 truncate px-5 text-center">{user?.login}</div>
               </div>
             </div>
           </div>
 
-          <div className="mt-7 flex justify-between px-10 pt-10 lg:px-20">
-            <Button text={t('common.delete')} onClick={openDeleteModal} />
-            <Button text={t('common.edit')} onClick={openEditModal} />
+          <div className="flex gap-20">
+            <Button
+              type="error"
+              className="flex-1"
+              text={t('common.delete')}
+              onClick={openDeleteModal}
+            />
+            <Button
+              type="success"
+              className="flex-1"
+              text={t('common.edit')}
+              onClick={openEditModal}
+            />
           </div>
 
-          <div className="m-auto my-10 flex w-2/3 items-center justify-center gap-4 rounded-full border-2 border-purple-600 bg-gray-50 py-1 px-2 text-xs">
+          <div className="m-auto flex items-center gap-4 self-center rounded-full border border-purple-600 bg-gray-50 py-1 px-2 text-xs">
             <ClockIcon className="h-8 w-8 text-purple-500" />
 
             <div>{t('profile.logout')}</div>
@@ -69,16 +83,16 @@ function ProfilePageView() {
           </div>
         </div>
 
-        <div className="m-auto w-11/12 text-center sm:w-2/3">
+        <div className="m-auto max-w-xl text-center">
           <h2>{t('profile.tasks')}</h2>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 bg-white">
             {tasks?.map((task) => {
               return (
                 <Link
                   to={`${ROUTES.boards}/${task.boardId}`}
                   key={task._id}
-                  className="not-prose rounded-lg border-2 border-purple-600 p-2"
+                  className="not-prose border border-white p-2 shadow-md hover:border-purple-500"
                 >
                   <h2 className="text-left text-2xl font-semibold">{task.title}</h2>
                   <div className="text-left text-2xl line-clamp-2">{task.description}</div>
@@ -90,16 +104,18 @@ function ProfilePageView() {
       </div>
 
       <Modal isOpen={modal === 'delete'} onClose={closeModal} title={t('profile.confirmation')}>
-        <div>{t('profile.sure')}</div>
+        <div className="prose">
+          <p>{t('profile.sure')}</p>
 
-        <div className="mt-4 flex justify-around">
-          <Button type="success" text="Да" onClick={handleDelete} />
-          <Button text="Нет" onClick={closeModal} />
+          <div className="flex justify-between">
+            <Button type="success" text={t('common.cancel')} onClick={closeModal} />
+            <Button type="error" text={t('common.delete')} onClick={handleDelete} />
+          </div>
         </div>
       </Modal>
 
       <Modal isOpen={modal === 'edit'} onClose={closeModal}>
-        <EditProfileForm onSubmit={handleUpdate} />
+        <EditProfileForm name={user.name} login={user.login} onSubmit={handleUpdate} />
       </Modal>
     </>
   )
