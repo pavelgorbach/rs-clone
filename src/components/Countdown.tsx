@@ -48,9 +48,11 @@ export function Countdown({ exp = 0, className, onEnd }: Props) {
   )
 }
 
+const pad = (value: number) => ('0' + Math.floor(value)).slice(-2)
+
 const toHMS = (distance: number) => {
-  const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-  const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-  const s = Math.floor((distance % (1000 * 60)) / 1000)
+  const h = pad((distance / (1000 * 60 * 60)) % 24)
+  const m = pad((distance / (1000 * 60)) % 60)
+  const s = pad((distance / 1000) % 60)
   return { h, m, s }
 }

@@ -1,4 +1,3 @@
-import { EditProfileFormData } from '@/components'
 import client from './client'
 import { User } from './types'
 
@@ -13,12 +12,16 @@ export async function fetchUser(id?: string) {
   return resp.data
 }
 
-export async function updateUser(uid: string, data: EditProfileFormData) {
-  const resp = await client.put<User>(`/users/${uid}`, data)
+export async function updateUser({ _id, ...data }: Partial<User> & { password: string }) {
+  const resp = await client.put<User>(`/users/${_id}`, data)
   return resp.data
 }
 
-export async function deleteUser(id: string) {
+export async function deleteUser(id?: string) {
+  if (!id) {
+    throw new Error('User id is not provided.')
+  }
+
   const resp = await client.delete<User>(`/users/${id}`)
   return resp.data
 }
