@@ -12,7 +12,7 @@ export default function useProfilePage() {
   const [modal, setModal] = useState<ModalName | null>(null)
 
   const authStore = useAuthStore()
-  const { isAuthenticated, userId } = authStore
+  const { isAuthenticated, userId, exp } = authStore
 
   const {
     data: user,
@@ -63,6 +63,8 @@ export default function useProfilePage() {
     user,
     modal,
     tasks,
+    exp,
+    unauth: authStore.unauth,
     closeModal,
     openEditModal,
     openDeleteModal,

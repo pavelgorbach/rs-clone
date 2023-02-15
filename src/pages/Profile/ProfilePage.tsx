@@ -1,10 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
-import { ClockIcon } from '@heroicons/react/24/outline'
 
 import { ROUTES } from '@/router'
-import { Button, EditProfileForm, Loader, Modal, LogoutTimer } from '@/components'
+import { Button, EditProfileForm, Loader, Modal, Countdown } from '@/components'
 import useProfilePage from './useProfilePage'
 
 function ProfilePageView() {
@@ -16,6 +15,8 @@ function ProfilePageView() {
     modal,
     tasks,
     isAuthenticated,
+    exp,
+    unauth,
     handleDelete,
     handleUpdate,
     openDeleteModal,
@@ -38,8 +39,8 @@ function ProfilePageView() {
 
         <div className="m-auto flex max-w-md flex-col gap-10 bg-white p-10 shadow-md">
           <div className="flex flex-col items-center justify-between gap-10 md:flex-row md:gap-0">
-            <div className="cursor-pointer">
-              <img src="icons/add_avatar.png" className="!m-0 w-20" alt={t('profile.altAvatar')} />
+            <div className="cursor-pointer border hover:border-purple-500">
+              <img src="icons/add_avatar.png" className="!m-0 w-24" alt={t('profile.altAvatar')} />
             </div>
 
             <div className="flex flex-col gap-7">
@@ -74,17 +75,11 @@ function ProfilePageView() {
             />
           </div>
 
-          <div className="m-auto flex items-center gap-4 self-center rounded-full border border-purple-600 bg-gray-50 py-1 px-2 text-xs">
-            <ClockIcon className="h-8 w-8 text-purple-500" />
-
-            <div>{t('profile.logout')}</div>
-
-            <LogoutTimer />
-          </div>
+          <Countdown exp={exp} onEnd={unauth} className="self-center" />
         </div>
 
-        <div className="m-auto max-w-xl text-center">
-          <h2>{t('profile.tasks')}</h2>
+        <div className="m-auto max-w-xl">
+          <h2 className="text-center">{t('profile.tasks')}</h2>
 
           <div className="flex flex-col gap-2 bg-white">
             {tasks?.map((task) => {
@@ -92,10 +87,10 @@ function ProfilePageView() {
                 <Link
                   to={`${ROUTES.boards}/${task.boardId}`}
                   key={task._id}
-                  className="not-prose border border-white p-2 shadow-md hover:border-purple-500"
+                  className="border border-white p-2 shadow-md hover:border-purple-500"
                 >
-                  <h2 className="text-left text-2xl font-semibold">{task.title}</h2>
-                  <div className="text-left text-2xl line-clamp-2">{task.description}</div>
+                  <h3 className="!m-0">{task.title}</h3>
+                  <p className="!m-0">{task.description}</p>
                 </Link>
               )
             })}

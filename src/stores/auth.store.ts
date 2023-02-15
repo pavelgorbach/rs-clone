@@ -5,8 +5,8 @@ import { client } from '@/api'
 export class AuthStore {
   isAuthenticated = false
   userId: string | undefined
-  exp: number | undefined
-  iat: number | undefined
+  exp = 0
+  iat = 0
 
   constructor() {
     makeAutoObservable(this)
@@ -29,8 +29,8 @@ export class AuthStore {
     const decoded = jwtDecode<JwtPayload & { id: string }>(token)
 
     this.userId = decoded.id
-    this.exp = decoded.exp
-    this.iat = decoded.iat
+    this.exp = (decoded.exp ?? 0) * 1000
+    this.iat = (decoded.iat ?? 0) * 1000
     this.isAuthenticated = true
 
     client.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -39,8 +39,8 @@ export class AuthStore {
   unauth() {
     this.isAuthenticated = false
     this.userId = undefined
-    this.exp = undefined
-    this.iat = undefined
+    this.exp = 0
+    this.iat = 0
     localStorage.removeItem('token')
     client.defaults.headers.common['Authorization'] = null
   }
