@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import { ClockIcon } from '@heroicons/react/24/outline'
 
@@ -15,12 +15,17 @@ function ProfilePageView() {
     user,
     modal,
     tasks,
+    isAuthenticated,
     handleDelete,
     handleUpdate,
     openDeleteModal,
     openEditModal,
     closeModal
   } = useProfilePage()
+
+  if (!isAuthenticated) {
+    return <Navigate to={ROUTES.home} replace />
+  }
 
   if (isLoading) {
     return <Loader />
@@ -63,8 +68,6 @@ function ProfilePageView() {
             <LogoutTimer />
           </div>
         </div>
-
-        {/* <div className="hidden">{t('profile.notasks')}</div> */}
 
         <div className="m-auto w-11/12 text-center sm:w-2/3">
           <h2>{t('profile.tasks')}</h2>
