@@ -10,15 +10,19 @@ export default function SignUpPageView() {
   const { onSubmit } = useSignUpPage()
 
   return (
-    <div className="container m-auto grid max-w-md bg-white p-4">
-      <h1>{t('common.welcome')}</h1>
-      <SignUpForm onSubmit={onSubmit} />
+    <div className="container m-auto">
+      <h1 className="text-center">{t('common.welcome')}</h1>
 
-      <div className="prose-sm m-auto flex items-center gap-2">
-        <p>{t('signUpForm.haveAnAccount')}</p>
-        <Link className="text-purple-500 hover:text-purple-400" to={ROUTES.signIn}>
-          {t('common.signIn')}
-        </Link>
+      <div className="m-auto grid max-w-md bg-white p-4 shadow-md">
+        <SignUpForm onSubmit={onSubmit} />
+
+        <div className="prose-sm m-auto flex items-center gap-2">
+          <p>{t('signUpForm.haveAnAccount')}</p>
+
+          <Link className="text-purple-500 hover:text-purple-400" to={ROUTES.signIn}>
+            {t('common.signIn')}
+          </Link>
+        </div>
       </div>
     </div>
   )

@@ -9,12 +9,12 @@ export type EditProfileFormData = {
   password: string
 }
 
-type Props = {
+type Props = Omit<EditProfileFormData, 'password'> & {
   onSubmit: (data: EditProfileFormData) => void
 }
 
-export function EditProfileForm({ onSubmit }: Props) {
-  const { register, handleSubmit, formState } = useForm<EditProfileFormData>()
+export function EditProfileForm({ onSubmit, ...defaultValues }: Props) {
+  const { register, handleSubmit, formState } = useForm<EditProfileFormData>({ defaultValues })
   const { errors } = formState
   const { t } = useTranslation()
 
@@ -23,25 +23,25 @@ export function EditProfileForm({ onSubmit }: Props) {
   return (
     <div className="flex flex-col gap-2">
       <h2 className="text-lg font-semibold">{t('editForm.editUser')}</h2>
+
       <input
         type="text"
-        className="rounded-full pl-5"
         {...register('name', { required: true })}
         placeholder={t('profile.name')}
       />
       <div className="text-red-500">{errors.name && t('editForm.namer')}</div>
+
       <input
         type="email"
-        className="rounded-full pl-5"
         {...register('login', { required: true })}
         placeholder={t('editForm.email')}
       />
       <div className="text-red-500">{errors.login && t('editForm.emailReqiured')}</div>
 
       <p className="mt-4">{t('editForm.confirmationPhrase')}</p>
+
       <input
         type="password"
-        className="rounded-full pl-5"
         {...register('password', { required: true })}
         placeholder={t('editForm.password')}
       />

@@ -30,7 +30,7 @@ export * from './CreateTaskForm'
 
 // Profile page
 export * from './EditProfileForm'
-export * from './LogoutTimer'
+export * from './Countdown'
 
 // Sign up page
 export * from './SignUpForm'
