@@ -14,8 +14,7 @@ function BoardPageView() {
   const { isAuthenticated, userId } = useAuthStore()
   const modalStore = useModalStore()
 
-  const { isLoading, isError, error, board, columns, openModal, onDragColumnComplete } =
-    useBoardPage()
+  const { isLoading, isError, error, board, columns, onDragColumnComplete } = useBoardPage()
 
   if (!isAuthenticated || !userId) return <Navigate to={ROUTES.home} replace />
 
@@ -61,9 +60,11 @@ function BoardPageView() {
                                     key={task._id}
                                     title={task.title}
                                     description={task.description}
-                                    onEdit={() => openModal({ name: 'edit-task', data: task })}
+                                    onEdit={() =>
+                                      modalStore.openModal({ name: 'edit-task', data: task })
+                                    }
                                     onDelete={() =>
-                                      openModal({
+                                      modalStore.openModal({
                                         name: 'delete-task',
                                         data: {
                                           boardId: board._id,

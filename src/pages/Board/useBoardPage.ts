@@ -2,32 +2,19 @@ import { useMemo } from 'react'
 import { OnDragEndResponder } from 'react-beautiful-dnd'
 import { useParams } from 'react-router-dom'
 
-import { Task } from '@/api/types'
-import useModal from '@/hooks/useModal'
 import useBoard from '@/hooks/useBoard'
 import useColumns from '@/hooks/useColumns'
 import useTasks from '@/hooks/useTasks'
 import useUpdateColumnsSet from '@/hooks/useUpdateColumnsSet'
-import useDeleteTask from '@/hooks/useDeleteTask'
-import useUpdateTask from '@/hooks/useUpdateTask'
-
-type Modals =
-  | { name: 'edit-task'; data: Task }
-  | { name: 'delete-task'; data: { boardId: string; columnId: string; taskId: string } }
 
 export default function useBoardPage() {
   const { id: boardId } = useParams() as { id: string }
-
-  const { modal, openModal, closeModal } = useModal<Modals>()
 
   const board = useBoard(boardId)
   const columns = useColumns(boardId)
   const tasks = useTasks(boardId)
 
-  const updateColumnsSet = useUpdateColumnsSet(boardId, closeModal)
-
-  const updateTask = useUpdateTask(closeModal)
-  const deleteTask = useDeleteTask(closeModal)
+  const updateColumnsSet = useUpdateColumnsSet(boardId)
 
   const onDragColumnComplete: OnDragEndResponder = (result) => {
     if (!result.destination || !columns.data) return
@@ -57,11 +44,6 @@ export default function useBoardPage() {
     error: board.error || columns.error || tasks.error,
     board: board.data,
     columns: columnsWithTasks,
-    modal,
-    updateTask,
-    deleteTask,
-    openModal,
-    closeModal,
     onDragColumnComplete
   }
 }
