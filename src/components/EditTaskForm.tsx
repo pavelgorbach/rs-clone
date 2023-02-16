@@ -2,19 +2,21 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components'
-import { Column } from '@/api'
 
-export type EditColumnFormData = Pick<Column, 'title'>
+type EditTaskFormData = {
+  title: string
+  description: string
+}
 
 type Props = {
-  onSubmit: (data: EditColumnFormData) => void
-} & EditColumnFormData
+  onSubmit: (data: EditTaskFormData) => void
+} & EditTaskFormData
 
-export function EditColumnForm({ title, onSubmit }: Props) {
+export function EditTaskForm({ title, description, onSubmit }: Props) {
   const { t } = useTranslation()
 
-  const { register, handleSubmit, formState } = useForm<EditColumnFormData>({
-    defaultValues: { title }
+  const { register, handleSubmit, formState } = useForm<EditTaskFormData>({
+    defaultValues: { title, description }
   })
 
   const { errors } = formState
@@ -27,6 +29,13 @@ export function EditColumnForm({ title, onSubmit }: Props) {
         placeholder={t('common.name')}
       />
       {errors.title && t('common.nameRequired')}
+
+      <input
+        type="text"
+        {...register('description', { required: true })}
+        placeholder={t('common.description')}
+      />
+      {errors.title && t('common.descriptionReqiured')}
 
       <Button type="success" text={t('common.change')} onClick={handleSubmit(onSubmit)} />
     </div>

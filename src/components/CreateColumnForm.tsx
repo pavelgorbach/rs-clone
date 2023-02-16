@@ -1,9 +1,8 @@
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components'
-import { Column } from '@/api'
 
-export type CreateColumnFormData = Pick<Column, 'title'>
+type CreateColumnFormData = { title: string }
 
 type Props = {
   onSubmit: (data: CreateColumnFormData) => void
