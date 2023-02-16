@@ -1,10 +1,7 @@
 import { Outlet } from 'react-router'
 import { ToastContainer } from 'react-toastify'
 
-import { Header } from '@/components/Header/Header'
-import { Footer } from '@/components/Footer'
-
-import 'react-toastify/dist/ReactToastify.css'
+import { Header, Footer, Modals } from '@/components'
 
 export function Layout() {
   return (
@@ -14,6 +11,8 @@ export function Layout() {
         <Outlet />
       </main>
       <Footer />
+
+      <Modals />
       <ToastContainer />
     </div>
   )

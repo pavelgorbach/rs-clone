@@ -4,43 +4,18 @@ import { Navigate } from 'react-router-dom'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 import { ROUTES } from '@/router'
-import {
-  Loader,
-  Button,
-  Modal,
-  Breadcrumbs,
-  Column,
-  CreateColumnForm,
-  EditColumnForm,
-  TaskCard,
-  CreateTaskForm,
-  EditTaskForm,
-  ErrorMessage
-} from '@/components'
+import { Loader, Button, Breadcrumbs, Column, TaskCard, ErrorMessage } from '@/components'
 import useAuthStore from '@/hooks/useAuthStore'
+import useModalStore from '@/hooks/useModalStore'
 import useBoardPage from './useBoardPage'
 
 function BoardPageView() {
   const { t } = useTranslation()
   const { isAuthenticated, userId } = useAuthStore()
+  const modalStore = useModalStore()
 
-  const {
-    isLoading,
-    isError,
-    error,
-    board,
-    columns,
-    modal,
-    addColumn,
-    updateColumn,
-    deleteColumn,
-    addTask,
-    updateTask,
-    deleteTask,
-    openModal,
-    closeModal,
-    onDragColumnComplete
-  } = useBoardPage()
+  const { isLoading, isError, error, board, columns, openModal, onDragColumnComplete } =
+    useBoardPage()
 
   if (!isAuthenticated || !userId) return <Navigate to={ROUTES.home} replace />
 
@@ -69,9 +44,11 @@ function BoardPageView() {
                         >
                           <Column
                             title={column.title}
-                            onEdit={() => openModal({ name: 'edit-column', data: column })}
+                            onEdit={() =>
+                              modalStore.openModal({ name: 'edit-column', data: column })
+                            }
                             onDelete={() =>
-                              openModal({
+                              modalStore.openModal({
                                 name: 'delete-column',
                                 data: { boardId: board._id, columnId: column._id }
                               })
@@ -103,7 +80,7 @@ function BoardPageView() {
                             <Button
                               text={t('column.addTask')}
                               onClick={() =>
-                                openModal({
+                                modalStore.openModal({
                                   name: 'add-task',
                                   data: {
                                     userId,
@@ -128,100 +105,15 @@ function BoardPageView() {
           <Button
             text={t('boardPage.newColumn')}
             className="ml-4 self-start"
-            onClick={() => openModal({ name: 'add-column', data: { boardId: board._id } })}
+            onClick={() =>
+              modalStore.openModal({
+                name: 'add-column',
+                data: { boardId: board._id, order: columns?.length || 0 }
+              })
+            }
           />
         </div>
       </div>
-
-      {modal.name === 'add-column' && (
-        <Modal isOpen={true} onClose={closeModal} title={t('common.create')}>
-          <CreateColumnForm
-            onSubmit={(formData) =>
-              addColumn.mutate({
-                ...modal.data,
-                ...formData,
-                order: columns?.length || 0
-              })
-            }
-          />
-        </Modal>
-      )}
-
-      {modal.name === 'edit-column' && (
-        <Modal isOpen={true} onClose={closeModal} title={t('common.edit')}>
-          <EditColumnForm
-            title={modal.data.title}
-            onSubmit={(formData) =>
-              updateColumn.mutate({
-                boardId: modal.data.boardId,
-                columnId: modal.data._id,
-                order: modal.data.order,
-                ...formData
-              })
-            }
-          />
-        </Modal>
-      )}
-
-      {modal.name === 'delete-column' && (
-        <Modal isOpen={true} onClose={closeModal} title={t('common.confirmation')}>
-          <div className="prose">
-            <p>{t('column.question')}</p>
-
-            <div className="flex justify-between">
-              <Button type="success" text={t('common.cancel')} onClick={closeModal} />
-              <Button
-                type="error"
-                text={t('common.delete')}
-                onClick={() => deleteColumn.mutate(modal.data)}
-              />
-            </div>
-          </div>
-        </Modal>
-      )}
-
-      {modal.name === 'add-task' && (
-        <Modal isOpen={true} onClose={closeModal}>
-          <CreateTaskForm onSubmit={(formData) => addTask.mutate({ ...modal.data, ...formData })} />
-        </Modal>
-      )}
-
-      {modal.name === 'edit-task' && (
-        <Modal isOpen={true} onClose={closeModal}>
-          <EditTaskForm
-            title={modal.data.title}
-            description={modal.data.description}
-            onSubmit={(formData) =>
-              updateTask.mutate({
-                boardId: modal.data.boardId,
-                columnId: modal.data.columnId,
-                taskId: modal.data._id,
-                userId: modal.data.userId,
-                users: modal.data.users,
-                order: modal.data.order,
-                ...formData
-              })
-            }
-          />
-        </Modal>
-      )}
-
-      {modal.name === 'delete-task' && (
-        <Modal isOpen={true} onClose={closeModal} title={t('common.confirmation')}>
-          <div className="prose">
-            <p>{t('column.question')}</p>
-
-            <div className="flex justify-between">
-              <Button type="success" text={t('common.cancel')} onClick={closeModal} />
-              <Button
-                type="error"
-                text={t('common.delete')}
-                onClick={() => deleteTask.mutate(modal.data)}
-              />
-            </div>
-          </div>
-        </Modal>
-      )}
     </>
   )
 }

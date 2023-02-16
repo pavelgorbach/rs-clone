@@ -2,27 +2,16 @@ import { useMemo } from 'react'
 import { OnDragEndResponder } from 'react-beautiful-dnd'
 import { useParams } from 'react-router-dom'
 
-import { Column, Task } from '@/api/types'
+import { Task } from '@/api/types'
 import useModal from '@/hooks/useModal'
 import useBoard from '@/hooks/useBoard'
 import useColumns from '@/hooks/useColumns'
 import useTasks from '@/hooks/useTasks'
-import useAddColumn from '@/hooks/useAddColumn'
-import useDeleteColumn from '@/hooks/useDeleteColumn'
-import useUpdateColumn from '@/hooks/useUpdateColumn'
 import useUpdateColumnsSet from '@/hooks/useUpdateColumnsSet'
-import useAddTask from '@/hooks/useAddTask'
 import useDeleteTask from '@/hooks/useDeleteTask'
 import useUpdateTask from '@/hooks/useUpdateTask'
 
 type Modals =
-  | { name: 'add-column'; data: { boardId: string } }
-  | { name: 'edit-column'; data: Column }
-  | { name: 'delete-column'; data: { boardId: string; columnId: string } }
-  | {
-      name: 'add-task'
-      data: { userId: string; boardId: string; columnId: string; order: number }
-    }
   | { name: 'edit-task'; data: Task }
   | { name: 'delete-task'; data: { boardId: string; columnId: string; taskId: string } }
 
@@ -35,11 +24,8 @@ export default function useBoardPage() {
   const columns = useColumns(boardId)
   const tasks = useTasks(boardId)
 
-  const addColumn = useAddColumn(closeModal)
-  const deleteColumn = useDeleteColumn(closeModal)
-  const updateColumn = useUpdateColumn(closeModal)
   const updateColumnsSet = useUpdateColumnsSet(boardId, closeModal)
-  const addTask = useAddTask(closeModal)
+
   const updateTask = useUpdateTask(closeModal)
   const deleteTask = useDeleteTask(closeModal)
 
@@ -72,10 +58,6 @@ export default function useBoardPage() {
     board: board.data,
     columns: columnsWithTasks,
     modal,
-    addColumn,
-    updateColumn,
-    deleteColumn,
-    addTask,
     updateTask,
     deleteTask,
     openModal,

@@ -10,7 +10,6 @@ type Props = {
 }
 
 export function Countdown({ exp = 0, className, onEnd }: Props) {
-  console.log(exp)
   const { t } = useTranslation()
 
   const [countDown, setCountDown] = useState(exp - Date.now())

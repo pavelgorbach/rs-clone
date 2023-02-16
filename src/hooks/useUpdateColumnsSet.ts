@@ -30,9 +30,7 @@ export default function useUpdateColumnsSet(boardId: string, cb?: () => void) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['columns'] })
 
-      if (cb) {
-        cb()
-      }
+      if (cb) cb()
     }
   })
 }

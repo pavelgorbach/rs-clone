@@ -14,7 +14,7 @@ export default function useUpdateColumn(cb?: () => void) {
       queryClient.invalidateQueries(['columns'])
       toast.success(`${column.title} ${t('toast.updated')}.`)
 
-      if (cb) cb
+      if (cb) cb()
     },
     onError: (e) => {
       toast.error(e instanceof Error ? e.message : 'Something went wrong')

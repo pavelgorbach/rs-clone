@@ -1,7 +1,8 @@
 // Core
-export * from './PageLayout'
+export * from './Layout'
 export * from './Footer'
 export * from './Header/Header'
+export * from './Modals'
 
 // UI
 export * from './Button'
