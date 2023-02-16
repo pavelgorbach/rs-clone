@@ -113,6 +113,8 @@
   "tooltip": {
     "goBoards": "Go to Boards",
     "goProfile": "Go to Profile",
-    "logOut": "Log Out"
+    "logOut": "Log Out",
+    "editBoardName": "Edit board name",
+    "deleteBoard": "Delete board"
   }
 }
