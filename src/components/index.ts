@@ -6,6 +6,7 @@ export * from './Header/Header'
 // UI
 export * from './Button'
 export * from './Loader'
+export * from './ErrorMessage'
 export * from './Switch'
 export * from './Listbox'
 export * from './Modal'

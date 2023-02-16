@@ -14,52 +14,39 @@ import {
   EditColumnForm,
   TaskCard,
   CreateTaskForm,
-  EditTaskForm
+  EditTaskForm,
+  ErrorMessage
 } from '@/components'
+import useAuthStore from '@/hooks/useAuthStore'
 import useBoardPage from './useBoardPage'
 
 function BoardPageView() {
   const { t } = useTranslation()
+  const { isAuthenticated, userId } = useAuthStore()
 
   const {
-    isAuthenticated,
-    userId,
     isLoading,
     isError,
     error,
     board,
     columns,
     modal,
-    openModal,
-    closeModal,
     addColumn,
     updateColumn,
-    removeColumn,
-    onDragColumnComplete,
+    deleteColumn,
     addTask,
     updateTask,
-    removeTask
+    deleteTask,
+    openModal,
+    closeModal,
+    onDragColumnComplete
   } = useBoardPage()
 
-  if (!isAuthenticated || !userId) {
-    return <Navigate to={ROUTES.home} replace />
-  }
+  if (!isAuthenticated || !userId) return <Navigate to={ROUTES.home} replace />
 
-  if (isLoading) {
-    return (
-      <div className="container m-auto">
-        <Loader />
-      </div>
-    )
-  }
+  if (isLoading) return <Loader />
 
-  if (isError) {
-    return (
-      <div className="container m-auto">
-        {t('boardsPage.error')} {error instanceof Error ? error.message : 'something went wrong'}
-      </div>
-    )
-  }
+  if (isError || !board) return <ErrorMessage error={error} />
 
   return (
     <>
@@ -102,6 +89,7 @@ function BoardPageView() {
                                       openModal({
                                         name: 'delete-task',
                                         data: {
+                                          boardId: board._id,
                                           columnId: column._id,
                                           taskId: task._id
                                         }
@@ -149,7 +137,7 @@ function BoardPageView() {
         <Modal isOpen={true} onClose={closeModal} title={t('common.create')}>
           <CreateColumnForm
             onSubmit={(formData) =>
-              addColumn({
+              addColumn.mutate({
                 ...modal.data,
                 ...formData,
                 order: columns?.length || 0
@@ -164,7 +152,7 @@ function BoardPageView() {
           <EditColumnForm
             title={modal.data.title}
             onSubmit={(formData) =>
-              updateColumn({
+              updateColumn.mutate({
                 boardId: modal.data.boardId,
                 columnId: modal.data._id,
                 order: modal.data.order,
@@ -185,7 +173,7 @@ function BoardPageView() {
               <Button
                 type="error"
                 text={t('common.delete')}
-                onClick={() => removeColumn(modal.data)}
+                onClick={() => deleteColumn.mutate(modal.data)}
               />
             </div>
           </div>
@@ -194,7 +182,7 @@ function BoardPageView() {
 
       {modal.name === 'add-task' && (
         <Modal isOpen={true} onClose={closeModal}>
-          <CreateTaskForm onSubmit={(formData) => addTask({ ...modal.data, ...formData })} />
+          <CreateTaskForm onSubmit={(formData) => addTask.mutate({ ...modal.data, ...formData })} />
         </Modal>
       )}
 
@@ -204,7 +192,7 @@ function BoardPageView() {
             title={modal.data.title}
             description={modal.data.description}
             onSubmit={(formData) =>
-              updateTask({
+              updateTask.mutate({
                 boardId: modal.data.boardId,
                 columnId: modal.data.columnId,
                 taskId: modal.data._id,
@@ -228,7 +216,7 @@ function BoardPageView() {
               <Button
                 type="error"
                 text={t('common.delete')}
-                onClick={() => removeTask(modal.data)}
+                onClick={() => deleteTask.mutate(modal.data)}
               />
             </div>
           </div>
