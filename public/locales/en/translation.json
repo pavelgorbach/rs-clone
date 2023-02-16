@@ -109,5 +109,12 @@
   "column": {
     "question": "Are you sure you want to delete the column?",
     "addTask": "+ Add task"
+  },
+  "tooltip": {
+    "home": "Go to Home",
+    "switchTheme": "Switch Theme",
+    "goBoards": "Go to Boards",
+    "goProfile": "Go to Profile",
+    "logOut": "Log Out"
   }
 }

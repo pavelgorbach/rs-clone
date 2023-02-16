@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
-
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
 import {
   ViewColumnsIcon,
   ArrowRightOnRectangleIcon,
@@ -30,12 +31,14 @@ function HeaderView() {
     <header className="bg-white py-2 px-4">
       <div className="container m-auto flex items-center gap-4">
         <Link to={ROUTES.home}>
-          <h1 className="whitespace-nowrap">
+          <h1 className="whitespace-nowrap" id="go-to-home">
             <ViewColumnsIcon className="h-14 w-14 text-purple-500 hover:text-purple-400" />
           </h1>
         </Link>
 
-        <Switch enabled={theme} onChange={setTheme} />
+        <div id="switch-theme">
+          <Switch enabled={theme} onChange={setTheme} />
+        </div>
 
         <Listbox value={i18n.language} options={['ru', 'en']} onChange={changeLanguage} />
 
@@ -50,21 +53,37 @@ function HeaderView() {
           <div className="ml-auto flex items-center gap-4">
             <Button className="hidden md:block" text={t('header.addBoard')} onClick={onAddBoard} />
 
-            <Link to={ROUTES.boards}>
+            <Link to={ROUTES.boards} id="go-to-boards">
               <HomeIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
             </Link>
 
-            <Link to={ROUTES.profile}>
+            <Link to={ROUTES.profile} id="go-to-profile">
               <UserIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
             </Link>
 
             <ArrowRightOnRectangleIcon
+              id="log-out"
               className="h-6 w-6 cursor-pointer text-purple-500 hover:text-purple-400"
               onClick={onSignOut}
             />
           </div>
         )}
       </div>
+      <Tooltip
+        anchorId="go-to-home"
+        className="absolute z-20 "
+        place="bottom"
+        content={t('tooltip.home')}
+      />
+      <Tooltip
+        anchorId="switch-theme"
+        className="absolute z-20"
+        place="bottom"
+        content={t('tooltip.switchTheme')}
+      />
+      <Tooltip anchorId="go-to-boards" place="bottom" content={t('tooltip.goBoards')} />
+      <Tooltip anchorId="go-to-profile" place="bottom" content={t('tooltip.goProfile')} />
+      <Tooltip anchorId="log-out" place="bottom" content={t('tooltip.logOut')} />
     </header>
   )
 }
