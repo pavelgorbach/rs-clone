@@ -24,9 +24,11 @@ export * from './CreateBoardForm'
 // Board page
 export * from './Column'
 export * from './Breadcrumbs'
-export * from './EditColumnForm'
 export * from './CreateColumnForm'
+export * from './TaskCard'
+export * from './EditColumnForm'
 export * from './CreateTaskForm'
+export * from './EditTaskForm'
 
 // Profile page
 export * from './EditProfileForm'

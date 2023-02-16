@@ -4,7 +4,18 @@ import { Navigate } from 'react-router-dom'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 import { ROUTES } from '@/router'
-import { Button, CreateColumnForm, Loader, Modal, Column, Breadcrumbs } from '@/components'
+import {
+  Loader,
+  Button,
+  Modal,
+  Breadcrumbs,
+  Column,
+  CreateColumnForm,
+  EditColumnForm,
+  TaskCard,
+  CreateTaskForm,
+  EditTaskForm
+} from '@/components'
 import useBoardPage from './useBoardPage'
 
 function BoardPageView() {
@@ -12,25 +23,25 @@ function BoardPageView() {
 
   const {
     isAuthenticated,
-    board,
+    userId,
     isLoading,
     isError,
     error,
+    board,
     columns,
-    createModalOpen,
-    tasks,
-    openCreateColumnModal,
-    closeCreateColumnModal,
+    modal,
+    openModal,
+    closeModal,
     addColumn,
     updateColumn,
     removeColumn,
     onDragColumnComplete,
     addTask,
     updateTask,
-    deleteTask
+    removeTask
   } = useBoardPage()
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !userId) {
     return <Navigate to={ROUTES.home} replace />
   }
 
@@ -52,7 +63,7 @@ function BoardPageView() {
 
   return (
     <>
-      <Breadcrumbs title={board?.title} />
+      <Breadcrumbs title={board.title} />
 
       <div className="flex flex-1 flex-col overflow-auto pb-4 pt-1">
         <div className="flex flex-1">
@@ -70,14 +81,52 @@ function BoardPageView() {
                           {...provided.dragHandleProps}
                         >
                           <Column
-                            tasks={tasks[column._id]}
-                            {...column}
-                            onUpdate={updateColumn}
-                            onDelete={removeColumn}
-                            onAddTask={addTask}
-                            onUpdateTask={updateTask}
-                            onDeleteTask={deleteTask}
-                          />
+                            title={column.title}
+                            onEdit={() => openModal({ name: 'edit-column', data: column })}
+                            onDelete={() =>
+                              openModal({
+                                name: 'delete-column',
+                                data: { boardId: board._id, columnId: column._id }
+                              })
+                            }
+                          >
+                            <div className="m-2 flex w-64 flex-1 flex-col gap-1 border border-dashed border-gray-300 p-1">
+                              {column.tasks?.map((task) => {
+                                return (
+                                  <TaskCard
+                                    key={task._id}
+                                    title={task.title}
+                                    description={task.description}
+                                    onEdit={() => openModal({ name: 'edit-task', data: task })}
+                                    onDelete={() =>
+                                      openModal({
+                                        name: 'delete-task',
+                                        data: {
+                                          columnId: column._id,
+                                          taskId: task._id
+                                        }
+                                      })
+                                    }
+                                  />
+                                )
+                              })}
+                            </div>
+
+                            <Button
+                              text={t('column.addTask')}
+                              onClick={() =>
+                                openModal({
+                                  name: 'add-task',
+                                  data: {
+                                    userId,
+                                    boardId: board._id,
+                                    columnId: column._id,
+                                    order: column.tasks?.length || 0
+                                  }
+                                })
+                              }
+                            />
+                          </Column>
                         </div>
                       )}
                     </Draggable>
@@ -91,14 +140,100 @@ function BoardPageView() {
           <Button
             text={t('boardPage.newColumn')}
             className="ml-4 self-start"
-            onClick={openCreateColumnModal}
+            onClick={() => openModal({ name: 'add-column', data: { boardId: board._id } })}
           />
         </div>
-
-        <Modal isOpen={createModalOpen} onClose={closeCreateColumnModal} title={t('common.create')}>
-          <CreateColumnForm onSubmit={addColumn} />
-        </Modal>
       </div>
+
+      {modal.name === 'add-column' && (
+        <Modal isOpen={true} onClose={closeModal} title={t('common.create')}>
+          <CreateColumnForm
+            onSubmit={(formData) =>
+              addColumn({
+                ...modal.data,
+                ...formData,
+                order: columns?.length || 0
+              })
+            }
+          />
+        </Modal>
+      )}
+
+      {modal.name === 'edit-column' && (
+        <Modal isOpen={true} onClose={closeModal} title={t('common.edit')}>
+          <EditColumnForm
+            title={modal.data.title}
+            onSubmit={(formData) =>
+              updateColumn({
+                boardId: modal.data.boardId,
+                columnId: modal.data._id,
+                order: modal.data.order,
+                ...formData
+              })
+            }
+          />
+        </Modal>
+      )}
+
+      {modal.name === 'delete-column' && (
+        <Modal isOpen={true} onClose={closeModal} title={t('common.confirmation')}>
+          <div className="prose">
+            <p>{t('column.question')}</p>
+
+            <div className="flex justify-between">
+              <Button type="success" text={t('common.cancel')} onClick={closeModal} />
+              <Button
+                type="error"
+                text={t('common.delete')}
+                onClick={() => removeColumn(modal.data)}
+              />
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {modal.name === 'add-task' && (
+        <Modal isOpen={true} onClose={closeModal}>
+          <CreateTaskForm onSubmit={(formData) => addTask({ ...modal.data, ...formData })} />
+        </Modal>
+      )}
+
+      {modal.name === 'edit-task' && (
+        <Modal isOpen={true} onClose={closeModal}>
+          <EditTaskForm
+            title={modal.data.title}
+            description={modal.data.description}
+            onSubmit={(formData) =>
+              updateTask({
+                boardId: modal.data.boardId,
+                columnId: modal.data.columnId,
+                taskId: modal.data._id,
+                userId: modal.data.userId,
+                users: modal.data.users,
+                order: modal.data.order,
+                ...formData
+              })
+            }
+          />
+        </Modal>
+      )}
+
+      {modal.name === 'delete-task' && (
+        <Modal isOpen={true} onClose={closeModal} title={t('common.confirmation')}>
+          <div className="prose">
+            <p>{t('column.question')}</p>
+
+            <div className="flex justify-between">
+              <Button type="success" text={t('common.cancel')} onClick={closeModal} />
+              <Button
+                type="error"
+                text={t('common.delete')}
+                onClick={() => removeTask(modal.data)}
+              />
+            </div>
+          </div>
+        </Modal>
+      )}
     </>
   )
 }

@@ -1,9 +1,12 @@
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { Button } from '@/components'
-import { Task } from '@/api'
 
-export type CreateTaskFormData = Pick<Task, 'title' | 'description'>
+import { Button } from '@/components'
+
+type CreateTaskFormData = {
+  title: string
+  description: string
+}
 
 type Props = {
   onSubmit: (data: CreateTaskFormData) => void
@@ -31,7 +34,9 @@ export function CreateTaskForm({ onSubmit }: Props) {
         {...register('description', { required: true })}
         placeholder={t('common.description')}
       />
-      {errors.title && <span className="text-sm text-red-500">{t('common.nameRequired')}</span>}
+      {errors.title && (
+        <span className="text-sm text-red-500">{t('common.descriptionReqiured')}</span>
+      )}
 
       <Button type="success" text={t('common.create')} onClick={submit} />
     </div>
