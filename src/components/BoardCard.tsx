@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { useTranslation } from 'react-i18next'
+import { Tooltip } from 'react-tooltip'
 
 import { Board } from '@/api'
 import { Button, Modal, EditBoardForm, EditBoardFormData } from '@/components'
@@ -60,11 +61,17 @@ export function BoardCard({ _id, title, users, owner, onDelete, onUpdate }: Prop
 
           <div className="flex justify-end gap-2">
             <button onClick={openEditModal}>
-              <PencilIcon className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-green-100 hover:text-green-500" />
+              <PencilIcon
+                id="edit-board"
+                className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-green-100 hover:text-green-500"
+              />
             </button>
 
             <button onClick={openDeleteModal}>
-              <TrashIcon className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-red-100 hover:text-red-500" />
+              <TrashIcon
+                id="delete-board"
+                className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-red-100 hover:text-red-500"
+              />
             </button>
           </div>
         </div>
@@ -84,6 +91,18 @@ export function BoardCard({ _id, title, users, owner, onDelete, onUpdate }: Prop
           </div>
         </div>
       </Modal>
+      <Tooltip
+        anchorId="edit-board"
+        place="bottom"
+        content={t('tooltip.editBoardName')}
+        className="!p-1.5 !text-xs"
+      />
+      <Tooltip
+        anchorId="delete-board"
+        place="bottom"
+        content={t('tooltip.deleteBoard')}
+        className="!p-1.5 !text-xs"
+      />
     </>
   )
 }
