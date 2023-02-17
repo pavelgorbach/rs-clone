@@ -12,7 +12,7 @@ import useAuthStore from '@/hooks/useAuthStore'
 function MainPageView() {
   const { t } = useTranslation()
 
-  const modalStore = useModalStore()
+  const modal = useModalStore()
 
   const { userId, isAuthenticated } = useAuthStore()
 
@@ -43,7 +43,7 @@ function MainPageView() {
 
         <Button
           text={t('boardsPage.new')}
-          onClick={() => modalStore.open({ name: 'add-board', data: { userId } })}
+          onClick={() => modal.open({ name: 'add-board', data: { userId } })}
           className="justify-self-end"
         />
 

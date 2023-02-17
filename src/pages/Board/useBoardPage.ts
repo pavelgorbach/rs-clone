@@ -14,7 +14,7 @@ export default function useBoardPage() {
 
   const { isAuthenticated, userId } = useAuthStore()
 
-  const modalStore = useModalStore()
+  const modal = useModalStore()
 
   const board = useBoard(boardId)
   const columns = useColumns(boardId)
@@ -23,7 +23,7 @@ export default function useBoardPage() {
   const onAddColumnClick = () => {
     if (!board.data?._id) return
 
-    modalStore.open({
+    modal.open({
       name: 'add-column',
       data: { boardId: board.data?._id, order: columns.data?.length || 0 }
     })
@@ -31,7 +31,7 @@ export default function useBoardPage() {
 
   const updateColumnsSet = useUpdateColumnsSet(boardId)
 
-  const onDragColumnComplete: OnDragEndResponder = (result) => {
+  const onDragEnd: OnDragEndResponder = (result) => {
     if (!result.destination || !columns.data) return
 
     const sorted = columns.data.sort((a, b) => a.order - b.order)
@@ -62,7 +62,7 @@ export default function useBoardPage() {
     error: board.error || columns.error || tasks.error,
     board: board.data,
     columns: columnsWithTasks,
-    onDragColumnComplete,
+    onDragEnd,
     onAddColumnClick
   }
 }
