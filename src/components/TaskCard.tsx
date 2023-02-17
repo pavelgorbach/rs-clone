@@ -5,20 +5,33 @@ import { useTranslation } from 'react-i18next'
 import cx from 'classnames'
 
 import { Task } from '@/api'
+import useModalStore from '@/hooks/useModalStore'
 
-type Props = Pick<Task, 'title' | 'description'> & {
-  onEdit(): void
-  onDelete(): void
-}
-
-export function TaskCard({ title, description, onDelete, onEdit }: Props) {
+export function TaskCard({ task }: { task: Task }) {
   const { t } = useTranslation()
+
+  const modal = useModalStore()
+
+  const onEdit = () => {
+    modal.open({ name: 'edit-task', data: task })
+  }
+
+  const onDelete = () => {
+    modal.open({
+      name: 'delete-task',
+      data: {
+        boardId: task.boardId,
+        columnId: task.columnId,
+        taskId: task._id
+      }
+    })
+  }
 
   return (
     <div className="relative bg-white p-1">
-      <div>{title}</div>
+      <div>{task.title}</div>
 
-      <div className="font-thin">{description}</div>
+      <div className="font-thin">{task.description}</div>
 
       <div className="absolute top-1 right-2 w-56 text-right">
         <Menu as="div" className="relative inline-block text-left">

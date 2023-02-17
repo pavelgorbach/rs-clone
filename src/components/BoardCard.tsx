@@ -10,7 +10,7 @@ import useModalStore from '@/hooks/useModalStore'
 export function BoardCard(board: Board) {
   const { t } = useTranslation()
 
-  const modalStore = useModalStore()
+  const modal = useModalStore()
 
   return (
     <>
@@ -22,7 +22,7 @@ export function BoardCard(board: Board) {
             <button
               onClick={(e) => {
                 e.preventDefault()
-                modalStore.open({ name: 'edit-board', data: board })
+                modal.open({ name: 'edit-board', data: board })
               }}
             >
               <PencilIcon
@@ -34,7 +34,7 @@ export function BoardCard(board: Board) {
             <button
               onClick={(e) => {
                 e.preventDefault()
-                modalStore.open({ name: 'delete-board', data: { boardId: board._id } })
+                modal.open({ name: 'delete-board', data: { boardId: board._id } })
               }}
             >
               <TrashIcon

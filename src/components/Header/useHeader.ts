@@ -1,15 +1,18 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { ROUTES } from '@/router'
 import useAuthStore from '@/hooks/useAuthStore'
+import useModalStore from '@/hooks/useModalStore'
 
 export default function useHeader() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
 
   const authStore = useAuthStore()
+  const modal = useModalStore()
 
   const [theme, setTheme] = useState(false)
 
@@ -28,7 +31,8 @@ export default function useHeader() {
   }
 
   const onAddBoard = () => {
-    console.log('add new board')
+    navigate(ROUTES.boards)
+    modal.open({ name: 'add-board', data: { userId: authStore.userId! } })
   }
 
   const onSignOut = () => {
