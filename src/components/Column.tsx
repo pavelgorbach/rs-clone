@@ -21,14 +21,14 @@ export type Props = {
 export function Column({ column, children }: Props) {
   const { t } = useTranslation()
 
-  const modalStore = useModalStore()
+  const modal = useModalStore()
 
   const onEdit = () => {
-    modalStore.open({ name: 'edit-column', data: column })
+    modal.open({ name: 'edit-column', data: column })
   }
 
   const onDelete = () => {
-    modalStore.open({
+    modal.open({
       name: 'delete-column',
       data: { boardId: column.boardId, columnId: column._id }
     })
@@ -37,7 +37,7 @@ export function Column({ column, children }: Props) {
   const onAddTaskClick = () => {
     if (!column.userId) return
 
-    modalStore.open({
+    modal.open({
       name: 'add-task',
       data: {
         userId: column.userId,
@@ -51,7 +51,7 @@ export function Column({ column, children }: Props) {
   return (
     <>
       <div className="flex flex-1 flex-col bg-gray-100">
-        <div className="m-3 mb-0 flex gap-2">
+        <div className="flex m-3 mb-0 gap-2">
           <h3 className="!my-0 flex-1">{column.title}</h3>
 
           <button onClick={onEdit}>
