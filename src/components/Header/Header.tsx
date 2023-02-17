@@ -53,31 +53,39 @@ function HeaderView() {
               <HomeIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
             </Link>
 
+            <Tooltip
+              anchorId="go-to-boards"
+              place="bottom"
+              content={t('tooltip.goBoards')}
+              className="!p-1.5"
+            />
+
             <Link to={ROUTES.profile} id="go-to-profile">
               <UserIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
             </Link>
+
+            <Tooltip
+              anchorId="go-to-profile"
+              place="bottom"
+              content={t('tooltip.goProfile')}
+              className="!p-1.5"
+            />
 
             <ArrowRightOnRectangleIcon
               id="log-out"
               className="h-6 w-6 cursor-pointer text-purple-500 hover:text-purple-400"
               onClick={onSignOut}
             />
+
+            <Tooltip
+              anchorId="log-out"
+              place="bottom"
+              content={t('tooltip.logOut')}
+              className="!p-1.5"
+            />
           </div>
         )}
       </div>
-      <Tooltip
-        anchorId="go-to-boards"
-        place="bottom"
-        content={t('tooltip.goBoards')}
-        className="!p-1.5"
-      />
-      <Tooltip
-        anchorId="go-to-profile"
-        place="bottom"
-        content={t('tooltip.goProfile')}
-        className="!p-1.5"
-      />
-      <Tooltip anchorId="log-out" place="bottom" content={t('tooltip.logOut')} className="!p-1.5" />
     </header>
   )
 }
