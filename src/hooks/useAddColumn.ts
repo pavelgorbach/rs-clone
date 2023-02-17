@@ -15,6 +15,9 @@ export default function useAddColumn(cb?: () => void) {
       toast.success(`${newColumn.title} ${t('toast.created')}.`)
 
       if (cb) cb()
+    },
+    onError: (e) => {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
     }
   })
 }

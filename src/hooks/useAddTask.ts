@@ -17,6 +17,9 @@ export default function useAddTask(cb?: () => void) {
       toast.success(`${task.title} ${t('toast.created')}.`)
 
       if (cb) cb()
+    },
+    onError: (e) => {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
     }
   })
 }
