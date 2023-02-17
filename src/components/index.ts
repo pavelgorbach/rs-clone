@@ -11,6 +11,28 @@ export * from './ErrorMessage'
 export * from './Switch'
 export * from './Listbox'
 export * from './Modal'
+export * from './Search'
+export * from './Countdown'
+
+// Forms
+export * from './Forms/CreateBoardForm'
+export * from './Forms/CreateColumnForm'
+export * from './Forms/CreateTaskForm'
+export * from './Forms/EditBoardForm'
+export * from './Forms/EditColumnForm'
+export * from './Forms/EditTaskForm'
+export * from './Forms/EditProfileForm'
+export * from './Forms/SignUpForm'
+export * from './Forms/SignInForm'
+
+// Modals
+export * from './Modals/CreateBoardModal'
+export * from './Modals/CreateColumnModal'
+export * from './Modals/CreateTaskModal'
+export * from './Modals/EditBoardModal'
+export * from './Modals/EditColumnModal'
+export * from './Modals/DeleteBoardModal'
+export * from './Modals/DeleteColumnModal'
 
 // Home page
 export * from './Banner'
@@ -20,24 +42,8 @@ export * from './DevStack'
 
 // Main page
 export * from './BoardCard'
-export * from './EditBoardForm'
-export * from './CreateBoardForm'
 
 // Board page
 export * from './Column'
 export * from './Breadcrumbs'
-export * from './CreateColumnForm'
 export * from './TaskCard'
-export * from './EditColumnForm'
-export * from './CreateTaskForm'
-export * from './EditTaskForm'
-
-// Profile page
-export * from './EditProfileForm'
-export * from './Countdown'
-
-// Sign up page
-export * from './SignUpForm'
-
-// Sign in page
-export * from './SignInForm'

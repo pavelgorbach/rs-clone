@@ -1,18 +1,17 @@
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react-lite'
 
-import { Button } from './Button'
-import { Modal } from './Modal'
+import { Modal, Button } from '@/components'
 import useModalStore from '@/hooks/useModalStore'
 import useDeleteColumn from '@/hooks/useDeleteColumn'
 
 function DeleteColumnModalView() {
   const { t } = useTranslation()
 
-  const store = useModalStore()
-  const { name, data } = store.state
+  const modal = useModalStore()
+  const { name, data } = modal.state
 
-  const close = () => store.closeModal()
+  const close = () => modal.close()
 
   const deleteColumn = useDeleteColumn(close)
 
