@@ -13,6 +13,16 @@ export default function useHeader() {
 
   const [theme, setTheme] = useState(false)
 
+  const toggleTheme = (value: boolean) => {
+    if (value) {
+      setTheme(true)
+      document.body.classList.add('dark')
+    } else {
+      setTheme(false)
+      document.body.classList.remove('dark')
+    }
+  }
+
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng)
   }
@@ -39,6 +49,7 @@ export default function useHeader() {
     isAuthenticated: authStore.isAuthenticated,
     t,
     setTheme,
+    toggleTheme,
     changeLanguage,
     onAddBoard,
     onSignOut,

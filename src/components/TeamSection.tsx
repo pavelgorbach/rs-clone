@@ -30,8 +30,8 @@ export function TeamSection() {
   ]
 
   return (
-    <section className="bg-white pt-5 pb-10">
-      <div className="container m-auto border-l-2 border-l-purple-100 text-center lg:px-3 lg:text-left">
+    <section className="bg-white pt-5 pb-10 dark:bg-slate-800 dark:text-slate-200">
+      <div className="container m-auto border-l-2 border-l-purple-100 text-center dark:border-l-purple-800 lg:px-3 lg:text-left">
         <h3>{t('teamsection.team')}</h3>
         <ul className="ml-0 flex flex-col justify-around pl-0 align-top md:flex-row">
           {MEMBERS.map((member, index) => (
@@ -41,12 +41,15 @@ export function TeamSection() {
               </div>
               <div className="font-bold md:pl-4">{member.name}</div>
               <div className="md:pl-4">{member.role}</div>
-              <div className=" my-4 rounded-full border-2 text-center font-thin">
+              <div className=" my-4 rounded-full border-2 text-center font-thin dark:border-purple-800">
                 {t('teamsection.contribution')}
               </div>
               <div>
                 {member.contribution.map((feature, index) => (
-                  <div className="border-l-2 pl-3 text-left font-light" key={index}>
+                  <div
+                    className="border-l-2 pl-3 text-left font-light dark:border-l-purple-800"
+                    key={index}
+                  >
                     {feature}
                   </div>
                 ))}

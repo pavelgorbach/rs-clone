@@ -5,8 +5,9 @@ module.exports = {
     extend: {}
   },
   corePlugins: {
-    aspectRatio: false,
+    aspectRatio: false
   },
+  darkMode: 'class',
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
