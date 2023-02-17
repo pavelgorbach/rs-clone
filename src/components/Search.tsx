@@ -19,12 +19,12 @@ export function Search({ onChange }: Props) {
   return (
     <div
       className={cx('relative col-span-4 flex w-min border', {
-        'border-gray-300': !focusValue,
+        'border-gray-300 dark:border-slate-800': !focusValue,
         ' border-purple-500': focusValue
       })}
     >
       <input
-        className="w-60 border-none bg-gray-100 outline-none focus:ring-0"
+        className="w-60 border-none bg-gray-100 outline-none focus:ring-0 dark:bg-slate-500 dark:text-slate-200 dark:placeholder:text-slate-200"
         type="search"
         placeholder={t('boardsPage.search')}
         onChange={handleChange}

@@ -23,6 +23,7 @@ export function SignInForm({ onSubmit }: Props) {
   return (
     <div className="flex flex-col gap-2">
       <input
+        className="dark:border-slate-100 dark:bg-slate-500 dark:text-slate-200 dark:placeholder:text-slate-200"
         type="email"
         {...register('login', { required: true })}
         placeholder={t('common.login')}
@@ -30,6 +31,7 @@ export function SignInForm({ onSubmit }: Props) {
       <span className="text-sm text-red-500">{errors.login && t('common.loginReqiured')}</span>
 
       <input
+        className="dark:border-slate-100 dark:bg-slate-500 dark:text-slate-200 dark:placeholder:text-slate-200"
         type="password"
         {...register('password', { required: true })}
         placeholder={t('common.password')}
@@ -38,7 +40,11 @@ export function SignInForm({ onSubmit }: Props) {
         {errors.password && t('common.passwordReqiured')}
       </span>
 
-      <Button text={t('common.signIn')} onClick={submit} />
+      <Button
+        text={t('common.signIn')}
+        onClick={submit}
+        className="dark:border-none dark:bg-slate-800"
+      />
     </div>
   )
 }

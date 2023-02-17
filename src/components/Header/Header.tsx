@@ -11,13 +11,14 @@ import {
 import { ROUTES } from '@/router'
 import { Button, Switch, Listbox } from '@/components'
 import useHeader from './useHeader'
+
 function HeaderView() {
   const {
     i18n,
     isAuthenticated,
     theme,
     t,
-    setTheme,
+    toggleTheme,
     changeLanguage,
     goToSignInPage,
     goToSignUpPage,
@@ -26,7 +27,7 @@ function HeaderView() {
   } = useHeader()
 
   return (
-    <header className="bg-white py-2 px-4">
+    <header className="bg-white py-2 px-4 dark:bg-slate-800">
       <div className="container m-auto flex items-center gap-4">
         <Link to={ROUTES.home}>
           <h1 className="whitespace-nowrap">
@@ -34,7 +35,7 @@ function HeaderView() {
           </h1>
         </Link>
 
-        <Switch enabled={theme} onChange={setTheme} />
+        <Switch enabled={theme} onClick={toggleTheme} />
 
         <Listbox value={i18n.language} options={['ru', 'en']} onChange={changeLanguage} />
 

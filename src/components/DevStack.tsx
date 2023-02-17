@@ -17,8 +17,8 @@ export function DevStack() {
   const { t } = useTranslation()
 
   return (
-    <section className="bg-white pt-5 pb-10">
-      <div className="container m-auto border-l-2 border-l-purple-100 text-center lg:pl-3 lg:text-left">
+    <section className="bg-white pt-5 pb-10 dark:bg-slate-800 dark:text-slate-200">
+      <div className="container m-auto border-l-2 border-l-purple-100 text-center dark:border-l-purple-800 lg:pl-3 lg:text-left">
         <h3>{t('devStack.development')}</h3>
 
         <p>
@@ -34,7 +34,7 @@ export function DevStack() {
           {STACK.map(({ text, src }, idx) => (
             <div
               key={idx}
-              className={`not-prose flex flex-row items-center justify-between gap-3 border-2 py-1 px-2`}
+              className={`not-prose flex flex-row items-center justify-between gap-3 border-2 py-1 px-2 dark:border-slate-500`}
             >
               <div>{text}</div>
               <div className="w-10">

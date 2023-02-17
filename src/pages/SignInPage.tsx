@@ -15,15 +15,18 @@ export default function SignInPageView() {
 
   return (
     <div className="container m-auto">
-      <h1 className="text-center">{t('common.welcome')}</h1>
+      <h1 className="text-center dark:text-slate-200">{t('common.welcome')}</h1>
 
-      <div className="m-auto grid max-w-md bg-white p-4 shadow-md">
+      <div className="m-auto grid max-w-md bg-white p-4 shadow-md dark:bg-slate-500">
         <SignInForm onSubmit={loginUser} />
 
-        <div className="prose-sm m-auto flex items-center gap-2">
+        <div className="prose-sm m-auto flex items-center gap-2 dark:text-slate-200">
           <p>{t('signInForm.doNotHaveAnAccount')}</p>
 
-          <Link className="text-purple-500 hover:text-purple-400" to={ROUTES.signUp}>
+          <Link
+            className="text-purple-500 hover:text-purple-400 dark:text-purple-700 dark:hover:text-purple-900"
+            to={ROUTES.signUp}
+          >
             {t('common.signUp')}
           </Link>
         </div>
