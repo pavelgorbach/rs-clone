@@ -29,7 +29,7 @@ export type Task = {
   users: string[]
 }
 
-export type File = {
+export type FileDTO = {
   _id: string
   name: string
   taskId: string
@@ -38,7 +38,7 @@ export type File = {
 }
 
 export type FileList = {
-  data: File[]
+  shlyapa: File[]
 }
 
 export type Point = {

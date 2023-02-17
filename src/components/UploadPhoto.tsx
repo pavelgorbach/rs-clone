@@ -10,9 +10,10 @@ type Props = {
 export function UploadPhoto({ onSubmit }: Props) {
   const { register, handleSubmit } = useForm<FileList>()
   const submit = handleSubmit(onSubmit)
+
   return (
     <form>
-      <input {...register('data')} type="file" id="photo" />
+      <input {...register('shlyapa')} type="file" id="photo" />
       <Button text={'Upload'} onClick={submit}></Button>
     </form>
   )

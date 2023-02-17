@@ -60,7 +60,7 @@ export default function useProfilePage() {
   })
 
   const uploadMutation = useMutation({
-    mutationFn: uploadFile,
+    mutationFn: (file: File) => uploadFile(file, userId),
     onSuccess: (file) => {
       closeModal()
       toast.success(`${file.name} ${t('toast.updated')}.`)
@@ -85,16 +85,13 @@ export default function useProfilePage() {
     setModal('uploadPhoto')
   }
 
-
   function handleDelete() {
     deleteMutation.mutate(userId)
   }
 
-  function handlePhoto(data: FileList):void {
-    const file = data.data[0]
+  function handlePhoto(data: FileList) {
+    const file = data.shlyapa[0]
     uploadMutation.mutate(file)
-    console.log(file)
-    
   }
 
   async function handleUpdate(data: EditProfileFormData) {
@@ -118,6 +115,6 @@ export default function useProfilePage() {
     handleDelete,
     handleUpdate,
     openUploadPhotoModal,
-    handlePhoto,
+    handlePhoto
   }
 }
