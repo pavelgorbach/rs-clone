@@ -58,13 +58,13 @@ function BoardPageView() {
                         >
                           <Column column={column}>
                             <Droppable
-                              droppableId={column.title}
+                              droppableId={column._id}
                               type="TASK"
                               isCombineEnabled={false}
                             >
                               {(provided) => (
                                 <div
-                                  className="flex m-2 w-64 flex-1 flex-col gap-1 border border-dashed border-gray-300 p-1"
+                                  className="m-2 flex w-64 flex-1 flex-col gap-1 border border-dashed border-gray-300 p-1"
                                   {...provided.droppableProps}
                                   ref={provided.innerRef}
                                 >

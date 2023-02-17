@@ -34,12 +34,24 @@ export default function useBoardPage() {
   const onDragEnd: OnDragEndResponder = (result) => {
     if (!result.destination || !columns.data) return
 
-    const sorted = columns.data.sort((a, b) => a.order - b.order)
-    const [removed] = sorted.splice(result.source.index, 1)
-    sorted.splice(result.destination.index, 0, removed)
-    const data = sorted.map((column, idx) => ({ ...column, order: idx }))
+    if (
+      result.source.droppableId === result.destination.droppableId &&
+      result.source.index === result.destination.index
+    ) {
+      return
+    }
 
-    updateColumnsSet.mutate(data)
+    if (result.type === 'COLUMN') {
+      const sorted = columns.data.sort((a, b) => a.order - b.order)
+      const [removed] = sorted.splice(result.source.index, 1)
+      sorted.splice(result.destination.index, 0, removed)
+      const data = sorted.map((column, idx) => ({ ...column, order: idx }))
+
+      updateColumnsSet.mutate(data)
+      return
+    }
+
+    console.log('reorder tasks', result.source, result.destination)
   }
 
   const columnsWithTasks = useMemo(() => {
