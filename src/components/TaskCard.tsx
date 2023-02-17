@@ -28,7 +28,7 @@ export function TaskCard({ task }: { task: Task }) {
   }
 
   return (
-    <div className="relative bg-white p-1">
+    <div className="relative bg-white p-1  dark:bg-slate-600 dark:text-slate-200">
       <div>{task.title}</div>
 
       <div className="font-thin">{task.description}</div>
@@ -61,7 +61,7 @@ export function TaskCard({ task }: { task: Task }) {
                         'bg-purple-500 text-white': active,
                         'text-gray-900': !active
                       },
-                      'group flex w-full items-center px-2 py-2 text-sm'
+                      'group flex w-full items-center px-2 py-2 text-sm dark:bg-slate-500 dark:hover:bg-purple-500'
                     )}
                   >
                     <PencilIcon className="mr-4 h-5 w-5 text-green-400" />
@@ -79,7 +79,7 @@ export function TaskCard({ task }: { task: Task }) {
                         'bg-purple-500 text-white': active,
                         'text-gray-900': !active
                       },
-                      'group flex w-full items-center px-2 py-2 text-sm'
+                      'group flex w-full items-center px-2 py-2 text-sm dark:bg-slate-500 dark:hover:bg-purple-500'
                     )}
                   >
                     <TrashIcon className="mr-4 h-5 w-5 text-red-400" />
