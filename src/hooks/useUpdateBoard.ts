@@ -10,9 +10,9 @@ export default function useUpdateBoard(cb?: () => void) {
 
   return useMutation({
     mutationFn: updateBoard,
-    onSuccess: (column) => {
-      queryClient.invalidateQueries(['columns'])
-      toast.success(`${column.title} ${t('toast.updated')}.`)
+    onSuccess: (board) => {
+      queryClient.invalidateQueries(['boards', board.owner])
+      toast.success(`${board.title} ${t('toast.updated')}.`)
 
       if (cb) cb()
     },

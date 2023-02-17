@@ -21,8 +21,8 @@ function EditBoardModalView() {
         onSubmit={(formData) => {
           if (name === 'edit-board') {
             updateBoard.mutate({
-              ...formData,
-              ...data
+              ...data,
+              ...formData
             })
           }
         }}
