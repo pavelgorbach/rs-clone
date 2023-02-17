@@ -11,7 +11,7 @@ export function Button({ text, className, type, onClick }: Props) {
   return (
     <button
       className={cx(
-        'whitespace-nowrap border border-purple-200 px-4 py-2 text-sm font-semibold text-purple-600 hover:cursor-pointer hover:border-transparent hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2',
+        'whitespace-nowrap border border-purple-200 px-4 py-2 text-sm font-semibold text-purple-600 hover:cursor-pointer hover:border-transparent hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-0',
         className,
         {
           'focus:ring-purple-600': !type,

@@ -17,7 +17,7 @@ function DeleteBoardModalView() {
 
   return (
     <Modal isOpen={name === 'delete-board'} onClose={close} title={t('common.confirmation')}>
-      <div className="prose">
+      <div className="prose dark:text-slate-200">
         <p>{t('boardCard.question')}</p>
 
         <div className="flex justify-between">

@@ -23,6 +23,7 @@ export function EditBoardForm({ title, onSubmit }: Props) {
   return (
     <div className="flex flex-col gap-4">
       <input
+        className="dark:bg-slate-600 dark:text-slate-200 dark:placeholder:text-slate-200"
         type="text"
         {...register('title', { required: true })}
         placeholder={t('common.name')}

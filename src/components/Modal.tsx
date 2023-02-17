@@ -35,11 +35,11 @@ export function Modal({ children, isOpen, title, onClose }: Props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-slate-600">
                 {title && (
                   <Dialog.Title
                     as="h3"
-                    className="mb-3 text-lg font-medium leading-6 text-gray-900"
+                    className="mb-3 text-lg font-medium leading-6 text-gray-900 dark:text-slate-200"
                   >
                     {title}
                   </Dialog.Title>
