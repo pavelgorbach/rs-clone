@@ -1,8 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
-import { PageLayout } from '@/components'
+import { Layout } from '@/components'
 import { Home, Main, Board, Profile, NoMatch, SignIn, SignUp } from '@/pages'
-import { Suspense } from 'react'
 
 export const ROUTES = {
   home: '/',
@@ -15,15 +14,8 @@ export const ROUTES = {
 export default function Router() {
   return (
     <Routes>
-      <Route path={ROUTES.home} element={<PageLayout />}>
-        <Route
-          index
-          element={
-            <Suspense fallback="loading">
-              <Home />
-            </Suspense>
-          }
-        />
+      <Route path={ROUTES.home} element={<Layout />}>
+        <Route index element={<Home />} />
         <Route path={ROUTES.signIn} element={<SignIn />} />
         <Route path={ROUTES.signUp} element={<SignUp />} />
         <Route path={ROUTES.boards} element={<Main />} />

@@ -1,21 +1,24 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { observer } from 'mobx-react-lite'
 
 import { ROUTES } from '@/router'
 import { SignInForm } from '@/components'
-import useSignInPage from './useSignInPage'
+import useSignIn from '@/hooks/useSignIn'
 
-function SignInPageView() {
+export default function SignInPageView() {
   const { t } = useTranslation()
-  const { onSubmit } = useSignInPage()
+  const navigate = useNavigate()
+
+  const goToMainPage = () => navigate(ROUTES.boards, { replace: true })
+
+  const { mutate: loginUser } = useSignIn(goToMainPage)
 
   return (
     <div className="container m-auto">
       <h1 className="text-center">{t('common.welcome')}</h1>
 
       <div className="m-auto grid max-w-md bg-white p-4 shadow-md">
-        <SignInForm onSubmit={onSubmit} />
+        <SignInForm onSubmit={loginUser} />
 
         <div className="prose-sm m-auto flex items-center gap-2">
           <p>{t('signInForm.doNotHaveAnAccount')}</p>
@@ -28,5 +31,3 @@ function SignInPageView() {
     </div>
   )
 }
-
-export default observer(SignInPageView)

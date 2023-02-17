@@ -1,3 +1,3 @@
 export function Loader() {
-  return <div>Loading...</div>
+  return <div className="container m-auto">Loading...</div>
 }
