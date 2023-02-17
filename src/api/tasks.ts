@@ -24,6 +24,7 @@ export async function createTask(query: {
   const { boardId, columnId, userId, ...params } = query
   const { data } = await client.post<Task>(`/boards/${boardId}/columns/${columnId}/tasks`, {
     ...params,
+    userId,
     users: [userId]
   })
   return data
