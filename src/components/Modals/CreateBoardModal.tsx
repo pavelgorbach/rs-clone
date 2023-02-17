@@ -21,9 +21,9 @@ function CreateBoardModalView() {
         onSubmit={(formData) => {
           if (name === 'add-board') {
             addBoard.mutate({
-              ...formData,
               owner: data.userId,
-              users: [data.userId]
+              users: [data.userId],
+              ...formData
             })
           }
         }}
