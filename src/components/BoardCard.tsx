@@ -1,75 +1,44 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { useTranslation } from 'react-i18next'
 import { Tooltip } from 'react-tooltip'
 
 import { Board } from '@/api'
-import { Button, Modal, EditBoardForm, EditBoardFormData } from '@/components'
 import { ROUTES } from '@/router'
+import useModalStore from '@/hooks/useModalStore'
 
-type Props = Board & {
-  onDelete(id: string): void
-  onUpdate(data: Board): void
-}
-
-type ModalName = 'create' | 'edit' | 'delete'
-
-export function BoardCard({ _id, title, users, owner, onDelete, onUpdate }: Props) {
-  const [modal, setModal] = useState<ModalName | null>(null)
-
-  const openModal = (name: ModalName) => {
-    setModal(name)
-  }
-
-  const closeModal = () => {
-    setModal(null)
-  }
-
-  const openEditModal = (e: React.MouseEvent) => {
-    e.preventDefault()
-    openModal('edit')
-  }
-
-  const openDeleteModal = (e: React.MouseEvent) => {
-    e.preventDefault()
-    openModal('delete')
-  }
-
-  const handleDelete = () => {
-    closeModal()
-    onDelete(_id)
-  }
-
-  const handleUpdate = ({ title }: EditBoardFormData) => {
-    closeModal()
-    onUpdate({
-      title,
-      _id,
-      owner,
-      users
-    })
-  }
-
+export function BoardCard(board: Board) {
   const { t } = useTranslation()
+
+  const modalStore = useModalStore()
 
   return (
     <>
-      <Link to={`${ROUTES.boards}/${_id}`}>
+      <Link to={`${ROUTES.boards}/${board._id}`}>
         <div className="mt-3 bg-white p-3 shadow-sm">
-          <h3 className="!mt-0 mb-2">{title}</h3>
+          <h3 className="!mt-0 mb-2">{board.title}</h3>
 
           <div className="flex justify-end gap-2">
-            <button onClick={openEditModal}>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                modalStore.open({ name: 'edit-board', data: board })
+              }}
+            >
               <PencilIcon
-                id="edit-board"
+                id={`tooltip-edit-${board._id}`}
                 className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-green-100 hover:text-green-500"
               />
             </button>
 
-            <button onClick={openDeleteModal}>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                modalStore.open({ name: 'delete-board', data: { boardId: board._id } })
+              }}
+            >
               <TrashIcon
-                id="delete-board"
+                id={`tooltip-delete-${board._id}`}
                 className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-red-100 hover:text-red-500"
               />
             </button>
@@ -77,28 +46,15 @@ export function BoardCard({ _id, title, users, owner, onDelete, onUpdate }: Prop
         </div>
       </Link>
 
-      <Modal isOpen={modal === 'edit'} onClose={closeModal} title={t('common.edit')}>
-        <EditBoardForm title={title} onSubmit={handleUpdate} />
-      </Modal>
-
-      <Modal isOpen={modal === 'delete'} onClose={closeModal} title={t('common.confirmation')}>
-        <div className="prose">
-          <p>{t('boardCard.question')}</p>
-
-          <div className="flex justify-between">
-            <Button type="success" text={t('common.cancel')} onClick={closeModal} />
-            <Button type="error" text={t('common.delete')} onClick={handleDelete} />
-          </div>
-        </div>
-      </Modal>
       <Tooltip
-        anchorId="edit-board"
+        anchorId={`tooltip-edit-${board._id}`}
         place="bottom"
         content={t('tooltip.editBoardName')}
         className="!p-1.5 !text-xs"
       />
+
       <Tooltip
-        anchorId="delete-board"
+        anchorId={`tooltip-delete-${board._id}`}
         place="bottom"
         content={t('tooltip.deleteBoard')}
         className="!p-1.5 !text-xs"

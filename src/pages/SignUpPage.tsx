@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { ROUTES } from '@/router'
-import { SignUpForm } from '@/components/SignUpForm'
+import { SignUpForm } from '@/components'
 import useSignUp from '@/hooks/useSignUp'
 
 export default function SignUpPageView() {

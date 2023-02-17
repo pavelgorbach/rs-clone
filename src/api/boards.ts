@@ -1,22 +1,13 @@
 import client from './client'
 import { Board } from './types'
 
-function Board(data: Omit<Board, '_id'>): Omit<Board, '_id'> {
-  return {
-    title: data.title,
-    owner: data.owner,
-    users: data.users
-  }
-}
-
 export async function fetchBoards() {
   const resp = await client.get<Board[]>('/boards')
   return resp.data
 }
 
 export async function createBoard(data: Omit<Board, '_id'>) {
-  const newBoard = Board(data)
-  const resp = await client.post<Board>('/boards', newBoard)
+  const resp = await client.post<Board>('/boards', data)
   return resp.data
 }
 
@@ -26,7 +17,7 @@ export async function fetchBoardById(id?: string) {
   return resp.data
 }
 
-export async function patchBoard({ _id, ...rest }: Board) {
+export async function updateBoard({ _id, ...rest }: Board) {
   const resp = await client.put<Board>(`/boards/${_id}`, rest)
   return resp.data
 }

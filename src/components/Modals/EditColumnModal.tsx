@@ -1,17 +1,18 @@
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react-lite'
 
-import { Modal } from './Modal'
-import { EditColumnForm } from './EditColumnForm'
+import { Modal, EditColumnForm } from '@/components'
 import useModalStore from '@/hooks/useModalStore'
 import useUpdateColumn from '@/hooks/useUpdateColumn'
 
 function EditColumnModalView() {
   const { t } = useTranslation()
 
-  const store = useModalStore()
-  const close = () => store.closeModal()
-  const { name, data } = store.state
+  const modal = useModalStore()
+  const { name, data } = modal.state
+
+  const close = () => modal.close()
+
   const updateColumn = useUpdateColumn(close)
 
   return (
@@ -21,9 +22,9 @@ function EditColumnModalView() {
         onSubmit={(formData) => {
           if (name === 'edit-column') {
             updateColumn.mutate({
-              boardId: store.state.data.boardId,
-              columnId: store.state.data._id,
-              order: store.state.data.order,
+              boardId: data.boardId,
+              columnId: data._id,
+              order: data.order,
               ...formData
             })
           }

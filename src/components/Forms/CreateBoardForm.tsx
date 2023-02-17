@@ -1,9 +1,8 @@
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components'
-import { Board } from '@/api'
 
-export type CreateBoardFormData = Pick<Board, 'title'>
+type CreateBoardFormData = { title: string }
 
 type Props = {
   onSubmit: (data: CreateBoardFormData) => void

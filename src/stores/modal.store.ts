@@ -1,8 +1,11 @@
 import { makeAutoObservable } from 'mobx'
 
-import { Column, Task } from '@/api/types'
+import { Board, Column, Task } from '@/api/types'
 
 type State =
+  | { name: 'add-board'; data: { userId: string } }
+  | { name: 'edit-board'; data: Board }
+  | { name: 'delete-board'; data: { boardId: string } }
   | { name: 'add-column'; data: { boardId: string; order: number } }
   | { name: 'edit-column'; data: Column }
   | { name: 'delete-column'; data: { boardId: string; columnId: string } }
@@ -23,11 +26,11 @@ export class ModalStore {
     this.state = { name: null, data: null }
   }
 
-  openModal(state: State) {
+  open(state: State) {
     this.state = state
   }
 
-  closeModal() {
+  close() {
     this.state = { name: null, data: null }
   }
 }

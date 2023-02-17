@@ -1,15 +1,14 @@
 import { observer } from 'mobx-react-lite'
 
-import { Modal } from './Modal'
-import { CreateTaskForm } from './CreateTaskForm'
+import { Modal, CreateTaskForm } from '@/components'
 import useModalStore from '@/hooks/useModalStore'
 import useAddTask from '@/hooks/useAddTask'
 
 function CreateTaskModalView() {
-  const store = useModalStore()
-  const { name, data } = store.state
+  const modal = useModalStore()
+  const { name, data } = modal.state
 
-  const close = () => store.closeModal()
+  const close = () => modal.close()
 
   const addTask = useAddTask(close)
 

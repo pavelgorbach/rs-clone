@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { Button } from './Button'
+import { Button } from '@/components'
 
 export type RegisterInput = {
   name: string
