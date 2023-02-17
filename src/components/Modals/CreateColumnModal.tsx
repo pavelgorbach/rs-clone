@@ -1,18 +1,17 @@
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react-lite'
 
-import { Modal } from './Modal'
-import { CreateColumnForm } from './CreateColumnForm'
+import { Modal, CreateColumnForm } from '@/components'
 import useModalStore from '@/hooks/useModalStore'
 import useAddColumn from '@/hooks/useAddColumn'
 
 function CreateColumnModalView() {
   const { t } = useTranslation()
 
-  const store = useModalStore()
-  const { name, data } = store.state
+  const modal = useModalStore()
+  const { name, data } = modal.state
 
-  const close = () => store.closeModal()
+  const close = () => modal.close()
 
   const addColumn = useAddColumn(close)
 

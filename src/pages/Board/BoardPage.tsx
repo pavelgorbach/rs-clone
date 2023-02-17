@@ -43,11 +43,9 @@ function BoardPageView() {
                         >
                           <Column
                             title={column.title}
-                            onEdit={() =>
-                              modalStore.openModal({ name: 'edit-column', data: column })
-                            }
+                            onEdit={() => modalStore.open({ name: 'edit-column', data: column })}
                             onDelete={() =>
-                              modalStore.openModal({
+                              modalStore.open({
                                 name: 'delete-column',
                                 data: { boardId: board._id, columnId: column._id }
                               })
@@ -61,10 +59,10 @@ function BoardPageView() {
                                     title={task.title}
                                     description={task.description}
                                     onEdit={() =>
-                                      modalStore.openModal({ name: 'edit-task', data: task })
+                                      modalStore.open({ name: 'edit-task', data: task })
                                     }
                                     onDelete={() =>
-                                      modalStore.openModal({
+                                      modalStore.open({
                                         name: 'delete-task',
                                         data: {
                                           boardId: board._id,
@@ -81,7 +79,7 @@ function BoardPageView() {
                             <Button
                               text={t('column.addTask')}
                               onClick={() =>
-                                modalStore.openModal({
+                                modalStore.open({
                                   name: 'add-task',
                                   data: {
                                     userId,
@@ -107,7 +105,7 @@ function BoardPageView() {
             text={t('boardPage.newColumn')}
             className="ml-4 self-start"
             onClick={() =>
-              modalStore.openModal({
+              modalStore.open({
                 name: 'add-column',
                 data: { boardId: board._id, order: columns?.length || 0 }
               })
