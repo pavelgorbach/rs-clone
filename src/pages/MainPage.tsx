@@ -12,7 +12,7 @@ import useAuthStore from '@/hooks/useAuthStore'
 function MainPageView() {
   const { t } = useTranslation()
 
-  const modalStore = useModalStore()
+  const modal = useModalStore()
 
   const { userId, isAuthenticated } = useAuthStore()
 
@@ -39,11 +39,11 @@ function MainPageView() {
       <div className="container mx-auto grid grid-cols-4 grid-rows-[100px_100px_minmax(900px)] gap-y-6">
         <Search onChange={setSearchValue} />
 
-        <h2 className="col-span-3 !m-0">{t('boardsPage.board')}</h2>
+        <h2 className="col-span-3 !m-0 dark:text-slate-200">{t('boardsPage.board')}</h2>
 
         <Button
           text={t('boardsPage.new')}
-          onClick={() => modalStore.open({ name: 'add-board', data: { userId } })}
+          onClick={() => modal.open({ name: 'add-board', data: { userId } })}
           className="justify-self-end"
         />
 

@@ -14,14 +14,14 @@ export function Greeting() {
   }
 
   return (
-    <section className="gap container m-auto mb-10 flex flex-col-reverse items-center justify-between md:flex-row">
+    <section className="gap \ container m-auto mb-10 flex flex-col-reverse items-center justify-between md:flex-row">
       <div className="pl-0 text-center lg:pl-3 lg:text-left">
-        <h1>
+        <h1 className="dark:text-slate-200">
           <Trans i18nKey="greeting.title">
             Manage <span className="text-purple-600">any</span> task
           </Trans>
         </h1>
-        <p>{t('greeting.desc')}</p>
+        <p className="dark:text-slate-200">{t('greeting.desc')}</p>
 
         <Button text={t('greeting.button')} onClick={goToMainPage} />
       </div>

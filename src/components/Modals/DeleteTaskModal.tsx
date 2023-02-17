@@ -17,7 +17,7 @@ function DeleteTaskModalView() {
 
   return (
     <Modal isOpen={name === 'delete-task'} onClose={close} title={t('common.confirmation')}>
-      <div className="prose">
+      <div className="prose dark:text-slate-200">
         <p>{t('column.question')}</p>
 
         <div className="flex justify-between">

@@ -10,36 +10,36 @@ import useModalStore from '@/hooks/useModalStore'
 export function BoardCard(board: Board) {
   const { t } = useTranslation()
 
-  const modalStore = useModalStore()
+  const modal = useModalStore()
 
   return (
     <>
       <Link to={`${ROUTES.boards}/${board._id}`}>
-        <div className="mt-3 bg-white p-3 shadow-sm">
-          <h3 className="!mt-0 mb-2">{board.title}</h3>
+        <div className="mt-3 bg-white p-3 shadow-sm dark:bg-slate-500">
+          <h3 className="!mt-0 mb-2 dark:text-slate-200">{board.title}</h3>
 
           <div className="flex justify-end gap-2">
             <button
               onClick={(e) => {
                 e.preventDefault()
-                modalStore.open({ name: 'edit-board', data: board })
+                modal.open({ name: 'edit-board', data: board })
               }}
             >
               <PencilIcon
                 id={`tooltip-edit-${board._id}`}
-                className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-green-100 hover:text-green-500"
+                className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-green-100 hover:text-green-500 dark:bg-slate-500"
               />
             </button>
 
             <button
               onClick={(e) => {
                 e.preventDefault()
-                modalStore.open({ name: 'delete-board', data: { boardId: board._id } })
+                modal.open({ name: 'delete-board', data: { boardId: board._id } })
               }}
             >
               <TrashIcon
                 id={`tooltip-delete-${board._id}`}
-                className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-red-100 hover:text-red-500"
+                className="h-7 w-7 bg-gray-50 p-1 text-gray-400 hover:bg-red-100 hover:text-red-500 dark:bg-slate-500"
               />
             </button>
           </div>
