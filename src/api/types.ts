@@ -37,6 +37,10 @@ export type File = {
   path: string
 }
 
+export type FileList = {
+  data: File[]
+}
+
 export type Point = {
   _id: string
   title: string

@@ -7,8 +7,10 @@ import { deleteUser, fetchUser, updateUser } from '@/api/users'
 import useAuthStore from '@/hooks/useAuthStore'
 import { EditProfileFormData } from '@/components'
 import { fetchTasksByUserId } from '@/api/tasks'
+import { FileList } from '@/api'
+import { uploadFile } from '@/api/files'
 
-type ModalName = 'edit' | 'delete'
+type ModalName = 'edit' | 'delete' | 'uploadPhoto'
 
 export default function useProfilePage() {
   const { t } = useTranslation()
@@ -57,6 +59,16 @@ export default function useProfilePage() {
     }
   })
 
+  const uploadMutation = useMutation({
+    mutationFn: uploadFile,
+    onSuccess: (file) => {
+      closeModal()
+      toast.success(`${file.name} ${t('toast.updated')}.`)
+    },
+    onError: (e) => {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
+    }
+  })
   function closeModal() {
     setModal(null)
   }
@@ -69,8 +81,20 @@ export default function useProfilePage() {
     setModal('delete')
   }
 
+  function openUploadPhotoModal() {
+    setModal('uploadPhoto')
+  }
+
+
   function handleDelete() {
     deleteMutation.mutate(userId)
+  }
+
+  function handlePhoto(data: FileList):void {
+    const file = data.data[0]
+    uploadMutation.mutate(file)
+    console.log(file)
+    
   }
 
   async function handleUpdate(data: EditProfileFormData) {
@@ -92,6 +116,8 @@ export default function useProfilePage() {
     openEditModal,
     openDeleteModal,
     handleDelete,
-    handleUpdate
+    handleUpdate,
+    openUploadPhotoModal,
+    handlePhoto,
   }
 }
