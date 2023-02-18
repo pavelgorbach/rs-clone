@@ -3,16 +3,17 @@ import { Link, useNavigate } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import { Tooltip } from 'react-tooltip'
 import { useTranslation } from 'react-i18next'
-
 import ViewColumnsIcon from '@heroicons/react/24/solid/ViewColumnsIcon'
 import ArrowRightOnRectangleIcon from '@heroicons/react/24/solid/ArrowRightOnRectangleIcon'
 import HomeIcon from '@heroicons/react/24/solid/HomeIcon'
 import UserIcon from '@heroicons/react/24/solid/UserIcon'
 
+import { BASE_URL } from '@/api/client'
 import { ROUTES } from '@/router/routes'
 import { Button, ThemeSwitch, Listbox } from '@/components'
 import useAuthStore from '@/hooks/useAuthStore'
 import useModalStore from '@/hooks/useModalStore'
+import useFile from '@/hooks/useFile'
 
 function HeaderView() {
   const { t, i18n } = useTranslation()
@@ -41,6 +42,8 @@ function HeaderView() {
   const goToSignUpPage = () => {
     navigate(ROUTES.signUp)
   }
+
+  const { photo } = useFile()
 
   return (
     <header className="bg-white py-2 px-4 dark:bg-slate-800">
@@ -78,7 +81,11 @@ function HeaderView() {
             />
 
             <Link to={ROUTES.profile} id="go-to-profile">
-              <UserIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
+              {photo?._id ? (
+                <img className="w-6 rounded-full" src={`${BASE_URL}/${photo.path}`} />
+              ) : (
+                <UserIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
+              )}
             </Link>
 
             <Tooltip

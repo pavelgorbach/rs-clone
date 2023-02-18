@@ -2,22 +2,22 @@ import { useState } from 'react'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
-
 import { deleteUser, fetchUser, updateUser } from '@/api/users'
 import useAuthStore from '@/hooks/useAuthStore'
 import { EditProfileFormData } from '@/components'
 import { fetchTasksByUserId } from '@/api/tasks'
+import { FileList } from '@/api'
+import useFile from '@/hooks/useFile'
 
-type ModalName = 'edit' | 'delete'
+type ModalName = 'edit' | 'delete' | 'uploadPhoto'
 
 export default function useProfilePage() {
   const { t } = useTranslation()
 
   const [modal, setModal] = useState<ModalName | null>(null)
-
   const authStore = useAuthStore()
   const { isAuthenticated, userId, exp } = authStore
-
+  const { deletePhotoMutation, uploadMutation, photo } = useFile()
   const {
     data: user,
     isLoading,
@@ -69,8 +69,19 @@ export default function useProfilePage() {
     setModal('delete')
   }
 
+  function openUploadPhotoModal() {
+    setModal('uploadPhoto')
+  }
+
   function handleDelete() {
     deleteMutation.mutate(userId)
+  }
+
+  function handlePhoto(data: FileList) {
+    if (photo?._id) deletePhotoMutation.mutate(photo._id)
+    const file = data.file[0]
+    uploadMutation.mutate(file)
+    closeModal()
   }
 
   async function handleUpdate(data: EditProfileFormData) {
@@ -92,6 +103,8 @@ export default function useProfilePage() {
     openEditModal,
     openDeleteModal,
     handleDelete,
-    handleUpdate
+    handleUpdate,
+    openUploadPhotoModal,
+    handlePhoto
   }
 }
