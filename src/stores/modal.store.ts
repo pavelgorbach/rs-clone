@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx'
 import { Board, Column, Task } from '@/api/types'
 
 type State =
+  | { name: null; data: null }
   | { name: 'add-board'; data: { userId: string } }
   | { name: 'edit-board'; data: Board }
   | { name: 'delete-board'; data: { boardId: string } }
@@ -15,15 +16,13 @@ type State =
     }
   | { name: 'edit-task'; data: Task }
   | { name: 'delete-task'; data: { boardId: string; columnId: string; taskId: string } }
-  | { name: null; data: null }
 
+const DEFAULT_STATE: State = { name: null, data: null }
 export class ModalStore {
-  state: State
+  state: State = DEFAULT_STATE
 
   constructor() {
     makeAutoObservable(this)
-
-    this.state = { name: null, data: null }
   }
 
   open(state: State) {
@@ -31,6 +30,6 @@ export class ModalStore {
   }
 
   close() {
-    this.state = { name: null, data: null }
+    this.state = DEFAULT_STATE
   }
 }

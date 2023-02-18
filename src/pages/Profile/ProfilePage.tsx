@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
-import { ROUTES } from '@/router'
+import { ROUTES } from '@/router/routes'
 import { Button, EditProfileForm, Loader, Modal, Countdown } from '@/components'
 import useProfilePage from './useProfilePage'
 

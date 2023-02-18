@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { ROUTES } from '@/router'
+import { ROUTES } from '@/router/routes'
 import { SignInForm } from '@/components'
 import useSignIn from '@/hooks/useSignIn'
 

@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { CreateBoardModal } from './Modals/CreateBoardModal'
 import { CreateColumnModal } from './Modals/CreateColumnModal'
 import { CreateTaskModal } from './Modals/CreateTaskModal'
@@ -8,7 +10,7 @@ import { DeleteBoardModal } from './Modals/DeleteBoardModal'
 import { DeleteColumnModal } from './Modals/DeleteColumnModal'
 import { DeleteTaskModal } from './Modals/DeleteTaskModal'
 
-export function Modals() {
+export function ModalsView() {
   return (
     <>
       <CreateBoardModal />
@@ -23,3 +25,5 @@ export function Modals() {
     </>
   )
 }
+
+export const Modals = memo(ModalsView)

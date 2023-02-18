@@ -2,14 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 
 import { Layout } from '@/components'
 import { Home, Main, Board, Profile, NoMatch, SignIn, SignUp } from '@/pages'
-
-export const ROUTES = {
-  home: '/',
-  signIn: '/sign-in',
-  signUp: '/sign-up',
-  boards: '/boards',
-  profile: '/profile'
-}
+import { ROUTES } from './routes'
 
 export default function Router() {
   return (

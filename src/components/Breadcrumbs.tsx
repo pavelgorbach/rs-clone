@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
 
-import { ROUTES } from '@/router'
+import { ROUTES } from '@/router/routes'
 
 type Props = {
   title: string
