@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 import { updateTask } from '@/api'
+import { AxiosError } from 'axios'
 
-export default function useUpdateTask(cb?: () => void) {
+export default function useUpdateTask() {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
@@ -13,11 +14,9 @@ export default function useUpdateTask(cb?: () => void) {
     onSuccess: (task) => {
       queryClient.invalidateQueries(['tasks'])
       toast.success(`${task.title} ${t('toast.updated')}.`)
-
-      if (cb) cb()
     },
-    onError: (e) => {
-      toast.error(e instanceof Error ? e.message : 'Something went wrong')
+    onError: (e: AxiosError) => {
+      toast.error(e.message)
     }
   })
 }

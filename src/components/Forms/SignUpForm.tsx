@@ -24,7 +24,7 @@ export function SignUpForm({ onSubmit }: Props) {
   return (
     <div className="flex flex-col gap-2">
       <input
-        className="dark:border-slate-100 dark:bg-slate-500 dark:text-slate-200 dark:placeholder:text-slate-200"
+        className="dark:border-slate-100 dark:bg-slate-700 dark:text-slate-200 dark:placeholder:text-slate-200"
         type="text"
         {...register('name', { required: true })}
         placeholder={t('signUpForm.name')}
@@ -32,7 +32,7 @@ export function SignUpForm({ onSubmit }: Props) {
       <span className="text-sm text-red-500">{errors.name && t('common.nameRequired')}</span>
 
       <input
-        className="dark:border-slate-100 dark:bg-slate-500 dark:text-slate-200 dark:placeholder:text-slate-200"
+        className="dark:border-slate-100 dark:bg-slate-700 dark:text-slate-200 dark:placeholder:text-slate-200"
         type="email"
         {...register('login', { required: true })}
         placeholder={t('common.login')}
@@ -40,7 +40,7 @@ export function SignUpForm({ onSubmit }: Props) {
       <span className="text-sm text-red-500">{errors.login && t('common.loginReqiured')}</span>
 
       <input
-        className="dark:border-slate-100 dark:bg-slate-500 dark:text-slate-200 dark:placeholder:text-slate-200"
+        className="dark:border-slate-100 dark:bg-slate-700 dark:text-slate-200 dark:placeholder:text-slate-200"
         type="password"
         {...register('password', { required: true })}
         placeholder={t('common.password')}

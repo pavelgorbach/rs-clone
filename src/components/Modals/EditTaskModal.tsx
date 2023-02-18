@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 
-import { Modal, EditTaskForm } from '@/components'
+import { Modal, EditTaskForm, EditTaskFormData } from '@/components'
 import useModalStore from '@/hooks/useModalStore'
 import useUpdateTask from '@/hooks/useUpdateTask'
 
@@ -10,26 +10,28 @@ function EditTaskModalView() {
 
   const close = () => modal.close()
 
-  const updateTask = useUpdateTask(close)
+  const updateTask = useUpdateTask()
+
+  const handleUpdateTask = async (formData: EditTaskFormData) => {
+    if (name === 'edit-task') {
+      updateTask.mutate({
+        boardId: data.boardId,
+        columnId: data.columnId,
+        taskId: data._id,
+        userId: data.userId,
+        users: data.users,
+        order: data.order,
+        ...formData
+      })
+    }
+  }
 
   return (
     <Modal isOpen={name === 'edit-task'} onClose={close}>
       <EditTaskForm
         title={name === 'edit-task' ? data.title : ''}
         description={name === 'edit-task' ? data.description : ''}
-        onSubmit={(formData) => {
-          if (name === 'edit-task') {
-            updateTask.mutate({
-              boardId: data.boardId,
-              columnId: data.columnId,
-              taskId: data._id,
-              userId: data.userId,
-              users: data.users,
-              order: data.order,
-              ...formData
-            })
-          }
-        }}
+        onSubmit={handleUpdateTask}
       />
     </Modal>
   )

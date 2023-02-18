@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components'
 
-type CreateColumnFormData = { title: string }
+export type CreateColumnFormData = { title: string }
 
 type Props = {
   onSubmit: (data: CreateColumnFormData) => void

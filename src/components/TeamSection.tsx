@@ -33,9 +33,9 @@ export function TeamSection() {
     <section className="bg-white pt-5 pb-10 dark:bg-slate-800 dark:text-slate-200">
       <div className="container m-auto border-l-2 border-l-purple-100 text-center dark:border-l-purple-800 lg:px-3 lg:text-left">
         <h3>{t('teamsection.team')}</h3>
-        <ul className="ml-0 flex flex-col justify-center pl-0 align-top md:flex-row md:justify-around">
+        <ul className="ml-0 flex flex-col justify-center gap-2 pl-0 align-top md:flex-row md:justify-center">
           {MEMBERS.map((member, index) => (
-            <li className="flex flex-col bg-gray-50 !px-10 pb-10" key={index}>
+            <li className="flex flex-col bg-gray-50 !px-10 pb-10 dark:bg-slate-700" key={index}>
               <img
                 className="w-52 self-center rounded-full"
                 src={member.imgSrc}

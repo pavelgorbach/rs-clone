@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
 
-import { Modal, EditBoardForm } from '@/components'
+import { Modal, EditBoardForm, EditBoardFormData } from '@/components'
 import useModalStore from '@/hooks/useModalStore'
 import useUpdateBoard from '@/hooks/useUpdateBoard'
 
@@ -12,21 +12,22 @@ function EditBoardModalView() {
 
   const close = () => modal.close()
 
-  const updateBoard = useUpdateBoard(close)
+  const updateBoard = useUpdateBoard()
+
+  const handleUpdateBoard = async (formData: EditBoardFormData) => {
+    if (name === 'edit-board') {
+      await updateBoard.mutateAsync({
+        ...data,
+        ...formData
+      })
+
+      close()
+    }
+  }
 
   return (
     <Modal isOpen={name === 'edit-board'} onClose={close} title={t('common.edit')}>
-      <EditBoardForm
-        title={name === 'edit-board' ? data.title : ''}
-        onSubmit={(formData) => {
-          if (name === 'edit-board') {
-            updateBoard.mutate({
-              ...data,
-              ...formData
-            })
-          }
-        }}
-      />
+      <EditBoardForm title={name === 'edit-board' ? data.title : ''} onSubmit={handleUpdateBoard} />
     </Modal>
   )
 }

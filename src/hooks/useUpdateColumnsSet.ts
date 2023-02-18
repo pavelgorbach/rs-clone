@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { updateColumnsSet } from '@/api'
 import { Column } from '@/api/types'
 
-export default function useUpdateColumnsSet(boardId: string, cb?: () => void) {
+export default function useUpdateColumnsSet(boardId: string) {
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -29,8 +29,6 @@ export default function useUpdateColumnsSet(boardId: string, cb?: () => void) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['columns'] })
-
-      if (cb) cb()
     }
   })
 }

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components'
 
-type EditTaskFormData = {
+export type EditTaskFormData = {
   title: string
   description: string
 }

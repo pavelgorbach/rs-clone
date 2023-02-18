@@ -13,7 +13,14 @@ function DeleteBoardModalView() {
 
   const close = () => modal.close()
 
-  const deleteBoard = useDeleteBoard(close)
+  const deleteBoard = useDeleteBoard()
+
+  const handleDeleteBoard = async () => {
+    if (name === 'delete-board') {
+      await deleteBoard.mutateAsync(data.boardId)
+      close()
+    }
+  }
 
   return (
     <Modal isOpen={name === 'delete-board'} onClose={close} title={t('common.confirmation')}>
@@ -22,15 +29,7 @@ function DeleteBoardModalView() {
 
         <div className="flex justify-between">
           <Button type="success" text={t('common.cancel')} onClick={close} />
-          <Button
-            type="error"
-            text={t('common.delete')}
-            onClick={() => {
-              if (name === 'delete-board') {
-                deleteBoard.mutate(data.boardId)
-              }
-            }}
-          />
+          <Button type="error" text={t('common.delete')} onClick={handleDeleteBoard} />
         </div>
       </div>
     </Modal>

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 
 import { deleteColumn } from '@/api'
 
-export default function useDeleteColumn(cb?: () => void) {
+export default function useDeleteColumn() {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
@@ -13,7 +13,6 @@ export default function useDeleteColumn(cb?: () => void) {
     onSuccess: (column) => {
       queryClient.invalidateQueries(['columns'])
       toast.success(`${column.title} ${t('toast.deleted')}.`)
-      if (cb) cb()
     },
     onError: (e) => {
       toast.error(e instanceof Error ? e.message : 'Something went wrong')

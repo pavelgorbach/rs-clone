@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 
 import { updateColumn } from '@/api'
 
-export default function useUpdateColumn(cb?: () => void) {
+export default function useUpdateColumn() {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
@@ -13,8 +13,6 @@ export default function useUpdateColumn(cb?: () => void) {
     onSuccess: (column) => {
       queryClient.invalidateQueries(['columns'])
       toast.success(`${column.title} ${t('toast.updated')}.`)
-
-      if (cb) cb()
     },
     onError: (e) => {
       toast.error(e instanceof Error ? e.message : 'Something went wrong')

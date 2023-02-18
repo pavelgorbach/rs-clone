@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 import { createTask } from '@/api'
+import { AxiosError } from 'axios'
 
-export default function useAddTask(cb?: () => void) {
+export default function useAddTask() {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
@@ -15,11 +16,9 @@ export default function useAddTask(cb?: () => void) {
       queryClient.invalidateQueries(['tasks'])
       queryClient.invalidateQueries(['my-tasks']) // User's tasks on Profile Page
       toast.success(`${task.title} ${t('toast.created')}.`)
-
-      if (cb) cb()
     },
-    onError: (e) => {
-      toast.error(e instanceof Error ? e.message : 'Something went wrong')
+    onError: (e: AxiosError) => {
+      toast.error(e.message)
     }
   })
 }

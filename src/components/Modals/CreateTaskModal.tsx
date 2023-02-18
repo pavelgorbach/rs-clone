@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 
-import { Modal, CreateTaskForm } from '@/components'
+import { Modal, CreateTaskForm, CreateTaskFormData } from '@/components'
 import useModalStore from '@/hooks/useModalStore'
 import useAddTask from '@/hooks/useAddTask'
 
@@ -10,17 +10,18 @@ function CreateTaskModalView() {
 
   const close = () => modal.close()
 
-  const addTask = useAddTask(close)
+  const addTask = useAddTask()
+
+  const handleAddTask = async (formData: CreateTaskFormData) => {
+    if (name === 'add-task') {
+      await addTask.mutateAsync({ ...data, ...formData })
+      close()
+    }
+  }
 
   return (
     <Modal isOpen={name === 'add-task'} onClose={close}>
-      <CreateTaskForm
-        onSubmit={(formData) => {
-          if (name === 'add-task') {
-            addTask.mutate({ ...data, ...formData })
-          }
-        }}
-      />
+      <CreateTaskForm onSubmit={handleAddTask} />
     </Modal>
   )
 }

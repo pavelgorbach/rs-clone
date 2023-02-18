@@ -13,7 +13,14 @@ function DeleteColumnModalView() {
 
   const close = () => modal.close()
 
-  const deleteColumn = useDeleteColumn(close)
+  const deleteColumn = useDeleteColumn()
+
+  const handleDeleteColumn = async () => {
+    if (name == 'delete-column') {
+      await deleteColumn.mutateAsync(data)
+      close()
+    }
+  }
 
   return (
     <Modal isOpen={name === 'delete-column'} onClose={close} title={t('common.confirmation')}>
@@ -22,15 +29,7 @@ function DeleteColumnModalView() {
 
         <div className="flex justify-between">
           <Button type="success" text={t('common.cancel')} onClick={close} />
-          <Button
-            type="error"
-            text={t('common.delete')}
-            onClick={() => {
-              if (name == 'delete-column') {
-                deleteColumn.mutate(data)
-              }
-            }}
-          />
+          <Button type="error" text={t('common.delete')} onClick={handleDeleteColumn} />
         </div>
       </div>
     </Modal>
