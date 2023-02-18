@@ -50,7 +50,7 @@ function HeaderView() {
       <div className="container m-auto flex items-center gap-4">
         <Link to={ROUTES.home}>
           <h1 className="whitespace-nowrap">
-            <ViewColumnsIcon className="h-14 w-14 text-purple-500 hover:text-purple-400" />
+            <ViewColumnsIcon className="h-10 w-10 text-purple-500 hover:text-purple-400" />
           </h1>
         </Link>
 

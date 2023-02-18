@@ -39,7 +39,7 @@ function MainPageView() {
       <div className="container mx-auto grid grid-cols-4 grid-rows-[100px_100px_minmax(900px)] gap-y-6">
         <Search onChange={setSearchValue} />
 
-        <h2 className="col-span-3 !m-0 dark:text-slate-200">{t('boardsPage.board')}</h2>
+        <h2 className="col-span-3 !m-0 dark:text-slate-200">{t('boardsPage.boards')}</h2>
 
         <Button
           text={t('boardsPage.new')}

@@ -55,3 +55,8 @@ export async function deleteTask(query: { boardId?: string; columnId?: string; t
   )
   return data
 }
+
+export async function updateTasksSet(tasks: { _id: string; order: number; columnId: string }[]) {
+  const { data } = await client.patch<Task[]>('/tasksSet', tasks)
+  return data
+}

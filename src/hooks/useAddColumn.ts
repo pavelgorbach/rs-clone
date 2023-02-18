@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 import { createColumn } from '@/api'
+import { AxiosError } from 'axios'
 
-export default function useAddColumn(cb?: () => void) {
+export default function useAddColumn() {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
@@ -13,11 +14,9 @@ export default function useAddColumn(cb?: () => void) {
     onSuccess: (newColumn) => {
       queryClient.invalidateQueries(['columns'])
       toast.success(`${newColumn.title} ${t('toast.created')}.`)
-
-      if (cb) cb()
     },
-    onError: (e) => {
-      toast.error(e instanceof Error ? e.message : 'Something went wrong')
+    onError: (e: AxiosError) => {
+      toast.error(e.message)
     }
   })
 }

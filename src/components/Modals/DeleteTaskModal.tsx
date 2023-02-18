@@ -13,7 +13,14 @@ function DeleteTaskModalView() {
 
   const close = () => modal.close()
 
-  const deleteTask = useDeleteTask(close)
+  const deleteTask = useDeleteTask()
+
+  const handleDeleteTask = async () => {
+    if (name === 'delete-task') {
+      await deleteTask.mutateAsync(data)
+      close()
+    }
+  }
 
   return (
     <Modal isOpen={name === 'delete-task'} onClose={close} title={t('common.confirmation')}>
@@ -22,15 +29,7 @@ function DeleteTaskModalView() {
 
         <div className="flex justify-between">
           <Button type="success" text={t('common.cancel')} onClick={close} />
-          <Button
-            type="error"
-            text={t('common.delete')}
-            onClick={() => {
-              if (name === 'delete-task') {
-                deleteTask.mutate(data)
-              }
-            }}
-          />
+          <Button type="error" text={t('common.delete')} onClick={handleDeleteTask} />
         </div>
       </div>
     </Modal>

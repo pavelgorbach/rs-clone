@@ -18,7 +18,7 @@ const GITHUBS = [
 function FooterView() {
   return (
     <footer className="mt-auto bg-white p-4 dark:bg-slate-800">
-      <div className="md:prose-md container prose-sm m-auto flex flex-col items-center justify-between gap-4 md:flex-row lg:prose-lg xl:prose-xl 2xl:prose-2xl">
+      <div className="xl:prose-md container prose-sm m-auto flex flex-col items-center justify-between gap-4 md:flex-row lg:prose-base 2xl:prose-lg">
         <a href="https://rs.school/js/">
           <img className="!m-0 w-20" src="/icons/rss.svg" alt="rss-logo" />
         </a>

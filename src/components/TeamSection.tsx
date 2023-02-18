@@ -31,19 +31,23 @@ export function TeamSection() {
 
   return (
     <section className="bg-white pt-5 pb-10 dark:bg-slate-800 dark:text-slate-200">
-      <div className="container m-auto border-l-2 border-l-purple-100 text-center dark:border-l-purple-800 lg:px-3 lg:text-left">
+      <div className="container m-auto border-l-2 border-l-purple-100 px-2 text-center dark:border-l-purple-800 lg:px-20 lg:text-left">
         <h3>{t('teamsection.team')}</h3>
-        <ul className="ml-0 flex flex-col justify-around pl-0 align-top md:flex-row">
+        <ul className="ml-0 flex flex-col justify-center gap-4 pl-0 align-top md:flex-row md:justify-center">
           {MEMBERS.map((member, index) => (
-            <li className="flex flex-col p-2" key={index}>
-              <div className="max-w-xs self-center">
-                <img className="rounded-full" src={member.imgSrc} alt="member photo"></img>
-              </div>
+            <li className="flex flex-col bg-gray-50 !px-5 pb-5 dark:bg-slate-700" key={index}>
+              <img
+                className="w-52 self-center rounded-full"
+                src={member.imgSrc}
+                alt="member photo"
+              ></img>
+
               <div className="font-bold md:pl-4">{member.name}</div>
               <div className="md:pl-4">{member.role}</div>
               <div className=" my-4 rounded-full border-2 text-center font-thin dark:border-purple-800">
                 {t('teamsection.contribution')}
               </div>
+
               <div>
                 {member.contribution.map((feature, index) => (
                   <div

@@ -11,9 +11,9 @@ export function LayoutView() {
 
   return (
     <div className={cx(theme.theme)}>
-      <div className="flex min-h-screen flex-col bg-gray-50 dark:bg-slate-800">
+      <div className="flex min-h-screen flex-col bg-gray-50 dark:bg-slate-700">
         <Header />
-        <main className="prose-sm flex flex-1 flex-col p-4 lg:prose-base xl:prose-base 2xl:prose-lg">
+        <main className="xl:prose-md prose-sm flex flex-1 flex-col p-4 lg:prose-base 2xl:prose-lg">
           <Outlet />
         </main>
         <Footer />

@@ -2,23 +2,26 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { ROUTES } from '@/router/routes'
-import { SignInForm } from '@/components'
+import { LoginInput, SignInForm } from '@/components'
 import useSignIn from '@/hooks/useSignIn'
 
 export default function SignInPageView() {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
-  const goToMainPage = () => navigate(ROUTES.boards, { replace: true })
+  const signIn = useSignIn()
 
-  const { mutate: loginUser } = useSignIn(goToMainPage)
+  const handleLogin = async (data: LoginInput) => {
+    await signIn.mutateAsync(data)
+    navigate(ROUTES.boards, { replace: true })
+  }
 
   return (
     <div className="container m-auto">
       <h1 className="text-center dark:text-slate-200">{t('common.welcome')}</h1>
 
       <div className="m-auto grid max-w-md bg-white p-4 shadow-md dark:bg-slate-500">
-        <SignInForm onSubmit={loginUser} />
+        <SignInForm onSubmit={handleLogin} />
 
         <div className="prose-sm m-auto flex items-center gap-2 dark:text-slate-200">
           <p>{t('signInForm.doNotHaveAnAccount')}</p>

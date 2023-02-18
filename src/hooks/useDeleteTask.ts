@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 
 import { deleteTask } from '@/api'
 
-export default function useDeleteTask(cb?: () => void) {
+export default function useDeleteTask() {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
@@ -13,7 +13,6 @@ export default function useDeleteTask(cb?: () => void) {
     onSuccess: (task) => {
       queryClient.invalidateQueries(['tasks'])
       toast.success(`${task.title} ${t('toast.deleted')}.`)
-      if (cb) cb()
     },
     onError: (e) => {
       toast.error(e instanceof Error ? e.message : 'Something went wrong')

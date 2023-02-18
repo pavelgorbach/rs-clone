@@ -102,13 +102,13 @@ function ProfilePageView() {
         <div className="m-auto max-w-xl">
           <h2 className="text-center dark:text-slate-200">{t('profile.tasks')}</h2>
 
-          <div className="flex flex-col gap-2 bg-white dark:bg-slate-600 dark:text-slate-200">
+          <div className="grid grid-cols-3 gap-2 bg-white dark:bg-slate-700 dark:text-slate-200">
             {tasks?.map((task) => {
               return (
                 <Link
                   to={`${ROUTES.boards}/${task.boardId}`}
                   key={task._id}
-                  className="border border-white p-2 shadow-md hover:border-purple-500 dark:border-slate-700 dark:hover:border-purple-400"
+                  className="border border-white p-2 shadow-md hover:border-purple-500 dark:border-slate-700 dark:bg-slate-500 dark:hover:border-purple-400"
                 >
                   <h3 className="!m-0">{task.title}</h3>
                   <p className="!m-0">{task.description}</p>
