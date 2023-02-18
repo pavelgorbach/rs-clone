@@ -8,6 +8,7 @@ import useBoard from '@/hooks/useBoard'
 import useColumns from '@/hooks/useColumns'
 import useTasks from '@/hooks/useTasks'
 import useUpdateColumnsSet from '@/hooks/useUpdateColumnsSet'
+import useUpdateTasksSet from '@/hooks/useUpdateTasksSet'
 
 export default function useBoardPage() {
   const { id: boardId } = useParams() as { id: string }
@@ -30,6 +31,7 @@ export default function useBoardPage() {
   }
 
   const updateColumnsSet = useUpdateColumnsSet(boardId)
+  const updateTasksSet = useUpdateTasksSet(boardId)
 
   const onDragEnd: OnDragEndResponder = (result) => {
     if (!result.destination || !columns.data) return
@@ -51,15 +53,27 @@ export default function useBoardPage() {
       return
     }
 
-    console.log('reorder tasks', result.source, result.destination)
+    if (tasks.data && result.source.droppableId === result.destination.droppableId) {
+      const sourceTasks = tasks.data.filter((task) => task.columnId === result.source.droppableId)
+      const sortedSourceTasks = sourceTasks.sort((a, b) => a.order - b.order)
+
+      const [removed] = sortedSourceTasks.splice(result.source.index, 1)
+      sortedSourceTasks.splice(result.destination.index, 0, removed)
+      const sourceData = sortedSourceTasks.map((task, idx) => ({ ...task, order: idx }))
+      updateTasksSet.mutate(sourceData)
+      return
+    }
   }
 
   const columnsWithTasks = useMemo(() => {
     const withTasks = columns.data?.map((column) => {
+      const columnTasks = tasks.data?.filter((task) => task.columnId === column._id)
+      const sortedTasks = columnTasks?.sort((a, b) => a.order - b.order)
+
       return {
         ...column,
         userId,
-        tasks: tasks.data?.filter((task) => task.columnId === column._id)
+        tasks: sortedTasks
       }
     })
 

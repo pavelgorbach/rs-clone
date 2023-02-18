@@ -14,7 +14,7 @@ function EditTaskModalView() {
 
   const handleUpdateTask = async (formData: EditTaskFormData) => {
     if (name === 'edit-task') {
-      updateTask.mutate({
+      await updateTask.mutateAsync({
         boardId: data.boardId,
         columnId: data.columnId,
         taskId: data._id,
@@ -23,6 +23,8 @@ function EditTaskModalView() {
         order: data.order,
         ...formData
       })
+
+      close()
     }
   }
 
