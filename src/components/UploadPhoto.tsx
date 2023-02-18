@@ -11,7 +11,7 @@ export function UploadPhoto({ onSubmit }: Props) {
   const submit = handleSubmit(onSubmit)
 
   return (
-    <form>
+    <form className="aspect-square flex flex-col">
       <input {...register('file')} type="file" id="photo" />
       <Button text={'Upload'} onClick={submit}></Button>
     </form>

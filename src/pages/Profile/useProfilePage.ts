@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import { deleteUser, fetchUser, updateUser } from '@/api/users'
@@ -7,7 +7,7 @@ import useAuthStore from '@/hooks/useAuthStore'
 import { EditProfileFormData } from '@/components'
 import { fetchTasksByUserId } from '@/api/tasks'
 import { FileList } from '@/api'
-import { deleteFile, getFile, uploadFile } from '@/api/files'
+import useFile from '@/hooks/useFile'
 
 type ModalName = 'edit' | 'delete' | 'uploadPhoto'
 
@@ -15,12 +15,9 @@ export default function useProfilePage() {
   const { t } = useTranslation()
 
   const [modal, setModal] = useState<ModalName | null>(null)
-
   const authStore = useAuthStore()
   const { isAuthenticated, userId, exp } = authStore
-
-  const queryClient = useQueryClient()
-
+  const { deletePhotoMutation, uploadMutation, photo, isError } = useFile()
   const {
     data: user,
     isLoading,
@@ -60,20 +57,6 @@ export default function useProfilePage() {
     }
   })
 
-  const uploadMutation = useMutation({
-    mutationFn: (file: File) => uploadFile(file, userId),
-    onSuccess: (file) => {
-      queryClient.invalidateQueries(['photo'])
-      toast.success(`${file.name} ${t('toast.updated')}.`)
-    },
-    onError: (e) => {
-      toast.error(e instanceof Error ? e.message : 'Something went wrong')
-    }
-  })
-  const deletePhotoMutation = useMutation({
-    mutationFn: (id: string) => deleteFile(id)
-  })
-
   function closeModal() {
     setModal(null)
   }
@@ -107,12 +90,6 @@ export default function useProfilePage() {
       ...data
     })
   }
-
-  const { data: photo, isError } = useQuery({
-    queryKey: ['photo', userId],
-    queryFn: () => getFile(userId),
-    enabled: !!userId
-  })
 
   return {
     isAuthenticated,
