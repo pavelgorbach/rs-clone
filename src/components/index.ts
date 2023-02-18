@@ -1,17 +1,18 @@
 // Core
 export * from './Layout'
 export * from './Footer'
-export * from './Header/Header'
+export * from './Header'
 export * from './Modals'
 
 // UI
 export * from './Button'
 export * from './Loader'
 export * from './ErrorMessage'
-export * from './Switch'
 export * from './Listbox'
 export * from './Modal'
 export * from './Search'
+
+export * from './ThemeSwitch'
 export * from './Countdown'
 
 // Forms

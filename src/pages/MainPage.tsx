@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
 import { Navigate } from 'react-router-dom'
 
-import { ROUTES } from '@/router'
+import { ROUTES } from '@/router/routes'
 import { Button, BoardCard, Loader, ErrorMessage, Search } from '@/components'
 import useBoards from '@/hooks/useBoards'
 import useModalStore from '@/hooks/useModalStore'

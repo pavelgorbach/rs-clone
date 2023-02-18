@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Tooltip } from 'react-tooltip'
 
 import { Board } from '@/api'
-import { ROUTES } from '@/router'
+import { ROUTES } from '@/router/routes'
 import useModalStore from '@/hooks/useModalStore'
 
 export function BoardCard(board: Board) {

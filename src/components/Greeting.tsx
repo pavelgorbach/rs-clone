@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation, Trans } from 'react-i18next'
 
-import { ROUTES } from '@/router'
+import { ROUTES } from '@/router/routes'
 import { Banner, Button } from '@/components'
 
 export function Greeting() {
