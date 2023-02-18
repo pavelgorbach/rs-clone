@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
+import { BASE_URL } from '@/api/client'
 import { ROUTES } from '@/router'
 import { Button, EditProfileForm, Loader, Modal, Countdown } from '@/components'
 import useProfilePage from './useProfilePage'
@@ -24,7 +25,8 @@ function ProfilePageView() {
     openEditModal,
     openUploadPhotoModal,
     closeModal,
-    handlePhoto
+    handlePhoto,
+    photo
   } = useProfilePage()
 
   if (!isAuthenticated) {
@@ -46,7 +48,11 @@ function ProfilePageView() {
               className="cursor-pointer border hover:border-purple-500"
               onClick={openUploadPhotoModal}
             >
-              <img src="icons/add_avatar.png" className="!m-0 w-24" alt={t('profile.altAvatar')} />
+              <img
+                src={!photo?.name ? 'icons/add_avatar.png' : `${BASE_URL}/${photo?.path}`}
+                className="!m-0 w-24"
+                alt={t('profile.altAvatar')}
+              />
             </div>
 
             <div className="flex flex-col gap-7">

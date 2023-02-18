@@ -1,17 +1,16 @@
 import client from './client'
+import { FileDTO } from './types'
 
 export async function uploadFile(file: File, uid?: string) {
   if (!uid) {
-    throw new Error('shlyapa')
+    throw new Error('User Id not found. Log out!')
   }
 
   const data = new FormData()
-
-  for (const pair of data.entries()) {
-    console.log(pair[0] + ', ' + pair[1])
-  }
-
-  const resp = await client.post<File>(`/file`, data, {
+  data.append('boardId', uid)
+  data.append('taskId', uid)
+  data.append('file', file)
+  const resp = await client.post<File & FileDTO>(`/file`, data, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -19,12 +18,20 @@ export async function uploadFile(file: File, uid?: string) {
   return resp.data
 }
 
-export async function getFile(id: string) {
-  const resp = await client.get<File>(`/file?taskId=${id}`)
-  return resp.data
+export async function getFile(id: string | undefined) {
+  const resp = await client.get<(File & FileDTO)[]>(`/file?taskId=${id}`)
+  if (resp.data && resp.data[0]) return resp.data[0]
+  else
+    return {
+      _id: '',
+      name: '',
+      taskId: '',
+      boardId: '',
+      path: ''
+    }
 }
 
-export async function deleteFile(id: string) {
-  const resp = await client.delete<File>(`/file/${id}`)
+export async function deleteFile(fileId: string) {
+  const resp = await client.delete<FileDTO>(`/file/${fileId}`)
   return resp.data
 }

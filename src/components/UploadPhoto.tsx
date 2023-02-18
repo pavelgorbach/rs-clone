@@ -1,4 +1,3 @@
-import { AuthStore } from '@/stores/auth.store'
 import { Button } from './Button'
 import { useForm } from 'react-hook-form'
 import { FileList } from '@/api'
@@ -13,7 +12,7 @@ export function UploadPhoto({ onSubmit }: Props) {
 
   return (
     <form>
-      <input {...register('shlyapa')} type="file" id="photo" />
+      <input {...register('file')} type="file" id="photo" />
       <Button text={'Upload'} onClick={submit}></Button>
     </form>
   )

@@ -11,6 +11,8 @@ import {
 import { ROUTES } from '@/router'
 import { Button, Switch, Listbox } from '@/components'
 import useHeader from './useHeader'
+import useProfilePage from '@/pages/Profile/useProfilePage'
+import { BASE_URL } from '@/api/client'
 
 function HeaderView() {
   const {
@@ -25,6 +27,8 @@ function HeaderView() {
     onAddBoard,
     onSignOut
   } = useHeader()
+
+  const { photo } = useProfilePage()
 
   return (
     <header className="bg-white py-2 px-4 dark:bg-slate-800">
@@ -62,7 +66,11 @@ function HeaderView() {
             />
 
             <Link to={ROUTES.profile} id="go-to-profile">
-              <UserIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
+              {photo?._id ? (
+                <img className="w-6 rounded-full" src={`${BASE_URL}/${photo.path}`} />
+              ) : (
+                <UserIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
+              )}
             </Link>
 
             <Tooltip

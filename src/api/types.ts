@@ -38,7 +38,7 @@ export type FileDTO = {
 }
 
 export type FileList = {
-  shlyapa: File[]
+  file: File[]
 }
 
 export type Point = {
