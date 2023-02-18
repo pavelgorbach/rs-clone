@@ -32,7 +32,7 @@ function BoardPageView() {
     <>
       <Breadcrumbs title={board.title} className="container mx-auto" />
 
-      <div className="flex flex-1 flex-col overflow-auto pb-4 pt-1">
+      <div className="flex h-2/5 flex-col overflow-x-scroll pb-4 pt-1 scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-purple-400 hover:scrollbar-thumb-purple-600">
         <div className="flex flex-1">
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable
@@ -64,7 +64,7 @@ function BoardPageView() {
                             >
                               {(provided) => (
                                 <div
-                                  className="m-2 flex w-64 flex-1 flex-col gap-1 border border-dashed border-gray-300 p-1"
+                                  className="m-2 flex h-[48vh] w-64 flex-col gap-1 overflow-y-scroll border border-dashed border-gray-300 p-1 scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-purple-400 hover:scrollbar-thumb-purple-600"
                                   {...provided.droppableProps}
                                   ref={provided.innerRef}
                                 >
@@ -72,6 +72,7 @@ function BoardPageView() {
                                     <Draggable key={task._id} draggableId={task._id} index={idx}>
                                       {(provided) => (
                                         <div
+                                          className="w-11/12"
                                           ref={provided.innerRef}
                                           {...provided.draggableProps}
                                           {...provided.dragHandleProps}

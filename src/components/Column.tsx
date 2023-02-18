@@ -50,7 +50,7 @@ export function Column({ column, children }: Props) {
 
   return (
     <>
-      <div className="flex flex-1 flex-col bg-gray-100  dark:bg-slate-500">
+      <div className="flex flex-1 flex-col bg-gray-100 dark:bg-slate-500">
         <div className="m-3 mb-0 flex gap-2">
           <h3 className="!my-0 flex-1 dark:text-slate-200">{column.title}</h3>
 
