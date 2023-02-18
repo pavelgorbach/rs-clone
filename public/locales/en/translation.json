@@ -85,7 +85,7 @@
     "notasks": "You don't have any tasks yet"
   },
   "boardsPage": {
-    "board": "Board",
+    "boards": "Boards",
     "new": "New board",
     "error": "An error occured:",
     "search": "Search"
