@@ -68,7 +68,7 @@ export function Column({ column, children }: Props) {
         <Button
           text={t('column.addTask')}
           onClick={onAddTaskClick}
-          className=" dark:bg-slate-700"
+          className=" mx-2 dark:bg-slate-700"
         />
       </div>
     </>
