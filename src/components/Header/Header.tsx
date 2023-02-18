@@ -11,8 +11,8 @@ import {
 import { ROUTES } from '@/router'
 import { Button, Switch, Listbox } from '@/components'
 import useHeader from './useHeader'
-import useProfilePage from '@/pages/Profile/useProfilePage'
 import { BASE_URL } from '@/api/client'
+import useFile from '@/hooks/useFile'
 
 function HeaderView() {
   const {
@@ -28,7 +28,7 @@ function HeaderView() {
     onSignOut
   } = useHeader()
 
-  const { photo } = useProfilePage()
+  const { photo } = useFile()
 
   return (
     <header className="bg-white py-2 px-4 dark:bg-slate-800">

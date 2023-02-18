@@ -17,7 +17,7 @@ export default function useProfilePage() {
   const [modal, setModal] = useState<ModalName | null>(null)
   const authStore = useAuthStore()
   const { isAuthenticated, userId, exp } = authStore
-  const { deletePhotoMutation, uploadMutation, photo, isError } = useFile()
+  const { deletePhotoMutation, uploadMutation, photo } = useFile()
   const {
     data: user,
     isLoading,
@@ -105,8 +105,6 @@ export default function useProfilePage() {
     handleDelete,
     handleUpdate,
     openUploadPhotoModal,
-    handlePhoto,
-    photo,
-    isError
+    handlePhoto
   }
 }

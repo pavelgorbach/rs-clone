@@ -7,6 +7,7 @@ import { ROUTES } from '@/router'
 import { Button, EditProfileForm, Loader, Modal, Countdown } from '@/components'
 import useProfilePage from './useProfilePage'
 import { UploadPhoto } from '@/components/UploadPhoto'
+import useFile from '@/hooks/useFile'
 
 function ProfilePageView() {
   const { t } = useTranslation()
@@ -25,9 +26,9 @@ function ProfilePageView() {
     openEditModal,
     openUploadPhotoModal,
     closeModal,
-    handlePhoto,
-    photo
+    handlePhoto
   } = useProfilePage()
+  const { photo } = useFile()
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.home} replace />
