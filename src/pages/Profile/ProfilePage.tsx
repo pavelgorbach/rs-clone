@@ -2,9 +2,12 @@ import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
+import { BASE_URL } from '@/api/client'
 import { ROUTES } from '@/router/routes'
 import { Button, EditProfileForm, Loader, Modal, Countdown } from '@/components'
 import useProfilePage from './useProfilePage'
+import { UploadPhoto } from '@/components/UploadPhoto'
+import useFile from '@/hooks/useFile'
 
 function ProfilePageView() {
   const { t } = useTranslation()
@@ -21,8 +24,11 @@ function ProfilePageView() {
     handleUpdate,
     openDeleteModal,
     openEditModal,
-    closeModal
+    openUploadPhotoModal,
+    closeModal,
+    handlePhoto
   } = useProfilePage()
+  const { photo } = useFile()
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.home} replace />
@@ -39,8 +45,15 @@ function ProfilePageView() {
 
         <div className="m-auto flex max-w-md flex-col gap-10 bg-white p-10 shadow-md dark:bg-slate-500">
           <div className="flex flex-col items-center justify-between gap-10 md:flex-row md:gap-0">
-            <div className="cursor-pointer border hover:border-purple-500 dark:border-slate-700 dark:hover:border-purple-400">
-              <img src="icons/add_avatar.png" className="!m-0 w-24" alt={t('profile.altAvatar')} />
+            <div
+              className="cursor-pointer border hover:border-purple-500"
+              onClick={openUploadPhotoModal}
+            >
+              <img
+                src={!photo?.name ? 'icons/add_avatar.png' : `${BASE_URL}/${photo?.path}`}
+                className="!m-0 w-24"
+                alt={t('profile.altAvatar')}
+              />
             </div>
 
             <div className="flex flex-col gap-7">
@@ -119,6 +132,9 @@ function ProfilePageView() {
 
       <Modal isOpen={modal === 'edit'} onClose={closeModal}>
         <EditProfileForm name={user.name} login={user.login} onSubmit={handleUpdate} />
+      </Modal>
+      <Modal isOpen={modal === 'uploadPhoto'} onClose={closeModal}>
+        <UploadPhoto onSubmit={handlePhoto} />
       </Modal>
     </>
   )
