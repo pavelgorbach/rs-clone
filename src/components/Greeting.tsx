@@ -14,8 +14,8 @@ export function Greeting() {
   }
 
   return (
-    <section className="gap \ container m-auto mb-10 flex flex-col-reverse items-center justify-between md:flex-row">
-      <div className="pl-0 text-center lg:pl-3 lg:text-left">
+    <section className="container m-auto mb-10 flex flex-col-reverse items-center justify-between md:flex-row lg:px-20">
+      <div className="pl-0 text-center lg:prose-lg lg:pl-3 lg:text-left xl:prose-xl">
         <h1 className="dark:text-slate-200">
           <Trans i18nKey="greeting.title">
             Manage <span className="text-purple-600">any</span> task

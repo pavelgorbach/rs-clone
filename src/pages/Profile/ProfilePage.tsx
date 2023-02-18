@@ -37,7 +37,7 @@ function ProfilePageView() {
       <div className="container m-auto">
         <h1 className="text-center dark:text-slate-200">{t('teamsection.Profile')}</h1>
 
-        <div className="m-auto flex max-w-md flex-col gap-10 bg-white p-10 shadow-md dark:bg-slate-700">
+        <div className="m-auto flex max-w-md flex-col gap-10 bg-white p-10 shadow-md dark:bg-slate-500">
           <div className="flex flex-col items-center justify-between gap-10 md:flex-row md:gap-0">
             <div className="cursor-pointer border hover:border-purple-500 dark:border-slate-700 dark:hover:border-purple-400">
               <img src="icons/add_avatar.png" className="!m-0 w-24" alt={t('profile.altAvatar')} />
@@ -89,13 +89,13 @@ function ProfilePageView() {
         <div className="m-auto max-w-xl">
           <h2 className="text-center dark:text-slate-200">{t('profile.tasks')}</h2>
 
-          <div className="grid grid-cols-3 gap-2 bg-white dark:bg-slate-800 dark:text-slate-200">
+          <div className="grid grid-cols-3 gap-2 bg-white dark:bg-slate-700 dark:text-slate-200">
             {tasks?.map((task) => {
               return (
                 <Link
                   to={`${ROUTES.boards}/${task.boardId}`}
                   key={task._id}
-                  className="border border-white p-2 shadow-md hover:border-purple-500 dark:border-slate-700 dark:bg-slate-700 dark:hover:border-purple-400"
+                  className="border border-white p-2 shadow-md hover:border-purple-500 dark:border-slate-700 dark:bg-slate-500 dark:hover:border-purple-400"
                 >
                   <h3 className="!m-0">{task.title}</h3>
                   <p className="!m-0">{task.description}</p>

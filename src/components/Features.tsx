@@ -39,7 +39,7 @@ export function Features() {
 
   return (
     <section className="bg-white pt-5 pb-10 dark:bg-slate-800">
-      <div className="container m-auto border-l-2 border-l-purple-100 dark:border-l-purple-800  lg:pl-3">
+      <div className="container m-auto border-l-2 border-l-purple-100 px-2 dark:border-l-purple-800 lg:px-20">
         <h3 className="text-center dark:text-slate-200 lg:text-left">{t('features.features')}</h3>
 
         <div className=" m-auto grid grid-cols-1 gap-4 md:w-4/5 md:grid-cols-2 lg:w-3/4">
@@ -58,7 +58,7 @@ export function Features() {
             >
               <div className="flex-1 font-thin">{text}</div>
               <div className="h-30 w-30 flex items-center justify-center rounded-full border-2 border-dashed border-gray-400">
-                <img src={img} alt="icon" className="h-30 w-30" />
+                <img src={img} alt="icon" className="h-16 w-16" />
               </div>
             </div>
           ))}

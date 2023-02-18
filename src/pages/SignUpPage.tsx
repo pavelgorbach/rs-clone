@@ -27,7 +27,7 @@ export default function SignUpPageView() {
     <div className="container m-auto">
       <h1 className="text-center dark:text-slate-200">{t('common.welcome')}</h1>
 
-      <div className="m-auto grid max-w-md bg-white p-4 shadow-md dark:bg-slate-700">
+      <div className="m-auto grid max-w-md bg-white p-4 shadow-md dark:bg-slate-500">
         <SignUpForm onSubmit={handleSignUp} />
 
         <div className="prose-sm m-auto flex items-center gap-2 dark:text-slate-200">
