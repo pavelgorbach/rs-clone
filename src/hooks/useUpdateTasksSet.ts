@@ -17,7 +17,9 @@ export default function useUpdateTasksSet(boardId: string) {
       const previousTasks = queryClient.getQueryData<Task[]>(['tasks', boardId])
 
       if (previousTasks) {
-        queryClient.setQueryData<Task[]>(['tasks', boardId], newTasks)
+        const ids = newTasks.map((t) => t._id)
+        const rest = previousTasks.filter((task) => !ids.includes(task._id))
+        queryClient.setQueryData<Task[]>(['tasks', boardId], [...newTasks, ...rest])
       }
 
       return { previousTasks }
