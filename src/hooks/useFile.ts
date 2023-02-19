@@ -1,8 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import useAuthStore from '@/hooks/useAuthStore'
-import { deleteFile, getFile, uploadFile } from '@/api/files'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
+
+import useAuthStore from '@/hooks/useAuthStore'
+import { deleteFile, getFile, uploadFile } from '@/api/files'
 
 export default function useFile() {
   const { t } = useTranslation()

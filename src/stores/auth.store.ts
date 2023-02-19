@@ -23,10 +23,21 @@ export class AuthStore {
     return localStorage.getItem('token')
   }
 
-  authenticate(token: string) {
-    localStorage.setItem('token', token)
-
+  validateToken(token: string) {
     const decoded = jwtDecode<JwtPayload & { id: string }>(token)
+    return (decoded.exp ?? 0) * 1000 < Date.now()
+  }
+
+  authenticate(token: string) {
+    const decoded = jwtDecode<JwtPayload & { id: string }>(token)
+    const isExpired = this.validateToken(token)
+
+    if (isExpired) {
+      this.unauth()
+      return
+    }
+
+    localStorage.setItem('token', token)
 
     this.userId = decoded.id
     this.exp = (decoded.exp ?? 0) * 1000
@@ -34,6 +45,17 @@ export class AuthStore {
     this.isAuthenticated = true
 
     client.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    client.interceptors.response.use(
+      (originResp) => {
+        return originResp
+      },
+      (error) => {
+        if (error.status === 401 || error.status === 403) {
+          this.unauth()
+        }
+        return error
+      }
+    )
   }
 
   unauth() {
