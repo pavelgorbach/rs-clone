@@ -46,12 +46,12 @@ function ProfilePageView() {
         <div className="m-auto flex max-w-md flex-col gap-10 bg-white p-10 shadow-md dark:bg-slate-500">
           <div className="flex flex-col items-center justify-between gap-10 md:flex-row md:gap-0">
             <div
-              className="cursor-pointer border hover:border-purple-500"
+              className="cursor-pointer border hover:border-purple-500 rounded-full"
               onClick={openUploadPhotoModal}
             >
               <img
                 src={!photo?.name ? 'icons/add_avatar.png' : `${BASE_URL}/${photo?.path}`}
-                className="!m-0 w-24"
+                className="!m-0 w-24 rounded-full"
                 alt={t('profile.altAvatar')}
               />
             </div>

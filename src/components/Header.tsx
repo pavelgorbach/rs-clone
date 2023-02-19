@@ -80,9 +80,11 @@ function HeaderView() {
               className="!p-1.5"
             />
 
-            <Link to={ROUTES.profile} id="go-to-profile">
+            <Link  to={ROUTES.profile} id="go-to-profile">
               {photo?._id ? (
-                <img className="w-6 rounded-full" src={`${BASE_URL}/${photo.path}`} />
+                <div className="rounded-full border-2 border-gray-200">
+                  <img className="w-6 rounded-full" src={`${BASE_URL}/${photo.path}`} />
+                </div>
               ) : (
                 <UserIcon className="h-6 w-6 text-purple-500 hover:text-purple-400" />
               )}
