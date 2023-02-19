@@ -43,7 +43,7 @@ export function SignInForm({ onSubmit }: Props) {
       <Button
         text={t('common.signIn')}
         onClick={submit}
-        className="dark:border-none dark:bg-slate-800"
+        className="dark:border-none dark:bg-slate-800 dark:hover:opacity-80"
       />
     </div>
   )

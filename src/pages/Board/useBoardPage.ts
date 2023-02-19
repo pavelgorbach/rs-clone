@@ -33,7 +33,7 @@ export default function useBoardPage() {
   const updateColumnsSet = useUpdateColumnsSet(boardId)
   const updateTasksSet = useUpdateTasksSet(boardId)
 
-  const onDragEnd: OnDragEndResponder = (result) => {
+  const onDragEnd: OnDragEndResponder = async (result) => {
     if (!result.destination || !columns.data) return
 
     if (
@@ -44,23 +44,43 @@ export default function useBoardPage() {
     }
 
     if (result.type === 'COLUMN') {
-      const sorted = columns.data.sort((a, b) => a.order - b.order)
-      const [removed] = sorted.splice(result.source.index, 1)
-      sorted.splice(result.destination.index, 0, removed)
-      const data = sorted.map((column, idx) => ({ ...column, order: idx }))
-
-      updateColumnsSet.mutate(data)
+      const swaped = swap(columns.data, result.source.index, result.destination.index)
+      updateColumnsSet.mutate(swaped)
       return
     }
 
-    if (tasks.data && result.source.droppableId === result.destination.droppableId) {
-      const sourceTasks = tasks.data.filter((task) => task.columnId === result.source.droppableId)
-      const sortedSourceTasks = sourceTasks.sort((a, b) => a.order - b.order)
+    if (
+      result.type === 'TASK' &&
+      tasks.data &&
+      result.source.droppableId === result.destination.droppableId
+    ) {
+      const sourceTasks = filterByColumn(tasks.data, result.source.droppableId)
+      const swaped = swap(sourceTasks, result.source.index, result.destination.index)
+      updateTasksSet.mutate(swaped)
+      return
+    }
+
+    if (
+      result.type === 'TASK' &&
+      tasks.data &&
+      result.source.droppableId !== result.destination.droppableId
+    ) {
+      const sourceTasks = filterByColumn(tasks.data, result.source.droppableId)
+      const sortedSourceTasks = sortByOrder(sourceTasks)
 
       const [removed] = sortedSourceTasks.splice(result.source.index, 1)
-      sortedSourceTasks.splice(result.destination.index, 0, removed)
-      const sourceData = sortedSourceTasks.map((task, idx) => ({ ...task, order: idx }))
-      updateTasksSet.mutate(sourceData)
+
+      const destinationTasks = filterByColumn(tasks.data, result.destination.droppableId)
+      const sortedDestinationTasks = sortByOrder(destinationTasks)
+      sortedDestinationTasks.splice(result.destination.index, 0, {
+        ...removed,
+        columnId: result.destination.droppableId
+      })
+
+      const source = sortedSourceTasks.map((item, idx) => ({ ...item, order: idx }))
+      const destination = sortedDestinationTasks.map((item, idx) => ({ ...item, order: idx }))
+
+      updateTasksSet.mutate([...source, ...destination])
       return
     }
   }
@@ -92,3 +112,16 @@ export default function useBoardPage() {
     onAddColumnClick
   }
 }
+
+const swap = <T extends { order: number }>(arr: T[], index1: number, index2: number) => {
+  const items = sortByOrder<T>(arr)
+  const [removed] = items.splice(index1, 1)
+  items.splice(index2, 0, removed)
+  return items.map((item, idx) => ({ ...item, order: idx }))
+}
+
+const sortByOrder = <T extends { order: number }>(data: T[]) =>
+  [...data].sort((a, b) => a.order - b.order)
+
+const filterByColumn = <T extends { columnId: string }>(data: T[], columnId: string) =>
+  data.filter((item) => item.columnId === columnId)
