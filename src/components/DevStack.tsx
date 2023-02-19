@@ -10,7 +10,8 @@ const STACK = [
   { src: 'icons/react-hook-form.svg', text: 'React-hook-form' },
   { src: 'icons/i18next.svg', text: 'React-i18next' },
   { src: 'icons/toastify.svg', text: 'React-Tostify' },
-  { src: 'icons/beautiful-dnd.svg', text: 'React-beautiful-dnd' }
+  { src: 'icons/beautiful-dnd.svg', text: 'React-beautiful-dnd' },
+  { src: 'icons/mobx-logo.svg', text: 'MobX' }
 ]
 
 export function DevStack() {
