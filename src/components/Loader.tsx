@@ -3,7 +3,7 @@ export function Loader() {
     <div className="container m-auto">
       <svg
         aria-hidden="true"
-        className="mr-2 inline h-8 w-8 animate-spin fill-purple-600 text-gray-200 dark:text-gray-600"
+        className="mr-2 inline h-6 w-6 animate-spin fill-purple-600 text-gray-200 dark:text-gray-600"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

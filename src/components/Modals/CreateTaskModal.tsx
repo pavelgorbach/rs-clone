@@ -12,6 +12,8 @@ function CreateTaskModalView() {
 
   const addTask = useAddTask()
 
+  const { isLoading } = addTask
+
   const handleAddTask = async (formData: CreateTaskFormData) => {
     if (name === 'add-task') {
       await addTask.mutateAsync({ ...data, ...formData })
@@ -21,7 +23,7 @@ function CreateTaskModalView() {
 
   return (
     <Modal isOpen={name === 'add-task'} onClose={close}>
-      <CreateTaskForm onSubmit={handleAddTask} />
+      <CreateTaskForm onSubmit={handleAddTask} disabled={isLoading} />
     </Modal>
   )
 }

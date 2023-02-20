@@ -15,6 +15,8 @@ function EditColumnModalView() {
 
   const updateColumn = useUpdateColumn()
 
+  const { isLoading } = updateColumn
+
   const handleUpdateColumn = async (formData: EditColumnFormData) => {
     if (name === 'edit-column') {
       updateColumn.mutate({
@@ -33,6 +35,7 @@ function EditColumnModalView() {
       <EditColumnForm
         title={name === 'edit-column' ? data.title : ''}
         onSubmit={handleUpdateColumn}
+        disabled={isLoading}
       />
     </Modal>
   )

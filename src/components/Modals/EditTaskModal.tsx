@@ -12,6 +12,8 @@ function EditTaskModalView() {
 
   const updateTask = useUpdateTask()
 
+  const { isLoading } = updateTask
+
   const handleUpdateTask = async (formData: EditTaskFormData) => {
     if (name === 'edit-task') {
       await updateTask.mutateAsync({
@@ -34,6 +36,7 @@ function EditTaskModalView() {
         title={name === 'edit-task' ? data.title : ''}
         description={name === 'edit-task' ? data.description : ''}
         onSubmit={handleUpdateTask}
+        disabled={isLoading}
       />
     </Modal>
   )

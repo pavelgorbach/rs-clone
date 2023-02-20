@@ -15,6 +15,8 @@ function CreateColumnModalView() {
 
   const addColumn = useAddColumn()
 
+  const { isLoading } = addColumn
+
   const handleAddColumn = async (formData: CreateColumnFormData) => {
     if (name === 'add-column') {
       await addColumn.mutateAsync({ ...data, ...formData })
@@ -24,7 +26,7 @@ function CreateColumnModalView() {
 
   return (
     <Modal isOpen={name === 'add-column'} onClose={close} title={t('common.create')}>
-      <CreateColumnForm onSubmit={handleAddColumn} />
+      <CreateColumnForm onSubmit={handleAddColumn} disabled={isLoading} />
     </Modal>
   )
 }

@@ -6,9 +6,10 @@ export type CreateColumnFormData = { title: string }
 
 type Props = {
   onSubmit: (data: CreateColumnFormData) => void
+  disabled?: boolean
 }
 
-export function CreateColumnForm({ onSubmit }: Props) {
+export function CreateColumnForm({ onSubmit, disabled }: Props) {
   const { t } = useTranslation()
 
   const { register, handleSubmit, formState } = useForm<CreateColumnFormData>()
@@ -26,7 +27,7 @@ export function CreateColumnForm({ onSubmit }: Props) {
       />
       {errors.title && <span className="text-sm text-red-500">{t('common.nameRequired')}</span>}
 
-      <Button type="success" text={t('common.create')} onClick={submit} />
+      <Button type="success" text={t('common.create')} disabled={disabled} onClick={submit} />
     </div>
   )
 }

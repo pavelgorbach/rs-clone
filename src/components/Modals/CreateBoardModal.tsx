@@ -14,7 +14,7 @@ function CreateBoardModalView() {
   const close = () => modal.close()
 
   const addBoard = useAddBoard()
-
+  const { isLoading } = addBoard
   const handleAddBoard = async (formData: CreateBoardFormData) => {
     if (name === 'add-board') {
       await addBoard.mutateAsync({
@@ -29,7 +29,7 @@ function CreateBoardModalView() {
 
   return (
     <Modal isOpen={name === 'add-board'} onClose={close} title={t('common.create')}>
-      <CreateBoardForm onSubmit={handleAddBoard} />
+      <CreateBoardForm onSubmit={handleAddBoard} disabled={isLoading} />
     </Modal>
   )
 }

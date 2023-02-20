@@ -15,6 +15,8 @@ function DeleteColumnModalView() {
 
   const deleteColumn = useDeleteColumn()
 
+  const { isLoading } = deleteColumn
+
   const handleDeleteColumn = async () => {
     if (name == 'delete-column') {
       await deleteColumn.mutateAsync(data)
@@ -29,7 +31,12 @@ function DeleteColumnModalView() {
 
         <div className="flex justify-between">
           <Button type="success" text={t('common.cancel')} onClick={close} />
-          <Button type="error" text={t('common.delete')} onClick={handleDeleteColumn} />
+          <Button
+            type="error"
+            text={t('common.delete')}
+            disabled={isLoading}
+            onClick={handleDeleteColumn}
+          />
         </div>
       </div>
     </Modal>
