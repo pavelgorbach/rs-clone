@@ -15,6 +15,8 @@ function DeleteBoardModalView() {
 
   const deleteBoard = useDeleteBoard()
 
+  const { isLoading } = deleteBoard
+
   const handleDeleteBoard = async () => {
     if (name === 'delete-board') {
       await deleteBoard.mutateAsync(data.boardId)
@@ -29,7 +31,12 @@ function DeleteBoardModalView() {
 
         <div className="flex justify-between">
           <Button type="success" text={t('common.cancel')} onClick={close} />
-          <Button type="error" text={t('common.delete')} onClick={handleDeleteBoard} />
+          <Button
+            type="error"
+            text={t('common.delete')}
+            disabled={isLoading}
+            onClick={handleDeleteBoard}
+          />
         </div>
       </div>
     </Modal>

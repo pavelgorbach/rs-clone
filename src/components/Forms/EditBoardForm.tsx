@@ -8,9 +8,10 @@ export type EditBoardFormData = Pick<Board, 'title'>
 
 type Props = EditBoardFormData & {
   onSubmit: (data: EditBoardFormData) => void
+  disabled?: boolean
 }
 
-export function EditBoardForm({ title, onSubmit }: Props) {
+export function EditBoardForm({ title, disabled, onSubmit }: Props) {
   const { register, handleSubmit, formState } = useForm<EditBoardFormData>({
     defaultValues: { title }
   })
@@ -30,7 +31,7 @@ export function EditBoardForm({ title, onSubmit }: Props) {
       />
       {errors.title && t('common.nameRequired')}
 
-      <Button type="success" text={t('common.change')} onClick={submit} />
+      <Button type="success" text={t('common.change')} disabled={disabled} onClick={submit} />
     </div>
   )
 }

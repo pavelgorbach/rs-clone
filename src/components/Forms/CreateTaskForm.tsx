@@ -10,9 +10,10 @@ export type CreateTaskFormData = {
 
 type Props = {
   onSubmit: (data: CreateTaskFormData) => void
+  disabled?: boolean
 }
 
-export function CreateTaskForm({ onSubmit }: Props) {
+export function CreateTaskForm({ onSubmit, disabled }: Props) {
   const { t } = useTranslation()
 
   const { register, handleSubmit, formState } = useForm<CreateTaskFormData>()
@@ -40,7 +41,7 @@ export function CreateTaskForm({ onSubmit }: Props) {
         <span className="text-sm text-red-500">{t('common.descriptionReqiured')}</span>
       )}
 
-      <Button type="success" text={t('common.create')} onClick={submit} />
+      <Button type="success" text={t('common.create')} disabled={disabled} onClick={submit} />
     </div>
   )
 }

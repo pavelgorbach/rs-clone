@@ -15,6 +15,8 @@ function DeleteTaskModalView() {
 
   const deleteTask = useDeleteTask()
 
+  const { isLoading } = deleteTask
+
   const handleDeleteTask = async () => {
     if (name === 'delete-task') {
       await deleteTask.mutateAsync(data)
@@ -29,7 +31,12 @@ function DeleteTaskModalView() {
 
         <div className="flex justify-between">
           <Button type="success" text={t('common.cancel')} onClick={close} />
-          <Button type="error" text={t('common.delete')} onClick={handleDeleteTask} />
+          <Button
+            type="error"
+            text={t('common.delete')}
+            disabled={isLoading}
+            onClick={handleDeleteTask}
+          />
         </div>
       </div>
     </Modal>

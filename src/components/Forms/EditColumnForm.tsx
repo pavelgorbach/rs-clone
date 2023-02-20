@@ -8,9 +8,10 @@ export type EditColumnFormData = Pick<Column, 'title'>
 
 type Props = {
   onSubmit: (data: EditColumnFormData) => void
+  disabled?: boolean
 } & EditColumnFormData
 
-export function EditColumnForm({ title, onSubmit }: Props) {
+export function EditColumnForm({ title, onSubmit, disabled }: Props) {
   const { t } = useTranslation()
 
   const { register, handleSubmit, formState } = useForm<EditColumnFormData>({
@@ -29,7 +30,12 @@ export function EditColumnForm({ title, onSubmit }: Props) {
       />
       {errors.title && t('common.nameRequired')}
 
-      <Button type="success" text={t('common.change')} onClick={handleSubmit(onSubmit)} />
+      <Button
+        type="success"
+        text={t('common.change')}
+        disabled={disabled}
+        onClick={handleSubmit(onSubmit)}
+      />
     </div>
   )
 }

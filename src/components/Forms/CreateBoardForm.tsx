@@ -6,9 +6,10 @@ export type CreateBoardFormData = { title: string }
 
 type Props = {
   onSubmit: (data: CreateBoardFormData) => void
+  disabled?: boolean
 }
 
-export function CreateBoardForm({ onSubmit }: Props) {
+export function CreateBoardForm({ onSubmit, disabled }: Props) {
   const { t } = useTranslation()
 
   const { register, handleSubmit, formState } = useForm<CreateBoardFormData>()
@@ -26,7 +27,7 @@ export function CreateBoardForm({ onSubmit }: Props) {
       />
       {errors.title && <span className="text-sm text-red-500">{t('common.nameRequired')}</span>}
 
-      <Button type="success" text={t('common.create')} onClick={submit} />
+      <Button type="success" text={t('common.create')} disabled={disabled} onClick={submit} />
     </div>
   )
 }

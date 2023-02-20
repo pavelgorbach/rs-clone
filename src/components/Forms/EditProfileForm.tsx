@@ -11,9 +11,10 @@ export type EditProfileFormData = {
 
 type Props = Omit<EditProfileFormData, 'password'> & {
   onSubmit: (data: EditProfileFormData) => void
+  disabled?: boolean
 }
 
-export function EditProfileForm({ onSubmit, ...defaultValues }: Props) {
+export function EditProfileForm({ onSubmit, disabled, ...defaultValues }: Props) {
   const { register, handleSubmit, formState } = useForm<EditProfileFormData>({ defaultValues })
   const { errors } = formState
   const { t } = useTranslation()
@@ -53,6 +54,7 @@ export function EditProfileForm({ onSubmit, ...defaultValues }: Props) {
       <Button
         className="mt-4 dark:border-slate-400 dark:bg-slate-700 dark:hover:border-purple-700"
         text={t('common.change')}
+        disabled={disabled}
         onClick={submit}
       />
     </div>

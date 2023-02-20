@@ -1,13 +1,15 @@
 import cx from 'classnames'
+import { Loader } from './Loader'
 
 type Props = {
   text: string
   className?: string
   type?: 'success' | 'error'
+  disabled?: boolean
   onClick(e: React.MouseEvent): void
 }
 
-export function Button({ text, className, type, onClick }: Props) {
+export function Button({ text, className, type, disabled, onClick }: Props) {
   return (
     <button
       className={cx(
@@ -21,8 +23,9 @@ export function Button({ text, className, type, onClick }: Props) {
         className
       )}
       onClick={onClick}
+      disabled={disabled}
     >
-      {text}
+      {disabled ? <Loader /> : text}
     </button>
   )
 }

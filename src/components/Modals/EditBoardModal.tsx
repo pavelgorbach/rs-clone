@@ -14,6 +14,8 @@ function EditBoardModalView() {
 
   const updateBoard = useUpdateBoard()
 
+  const { isLoading } = updateBoard
+
   const handleUpdateBoard = async (formData: EditBoardFormData) => {
     if (name === 'edit-board') {
       await updateBoard.mutateAsync({
@@ -27,7 +29,11 @@ function EditBoardModalView() {
 
   return (
     <Modal isOpen={name === 'edit-board'} onClose={close} title={t('common.edit')}>
-      <EditBoardForm title={name === 'edit-board' ? data.title : ''} onSubmit={handleUpdateBoard} />
+      <EditBoardForm
+        title={name === 'edit-board' ? data.title : ''}
+        disabled={isLoading}
+        onSubmit={handleUpdateBoard}
+      />
     </Modal>
   )
 }
