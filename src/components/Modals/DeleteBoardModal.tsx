@@ -8,14 +8,13 @@ import useDeleteBoard from '@/hooks/useDeleteBoard'
 function DeleteBoardModalView() {
   const { t } = useTranslation()
 
+  const deleteBoard = useDeleteBoard()
   const modal = useModalStore()
+
+  const { isLoading } = deleteBoard
   const { name, data } = modal.state
 
   const close = () => modal.close()
-
-  const deleteBoard = useDeleteBoard()
-
-  const { isLoading } = deleteBoard
 
   const handleDeleteBoard = async () => {
     if (name === 'delete-board') {

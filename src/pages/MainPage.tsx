@@ -8,25 +8,22 @@ import { Button, BoardCard, Loader, ErrorMessage, Search } from '@/components'
 import useBoards from '@/hooks/useBoards'
 import useModalStore from '@/hooks/useModalStore'
 import useAuthStore from '@/hooks/useAuthStore'
+import { Board } from '@/api'
 
 function MainPageView() {
   const { t } = useTranslation()
 
+  const authStore = useAuthStore()
+  const boards = useBoards(authStore.userId)
   const modal = useModalStore()
 
-  const { userId, isAuthenticated } = useAuthStore()
-
   const [searchValue, setSearchValue] = useState('')
+  const searchBoards = useMemo(
+    () => filterBoardsByTitle(searchValue, boards.data),
+    [boards.data, searchValue]
+  )
 
-  const boards = useBoards(userId)
-
-  const searchBoards = useMemo(() => {
-    if (!boards.data) return []
-
-    return boards.data.filter((board) =>
-      board.title.toLowerCase().includes(searchValue.toLowerCase())
-    )
-  }, [boards.data, searchValue])
+  const { userId, isAuthenticated } = authStore
 
   if (!isAuthenticated || !userId) return <Navigate to={ROUTES.home} replace />
 
@@ -58,3 +55,8 @@ function MainPageView() {
 }
 
 export default observer(MainPageView)
+
+function filterBoardsByTitle(search: string, boards?: Board[]) {
+  if (!boards) return []
+  return boards.filter((board) => board.title.toLowerCase().includes(search.toLowerCase()))
+}

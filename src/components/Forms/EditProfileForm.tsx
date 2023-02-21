@@ -9,15 +9,18 @@ export type EditProfileFormData = {
   password: string
 }
 
-type Props = Omit<EditProfileFormData, 'password'> & {
+type Props = {
+  name: string
+  login: string
   onSubmit: (data: EditProfileFormData) => void
   disabled?: boolean
 }
 
 export function EditProfileForm({ onSubmit, disabled, ...defaultValues }: Props) {
+  const { t } = useTranslation()
+
   const { register, handleSubmit, formState } = useForm<EditProfileFormData>({ defaultValues })
   const { errors } = formState
-  const { t } = useTranslation()
 
   const submit = handleSubmit(onSubmit)
 

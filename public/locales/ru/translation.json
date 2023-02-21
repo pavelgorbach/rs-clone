@@ -17,7 +17,8 @@
     "create": "Создать",
     "name": "Имя",
     "description": "Описание",
-    "descriptionReqiured": "Введите описание"
+    "descriptionReqiured": "Введите описание",
+    "photoRequired": "Выберите фото"
   },
   "boardCard": {
     "question": "Вы уверены, что хотите удалить доску?"

@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
-
-import { updateTask } from '@/api'
 import { AxiosError } from 'axios'
 
+import { updateTask } from '@/api'
+
 export default function useUpdateTask() {
-  const queryClient = useQueryClient()
   const { t } = useTranslation()
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: updateTask,

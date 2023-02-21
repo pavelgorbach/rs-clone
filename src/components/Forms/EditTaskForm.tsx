@@ -9,9 +9,11 @@ export type EditTaskFormData = {
 }
 
 type Props = {
+  title: string
+  description: string
   onSubmit: (data: EditTaskFormData) => void
   disabled?: boolean
-} & EditTaskFormData
+}
 
 export function EditTaskForm({ title, description, disabled, onSubmit }: Props) {
   const { t } = useTranslation()

@@ -14,24 +14,21 @@ export default function useBoardPage() {
   const { id: boardId } = useParams() as { id: string }
 
   const { isAuthenticated, userId } = useAuthStore()
-
-  const modal = useModalStore()
-
   const board = useBoard(boardId)
   const columns = useColumns(boardId)
   const tasks = useTasks(boardId)
+  const updateColumnsSet = useUpdateColumnsSet(boardId)
+  const updateTasksSet = useUpdateTasksSet(boardId)
+  const modal = useModalStore()
 
   const onAddColumnClick = () => {
     if (!board.data?._id) return
 
     modal.open({
       name: 'add-column',
-      data: { boardId: board.data?._id, order: columns.data?.length || 0 }
+      data: { boardId: board.data._id, order: columns.data?.length || 0 }
     })
   }
-
-  const updateColumnsSet = useUpdateColumnsSet(boardId)
-  const updateTasksSet = useUpdateTasksSet(boardId)
 
   const onDragEnd: OnDragEndResponder = async (result) => {
     if (!result.destination || !columns.data) return

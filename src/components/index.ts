@@ -11,7 +11,6 @@ export * from './ErrorMessage'
 export * from './Listbox'
 export * from './Modal'
 export * from './Search'
-
 export * from './ThemeSwitch'
 export * from './Countdown'
 
@@ -25,6 +24,7 @@ export * from './Forms/EditTaskForm'
 export * from './Forms/EditProfileForm'
 export * from './Forms/SignUpForm'
 export * from './Forms/SignInForm'
+export * from './Forms/UploadUserPhotoForm'
 
 // Modals
 export * from './Modals/CreateBoardModal'

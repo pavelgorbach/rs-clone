@@ -5,14 +5,13 @@ import useModalStore from '@/hooks/useModalStore'
 import useAddTask from '@/hooks/useAddTask'
 
 function CreateTaskModalView() {
+  const addTask = useAddTask()
   const modal = useModalStore()
+
+  const { isLoading } = addTask
   const { name, data } = modal.state
 
   const close = () => modal.close()
-
-  const addTask = useAddTask()
-
-  const { isLoading } = addTask
 
   const handleAddTask = async (formData: CreateTaskFormData) => {
     if (name === 'add-task') {

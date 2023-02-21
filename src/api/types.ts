@@ -29,27 +29,10 @@ export type Task = {
   users: string[]
 }
 
-export type FileDTO = {
+export type File = {
   _id: string
   name: string
   taskId: string
   boardId: string
   path: string
-}
-
-export type FileList = {
-  file: File[]
-}
-
-export type Point = {
-  _id: string
-  title: string
-  taskId: string
-  boardId: string
-  done: boolean
-}
-
-export type ErrorResponse = {
-  statusCode: number
-  message: string
 }

@@ -2,9 +2,8 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components'
-import { Board } from '@/api'
 
-export type EditBoardFormData = Pick<Board, 'title'>
+export type EditBoardFormData = { title: string }
 
 type Props = EditBoardFormData & {
   onSubmit: (data: EditBoardFormData) => void
@@ -12,11 +11,12 @@ type Props = EditBoardFormData & {
 }
 
 export function EditBoardForm({ title, disabled, onSubmit }: Props) {
+  const { t } = useTranslation()
+
   const { register, handleSubmit, formState } = useForm<EditBoardFormData>({
     defaultValues: { title }
   })
 
-  const { t } = useTranslation()
   const { errors } = formState
 
   const submit = handleSubmit(onSubmit)

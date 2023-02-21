@@ -3,17 +3,17 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
 
-import { createColumn } from '@/api'
+import { updateUser } from '@/api'
 
-export default function useAddColumn() {
+export default function useUpdateUser() {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: createColumn,
-    onSuccess: (newColumn) => {
-      queryClient.invalidateQueries(['columns'])
-      toast.success(`${newColumn.title} ${t('toast.created')}.`)
+    mutationFn: updateUser,
+    onSuccess: (user) => {
+      queryClient.invalidateQueries(['user', user._id])
+      toast.success(`${user.name} ${t('toast.updated')}.`)
     },
     onError: (e: AxiosError) => {
       toast.error(e.message)

@@ -17,7 +17,8 @@
     "create": "Create",
     "name": "Name",
     "description": "Description",
-    "descriptionReqiured": "Description is required"
+    "descriptionReqiured": "Description is required",
+    "photoRequired": "Photo is required"
   },
   "boardCard": {
     "question": "Are you sure you want to delete the board?"

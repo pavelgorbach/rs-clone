@@ -8,13 +8,14 @@ import useAddBoard from '@/hooks/useAddBoard'
 function CreateBoardModalView() {
   const { t } = useTranslation()
 
+  const addBoard = useAddBoard()
   const modal = useModalStore()
+
+  const { isLoading } = addBoard
   const { name, data } = modal.state
 
   const close = () => modal.close()
 
-  const addBoard = useAddBoard()
-  const { isLoading } = addBoard
   const handleAddBoard = async (formData: CreateBoardFormData) => {
     if (name === 'add-board') {
       await addBoard.mutateAsync({

@@ -2,14 +2,14 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components'
-import { Column } from '@/api'
 
-export type EditColumnFormData = Pick<Column, 'title'>
+export type EditColumnFormData = { title: string }
 
 type Props = {
+  title: string
   onSubmit: (data: EditColumnFormData) => void
   disabled?: boolean
-} & EditColumnFormData
+}
 
 export function EditColumnForm({ title, onSubmit, disabled }: Props) {
   const { t } = useTranslation()

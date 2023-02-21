@@ -16,6 +16,9 @@ type State =
     }
   | { name: 'edit-task'; data: Task }
   | { name: 'delete-task'; data: { boardId: string; columnId: string; taskId: string } }
+  | { name: 'edit-user'; data: { userId: string; name: string; login: string } }
+  | { name: 'delete-user'; data: { userId: string } }
+  | { name: 'upload-user-photo'; data: { userId: string } }
 
 const DEFAULT_STATE: State = { name: null, data: null }
 export class ModalStore {

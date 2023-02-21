@@ -8,14 +8,13 @@ import useUpdateColumn from '@/hooks/useUpdateColumn'
 function EditColumnModalView() {
   const { t } = useTranslation()
 
+  const updateColumn = useUpdateColumn()
   const modal = useModalStore()
+
+  const { isLoading } = updateColumn
   const { name, data } = modal.state
 
   const close = () => modal.close()
-
-  const updateColumn = useUpdateColumn()
-
-  const { isLoading } = updateColumn
 
   const handleUpdateColumn = async (formData: EditColumnFormData) => {
     if (name === 'edit-column') {

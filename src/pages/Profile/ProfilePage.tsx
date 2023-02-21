@@ -2,41 +2,30 @@ import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
-import { BASE_URL } from '@/api/client'
+import { API_URL } from '@/api/client'
 import { ROUTES } from '@/router/routes'
-import { Button, EditProfileForm, Loader, Modal, Countdown } from '@/components'
+import { Button, Loader, Countdown } from '@/components'
 import useProfilePage from './useProfilePage'
-import { UploadPhoto } from '@/components/UploadPhoto'
-import useFile from '@/hooks/useFile'
 
 function ProfilePageView() {
   const { t } = useTranslation()
 
   const {
+    isAuthenticated,
+    tokenExpiration,
     isLoading,
     user,
-    modal,
     tasks,
-    isAuthenticated,
-    exp,
+    userPhoto,
     unauth,
-    handleDelete,
-    handleUpdate,
-    openDeleteModal,
-    openEditModal,
-    openUploadPhotoModal,
-    closeModal,
-    handlePhoto
+    openEditUserModal,
+    openDeleteUserModal,
+    openUploadPhotoModal
   } = useProfilePage()
-  const { photo } = useFile()
 
-  if (!isAuthenticated) {
-    return <Navigate to={ROUTES.home} replace />
-  }
+  if (!isAuthenticated) return <Navigate to={ROUTES.home} replace />
 
-  if (isLoading || !user) {
-    return <Loader />
-  }
+  if (isLoading || !user) return <Loader />
 
   return (
     <>
@@ -50,7 +39,7 @@ function ProfilePageView() {
               onClick={openUploadPhotoModal}
             >
               <img
-                src={!photo?.name ? 'icons/add_avatar.png' : `${BASE_URL}/${photo?.path}`}
+                src={!userPhoto?.name ? 'icons/add_avatar.png' : `${API_URL}/${userPhoto?.path}`}
                 className="!m-0 h-24 w-24 rounded-full object-cover"
                 alt={t('profile.altAvatar')}
               />
@@ -82,18 +71,19 @@ function ProfilePageView() {
               type="error"
               className="flex-1"
               text={t('common.delete')}
-              onClick={openDeleteModal}
+              onClick={openDeleteUserModal}
             />
+
             <Button
               type="success"
               className="flex-1"
               text={t('common.edit')}
-              onClick={openEditModal}
+              onClick={openEditUserModal}
             />
           </div>
 
           <Countdown
-            exp={exp}
+            exp={tokenExpiration}
             onEnd={unauth}
             className="self-center dark:bg-slate-600 dark:text-slate-200"
           />
@@ -102,13 +92,13 @@ function ProfilePageView() {
         <div className="m-auto max-w-xl">
           <h2 className="text-center dark:text-slate-200">{t('profile.tasks')}</h2>
 
-          <div className="grid grid-cols-3 gap-2 bg-white dark:bg-slate-700 dark:text-slate-200">
+          <div className="flex flex-col gap-2 bg-gray-100 dark:bg-slate-700 dark:text-slate-200">
             {tasks?.map((task) => {
               return (
                 <Link
                   to={`${ROUTES.boards}/${task.boardId}`}
                   key={task._id}
-                  className="border border-white p-2 shadow-md hover:border-purple-500 dark:border-slate-700 dark:bg-slate-500 dark:hover:border-purple-400"
+                  className="border border-white bg-white p-2 shadow-md hover:border-purple-500 dark:border-slate-700 dark:bg-slate-500 dark:hover:border-purple-400"
                 >
                   <h3 className="!m-0">{task.title}</h3>
                   <p className="!m-0">{task.description}</p>
@@ -118,24 +108,6 @@ function ProfilePageView() {
           </div>
         </div>
       </div>
-
-      <Modal isOpen={modal === 'delete'} onClose={closeModal} title={t('profile.confirmation')}>
-        <div className="prose dark:text-slate-200">
-          <p>{t('profile.sure')}</p>
-
-          <div className="flex justify-between">
-            <Button type="success" text={t('common.cancel')} onClick={closeModal} />
-            <Button type="error" text={t('common.delete')} onClick={handleDelete} />
-          </div>
-        </div>
-      </Modal>
-
-      <Modal isOpen={modal === 'edit'} onClose={closeModal}>
-        <EditProfileForm name={user.name} login={user.login} onSubmit={handleUpdate} />
-      </Modal>
-      <Modal isOpen={modal === 'uploadPhoto'} onClose={closeModal}>
-        <UploadPhoto onSubmit={handlePhoto} />
-      </Modal>
     </>
   )
 }
