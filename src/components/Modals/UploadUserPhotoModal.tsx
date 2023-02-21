@@ -25,11 +25,12 @@ function UploadUserPhotoModalView() {
     if (name === 'upload-user-photo') {
       const currentPhoto = queryClient.getQueryData<File>(['my-photo', data.userId])
 
-      if (currentPhoto) {
+      if (currentPhoto?._id) {
         await deletePhoto.mutateAsync(currentPhoto._id)
       }
 
       const file = formData.file[0]
+
       await uploadPhoto.mutateAsync({ userId: data.userId, file })
 
       close()
