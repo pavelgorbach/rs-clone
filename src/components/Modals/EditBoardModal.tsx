@@ -7,14 +7,14 @@ import useUpdateBoard from '@/hooks/useUpdateBoard'
 
 function EditBoardModalView() {
   const { t } = useTranslation()
+
+  const updateBoard = useUpdateBoard()
   const modal = useModalStore()
+
+  const { isLoading } = updateBoard
   const { name, data } = modal.state
 
   const close = () => modal.close()
-
-  const updateBoard = useUpdateBoard()
-
-  const { isLoading } = updateBoard
 
   const handleUpdateBoard = async (formData: EditBoardFormData) => {
     if (name === 'edit-board') {

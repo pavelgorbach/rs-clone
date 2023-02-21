@@ -13,13 +13,14 @@ import { ROUTES } from '@/router/routes'
 import { Button, ThemeSwitch, Listbox } from '@/components'
 import useAuthStore from '@/hooks/useAuthStore'
 import useModalStore from '@/hooks/useModalStore'
-import useFile from '@/hooks/useFile'
+import useUserPhoto from '@/hooks/useUserPhoto'
 
 function HeaderView() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
 
   const authStore = useAuthStore()
+  const userPhoto = useUserPhoto(authStore.userId)
   const modal = useModalStore()
 
   const changeLanguage = (lng: string) => {
@@ -42,8 +43,6 @@ function HeaderView() {
   const goToSignUpPage = () => {
     navigate(ROUTES.signUp)
   }
-
-  const { photo } = useFile()
 
   return (
     <header className="bg-white py-2 px-4 dark:bg-slate-800">
@@ -81,11 +80,11 @@ function HeaderView() {
             />
 
             <Link to={ROUTES.profile} id="go-to-profile">
-              {photo?._id ? (
+              {userPhoto.data?._id ? (
                 <div className="rounded-full border-2 border-gray-200">
                   <img
                     className="h-6 w-6 rounded-full object-cover"
-                    src={`${BASE_URL}/${photo.path}`}
+                    src={`${BASE_URL}/${userPhoto.data.path}`}
                   />
                 </div>
               ) : (

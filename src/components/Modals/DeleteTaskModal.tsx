@@ -8,14 +8,13 @@ import useDeleteTask from '@/hooks/useDeleteTask'
 function DeleteTaskModalView() {
   const { t } = useTranslation()
 
+  const deleteTask = useDeleteTask()
   const modal = useModalStore()
+
+  const { isLoading } = deleteTask
   const { name, data } = modal.state
 
   const close = () => modal.close()
-
-  const deleteTask = useDeleteTask()
-
-  const { isLoading } = deleteTask
 
   const handleDeleteTask = async () => {
     if (name === 'delete-task') {

@@ -5,14 +5,13 @@ import useModalStore from '@/hooks/useModalStore'
 import useUpdateTask from '@/hooks/useUpdateTask'
 
 function EditTaskModalView() {
+  const updateTask = useUpdateTask()
   const modal = useModalStore()
+
+  const { isLoading } = updateTask
   const { name, data } = modal.state
 
   const close = () => modal.close()
-
-  const updateTask = useUpdateTask()
-
-  const { isLoading } = updateTask
 
   const handleUpdateTask = async (formData: EditTaskFormData) => {
     if (name === 'edit-task') {

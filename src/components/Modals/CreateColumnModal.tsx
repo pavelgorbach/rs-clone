@@ -8,14 +8,13 @@ import useAddColumn from '@/hooks/useAddColumn'
 function CreateColumnModalView() {
   const { t } = useTranslation()
 
+  const addColumn = useAddColumn()
   const modal = useModalStore()
+
+  const { isLoading } = addColumn
   const { name, data } = modal.state
 
   const close = () => modal.close()
-
-  const addColumn = useAddColumn()
-
-  const { isLoading } = addColumn
 
   const handleAddColumn = async (formData: CreateColumnFormData) => {
     if (name === 'add-column') {
