@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
-import { BASE_URL } from '@/api/client'
+import { API_URL } from '@/api/client'
 import { ROUTES } from '@/router/routes'
 import { Button, Loader, Countdown } from '@/components'
 import useProfilePage from './useProfilePage'
@@ -39,7 +39,7 @@ function ProfilePageView() {
               onClick={openUploadPhotoModal}
             >
               <img
-                src={!userPhoto?.name ? 'icons/add_avatar.png' : `${BASE_URL}/${userPhoto?.path}`}
+                src={!userPhoto?.name ? 'icons/add_avatar.png' : `${API_URL}/${userPhoto?.path}`}
                 className="!m-0 h-24 w-24 rounded-full object-cover"
                 alt={t('profile.altAvatar')}
               />

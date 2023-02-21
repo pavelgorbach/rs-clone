@@ -8,7 +8,7 @@ import ArrowRightOnRectangleIcon from '@heroicons/react/24/solid/ArrowRightOnRec
 import HomeIcon from '@heroicons/react/24/solid/HomeIcon'
 import UserIcon from '@heroicons/react/24/solid/UserIcon'
 
-import { BASE_URL } from '@/api/client'
+import { API_URL } from '@/api/client'
 import { ROUTES } from '@/router/routes'
 import { Button, ThemeSwitch, Listbox } from '@/components'
 import useAuthStore from '@/hooks/useAuthStore'
@@ -84,7 +84,7 @@ function HeaderView() {
                 <div className="rounded-full border-2 border-gray-200">
                   <img
                     className="h-6 w-6 rounded-full object-cover"
-                    src={`${BASE_URL}/${userPhoto.data.path}`}
+                    src={`${API_URL}/${userPhoto.data.path}`}
                   />
                 </div>
               ) : (
