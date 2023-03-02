@@ -1,0 +1,121 @@
+{
+  "common": {
+    "edit": "Edit",
+    "confirmation": "Confirmation",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "change": "Change",
+    "column": "Column",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "welcome": "Welcome!",
+    "login": "Login",
+    "password": "Password",
+    "nameRequired": "Name is required",
+    "loginReqiured": "Login is required",
+    "passwordReqiured": "Passsword is required",
+    "create": "Create",
+    "name": "Name",
+    "description": "Description",
+    "descriptionReqiured": "Description is required",
+    "photoRequired": "Photo is required"
+  },
+  "boardCard": {
+    "question": "Are you sure you want to delete the board?"
+  },
+  "greeting": {
+    "title": "Manage <1>any</1> task",
+    "desc": "The simple but efficient way to organize, plan and track progress on your projects.",
+    "button": "Get started"
+  },
+  "devStack": {
+    "development": "Development",
+    "project": "This Project Management App is created as final task of <1>RS School Frontend course</1>"
+  },
+  "editForm": {
+    "name": "name",
+    "email": "email",
+    "namer": "Name is required",
+    "password": "password",
+    "emailReqiured": "Correct Email is required",
+    "passwordReqiured": "Passsword is required",
+    "confirmationPhrase": "Confirm changes by current password",
+    "editUser": "Edit user"
+  },
+  "features": {
+    "features": "Features",
+    "firstF": "Create any number of boards and tasks",
+    "secondF": "Expand tasks by adding checklists",
+    "thirdF": "Track personal tasks in your profile",
+    "fourthF": "Change the order of tasks and columns",
+    "fifthF": "Find tasks through searchss",
+    "sixthF": "Elaborate tasks by attaching images"
+  },
+  "header": {
+    "addBoard": "+ New board"
+  },
+  "teamsection": {
+    "team": "Our Team",
+    "pavel": "Pavel",
+    "maksim": "Maksim",
+    "kirill": "Kirill",
+    "lead": "Tech and TeamLead",
+    "developer": "Frontend developer",
+    "Infrastructure": "Infrastructure",
+    "Organisation": "Organisation",
+    "Tasks": "Tasks",
+    "Code": "Code rewiew",
+    "Main": "Main Page",
+    "Board": "Board",
+    "BoardList": "Board List",
+    "Profile": "Profile",
+    "contribution": "Main contribution"
+  },
+  "404": {
+    "404": "404 Page Not Found"
+  },
+  "profile": {
+    "confirmation": "Confirmation",
+    "sure": "Are you sure you want to do this?",
+    "altAvatar": "Your Avatar",
+    "NAME": "NAME",
+    "LOGIN": "LOGIN",
+    "logout": "Logout after",
+    "name": "name",
+    "tasks": "Your tasks",
+    "notasks": "You don't have any tasks yet"
+  },
+  "boardsPage": {
+    "boards": "Boards",
+    "new": "New board",
+    "error": "An error occured:",
+    "search": "Search"
+  },
+  "boardPage": {
+    "newColumn": "New column"
+  },
+  "toast": {
+    "created": "created",
+    "updated": "updated",
+    "deleted": "deleted"
+  },
+  "signUpForm": {
+    "name": "Name",
+    "confirmPassword": "Confirm password",
+    "haveAnAccount": "Already have an account?"
+  },
+  "signInForm": {
+    "doNotHaveAnAccount": "Don't have an account?"
+  },
+  "column": {
+    "question": "Are you sure you want to delete the column?",
+    "addTask": "+ Add task"
+  },
+  "tooltip": {
+    "goBoards": "Go to Boards",
+    "goProfile": "Go to Profile",
+    "logOut": "Log Out",
+    "editBoardName": "Edit board name",
+    "deleteBoard": "Delete board"
+  }
+}
